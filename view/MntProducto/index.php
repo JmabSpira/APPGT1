@@ -2,7 +2,7 @@
 <html lang="es">
 <head>
     <?php require_once("../../mainhead.php");?>
-    <title>Producto</title>
+    <title>Sesión Universitaria</title>
 </head>
 <body class="hold-transition sidebar-mini">
 <!-- Site wrapper -->
@@ -19,12 +19,12 @@
       <div class="container-fluid">
         <div class="row mb-2">
           <div class="col-sm-6">
-            <h1>PRODUCTO</h1>
+            <h1>Sesión Universitaria</h1>
           </div>
           <div class="col-sm-6">
             <ol class="breadcrumb float-sm-right">
-              <li class="breadcrumb-item"><a href="#">Home</a></li>
-              <li class="breadcrumb-item active">Producto</li>
+              <li class="breadcrumb-item"><a href="#">Sesión</a></li>
+              <li class="breadcrumb-item active"></li>
             </ol>
           </div>
         </div>
