@@ -134,10 +134,10 @@
           </li>
           <li class="nav-header">MANTENIMIENTO</li>
           <li class="nav-item">
-            <a href="../MntSesion/" class="nav-link">
+            <a href="../MntPersona/" class="nav-link">
               <i class="nav-icon far fa-calendar-alt"></i>
               <p>
-                REQUERIMIENTO 1
+                PERSONA
                 <span class="badge badge-info right">2</span>
               </p>
             </a>
