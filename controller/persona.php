@@ -20,7 +20,6 @@
                 $sub_array[] = $row["per_sexo"];
                 $sub_array[] = $row["docTipo_id"];
                 
-
                 $sub_array[] = '<button type="button" onClick="editar('.$row["per_id"].');"  id="'.$row["per_id"].'" class="btn btn-outline-primary btn-icon"><div><i class="fa fa-edit"></i></div></button>';
                 $sub_array[] = '<button type="button" onClick="eliminar('.$row["per_id"].');"  id="'.$row["per_id"].'" class="btn btn-outline-danger btn-icon"><div><i class="fa fa-trash"></i></div></button>';
                 $data[]=$sub_array;
@@ -39,10 +38,10 @@
             $datos=$persona->get_persona_x_id($_POST["per_id"]);
             if(empty($_POST["per_id"])){
                 if(is_array($datos)==true and count($datos)==0){
-                    $persona->insert_persona($_POST["per_nroDoc"],$_POST["per_paterno"],$_POST["per_materno"],$_POST["per_nombres"],$_POST["per_sexo"],$_POST["prod_nom"],$_POST["docTipo_id"]);
+                    $persona->insert_persona($_POST["per_nroDoc"],$_POST["per_paterno"],$_POST["per_materno"],$_POST["per_nombres"],$_POST["per_sexo"],$_POST["docTipo_id"]);
                 }
             }else{
-                $persona->update_persona($_POST["per_id"],$_POST["per_nroDoc"],$_POST["per_paterno"],$_POST["per_materno"],$_POST["per_nombres"],$_POST["per_sexo"],$_POST["prod_nom"],$_POST["docTipo_id"]);
+                $persona->update_persona($_POST["per_id"],$_POST["per_nroDoc"],$_POST["per_paterno"],$_POST["per_materno"],$_POST["per_nombres"],$_POST["per_sexo"],$_POST["docTipo_id"]);
             }
             break;
 
@@ -58,6 +57,7 @@
                     $output["per_sexo"] = $row["per_sexo"];
                     $output["docTipo_id"] = $row["docTipo_id"];
                 }
+                echo json_encode($output);
             }
             break;
 

@@ -84,11 +84,24 @@ function guardaryeditar(e){
 }
 
 function editar(per_id){
-    console.log(per_id);
+    $.post("../../controller/persona.php?op=mostrar",{per_id:per_id},function (data) {
+        data = JSON.parse(data);
+        $('#per_id').val(data.per_id);
+        $('#per_nroDoc').val(data.per_nroDoc);
+        $('#per_paterno').val(data.per_paterno);
+        $('#per_materno').val(data.per_materno);
+        $('#per_nombres').val(data.per_nombres);
+        $('#per_sexo').val(data.per_sexo);
+        $('#docTipo_id').val(data.docTipo_id);
+
+    });
+    $('#mdltitulo').html('Editar Registro');
+    $('#modalmantenimiento').modal('show');
+
 }
 
 function eliminar(per_id){
-    console.log(per_id);
+
     swal.fire({
         title: 'PERSONAS',
         text: "Esta seguro de Eliminar el Registro?",
@@ -104,7 +117,7 @@ function eliminar(per_id){
 
             });
 
-            $('#persona_data').DataTable().ajax.reload();	
+            //$('#persona_data').DataTable().ajax.reload();
 
             swal.fire(
                 'Eliminado!',
@@ -112,10 +125,13 @@ function eliminar(per_id){
                 'success'
             )
         }
+        $('#persona_data').DataTable().ajax.reload();
     })
+    
 }
 
 $(document).on("click","#btnnuevo", function(){
+    $('#per_id').val('');
     $('#mdltitulo').html('Nuevo Registro');
     $('#modalmantenimiento').modal('show');
 });
