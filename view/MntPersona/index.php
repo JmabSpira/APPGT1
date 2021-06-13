@@ -2,7 +2,7 @@
 <html lang="es">
 <head>
     <?php require_once("../../mainhead.php");?>
-    <title>Sesión Universitaria</title>
+    <title>Persona</title>
 </head>
 <body class="hold-transition sidebar-mini">
 <!-- Site wrapper -->
@@ -37,7 +37,7 @@
         <div class="container-fluid">
             <div class="row">
                 <div class="col-12">
-                    <div class="card">
+                    <div class="card card-primary">
                         <div class="card-header">
                             <h3 class="card-title">Personas</h3>
                         </div>
@@ -50,12 +50,16 @@
                             <thead>
                             <tr>
                                 <th>Codigo</th>
+                                <th>Tipo Doc</th>
                                 <th>Doc. Ident.</th>
                                 <th>Ap. Paterno</th>
                                 <th>Ap. Materno</th>
                                 <th>Nombres</th>
                                 <th>Sexo</th>
+                                <!-- /.card-header 
                                 <th>Tipo Doc</th>
+                                -->
+                                
                                 <th></th>
                                 <th></th>
                             </tr>

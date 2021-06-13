@@ -13,12 +13,13 @@
             foreach($datos as $row){
                 $sub_array = array();
                 $sub_array[] = $row["per_id"];
+                $sub_array[] = $row["docTipo_sigla"];
                 $sub_array[] = $row["per_nroDoc"];
                 $sub_array[] = $row["per_paterno"];
                 $sub_array[] = $row["per_materno"];
                 $sub_array[] = $row["per_nombres"];
                 $sub_array[] = $row["per_sexo"];
-                $sub_array[] = $row["docTipo_id"];
+                //$sub_array[] = $row["docTipo_id"];
                 
                 $sub_array[] = '<button type="button" onClick="editar('.$row["per_id"].');"  id="'.$row["per_id"].'" class="btn btn-outline-primary btn-icon"><div><i class="fa fa-edit"></i></div></button>';
                 $sub_array[] = '<button type="button" onClick="eliminar('.$row["per_id"].');"  id="'.$row["per_id"].'" class="btn btn-outline-danger btn-icon"><div><i class="fa fa-trash"></i></div></button>';
