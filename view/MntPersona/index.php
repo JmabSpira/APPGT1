@@ -41,19 +41,21 @@
                         <div class="card-header">
                             <h3 class="card-title">Personas</h3>
                         </div>
+                        
                         <!-- /.card-header -->
                         <div class="card-body">
+                            <button id = "btnnuevo" type="button" class="btn btn-block btn-outline-primary">Nuevo Registro</button>
+                            <br>
                             <table id="persona_data" class="table table-bordered table-striped">
                             <thead>
                             <tr>
-                                <th>Nro</th>
-                                <th>Tipo Doc</th>
+                                <th>Codigo</th>
                                 <th>Doc. Ident.</th>
                                 <th>Ap. Paterno</th>
                                 <th>Ap. Materno</th>
                                 <th>Nombres</th>
                                 <th>Sexo</th>
-                                
+                                <th>Tipo Doc</th>
                                 <th></th>
                                 <th></th>
                             </tr>
@@ -75,6 +77,7 @@
   </div>
   <!-- /.content-wrapper -->
 
+  <?php require_once("modalpersona.php");?>
   <?php require_once("../../footer.php");?>
 
   <!-- Control Sidebar -->
@@ -86,6 +89,7 @@
 <!-- ./wrapper -->
     <?php require_once("../../mainjs.php");?>
 
+    <script src="//cdn.jsdelivr.net/npm/sweetalert2@10"></script>
     <script type = "text/javascript" src="mntpersona.js"></script>
 </body>
 </html>

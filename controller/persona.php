@@ -13,12 +13,12 @@
             foreach($datos as $row){
                 $sub_array = array();
                 $sub_array[] = $row["per_id"];
-                $sub_array[] = $row["docTipo_sigla"];
                 $sub_array[] = $row["per_nroDoc"];
                 $sub_array[] = $row["per_paterno"];
                 $sub_array[] = $row["per_materno"];
                 $sub_array[] = $row["per_nombres"];
                 $sub_array[] = $row["per_sexo"];
+                $sub_array[] = $row["docTipo_id"];
                 
 
                 $sub_array[] = '<button type="button" onClick="editar('.$row["per_id"].');"  id="'.$row["per_id"].'" class="btn btn-outline-primary btn-icon"><div><i class="fa fa-edit"></i></div></button>';
@@ -34,31 +34,35 @@
             echo json_encode($results);
 
             break;
-/*
+
         case "guardaryeditar":
             $datos=$persona->get_persona_x_id($_POST["per_id"]);
             if(empty($_POST["per_id"])){
                 if(is_array($datos)==true and count($datos)==0){
-                    $persona->insert_producto($_POST["prod_nom"]);
+                    $persona->insert_persona($_POST["per_nroDoc"],$_POST["per_paterno"],$_POST["per_materno"],$_POST["per_nombres"],$_POST["per_sexo"],$_POST["prod_nom"],$_POST["docTipo_id"]);
                 }
             }else{
-                $persona->update_producto($_POST["per_id"],$_POST["prod_nom"]);
+                $persona->update_persona($_POST["per_id"],$_POST["per_nroDoc"],$_POST["per_paterno"],$_POST["per_materno"],$_POST["per_nombres"],$_POST["per_sexo"],$_POST["prod_nom"],$_POST["docTipo_id"]);
             }
             break;
 
         case "mostrar":
-            $datos=$persona->get_producto_x_id($_POST["per_id"]);
+            $datos=$persona->get_persona_x_id($_POST["per_id"]);
             if(is_array($datos)==true and count($datos)>0){
                 foreach($datos as $row){
                     $output["per_id"] = $row["per_id"];
-                    $output["prod_nom"] = $row["prod_nom"];
+                    $output["per_nroDoc"] = $row["per_nroDoc"];
+                    $output["per_paterno"] = $row["per_paterno"];
+                    $output["per_materno"] = $row["per_materno"];
+                    $output["per_nombres"] = $row["per_nombres"];
+                    $output["per_sexo"] = $row["per_sexo"];
+                    $output["docTipo_id"] = $row["docTipo_id"];
                 }
             }
             break;
 
         case "eliminar":
-            $persona->delete_producto($_POST["per_id"]);
+            $persona->delete_persona($_POST["per_id"]);
             break;
-*/
     }
 ?>

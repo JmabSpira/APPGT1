@@ -2,7 +2,7 @@ var tabla;
 
 function init(){
     
-    $("#producto_form").on("submit",function(e){
+    $("#persona_form").on("submit",function(e){
         guardaryeditar(e);	
     });
     
@@ -61,18 +61,18 @@ $(document).ready(function(){
 
 function guardaryeditar(e){
     e.preventDefault();
-    var formData = new FormData($("#producto_form")[0]);
+    var formData = new FormData($("#persona_form")[0]);
     $.ajax({
-        url: "../../controller/producto.php?op=guardaryeditar",
+        url: "../../controller/persona.php?op=guardaryeditar",
         type: "POST",
         data: formData,
         contentType: false,
         processData: false,
         success: function(datos){
 
-            $('#producto_form')[0].reset();
+            $('#persona_form')[0].reset();
             $("#modalmantenimiento").modal('hide');
-            $('#producto_data').DataTable().ajax.reload();
+            $('#persona_data').DataTable().ajax.reload();
 
             swal.fire(
                 'Registro!',
@@ -83,14 +83,15 @@ function guardaryeditar(e){
     });
 }
 
-function editar(prod_id){
-    console.log(prod_id);
+function editar(per_id){
+    console.log(per_id);
 }
 
-function eliminar(prod_id){
+function eliminar(per_id){
+    console.log(per_id);
     swal.fire({
-        title: 'CRUD',
-        text: "Desea Eliminar el Registro?",
+        title: 'PERSONAS',
+        text: "Esta seguro de Eliminar el Registro?",
         icon: 'error',
         showCancelButton: true,
         confirmButtonText: 'Si',
@@ -99,11 +100,11 @@ function eliminar(prod_id){
     }).then((result) => {
         if (result.isConfirmed) {
 
-            $.post("../../controller/producto.php?op=eliminar",{prod_id:prod_id},function (data) {
+            $.post("../../controller/persona.php?op=eliminar",{per_id:per_id},function (data) {
 
             });
 
-            $('#producto_data').DataTable().ajax.reload();	
+            $('#persona_data').DataTable().ajax.reload();	
 
             swal.fire(
                 'Eliminado!',

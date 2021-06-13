@@ -6,12 +6,32 @@
                     <h4 class="modal-title" id="mdltitulo"></h4>
                 </div>
                 <div class="modal-body">
-                    <input type="hidden" id="prod_id" name="prod_id">
-
+                    <input type="hidden" id="per_id" name="per_id">
                     <div class="form-group">
-                        <label class="form-label" for="prod_nom">Nombre</label>
-                        <input type="text" class="form-control" id="prod_nom" name="prod_nom" placeholder="Ingrese Nombre" required>
+                        <label class="form-label" for="per_nroDoc">Nro Doc. Ident.</label>
+                        <input type="text" class="form-control" id="per_nroDoc" name="per_nroDoc" placeholder="Nro Doc. Identidad" required>
                     </div>
+                    <div class="form-group">
+                        <label class="form-label" for="per_paterno">Ap. Paterno</label>
+                        <input type="text" class="form-control" id="per_paterno" name="per_paterno" placeholder="Ingrese Apellido Paterno" required>
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label" for="per_materno">Ap. Materno</label>
+                        <input type="text" class="form-control" id="per_materno" name="per_materno" placeholder="Ingrese Apellido Paterno" required>
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label" for="per_nombres">Nombres</label>
+                        <input type="text" class="form-control" id="per_nombres" name="per_nombres" placeholder="Ingrese Nombre" required>
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label" for="per_sexo">Sexo: </label>
+                        <input type="text" class="form-control" id="per_sexo" name="per_sexo" placeholder="Elija Sexo" required>
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label" for="docTipo_id">Tipo Doc. Ident.</label>
+                        <input type="text" class="form-control" id="docTipo_id" name="docTipo_id" placeholder="Seleccione Tipo Doc. Ident." required>
+                    </div>
+
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-rounded btn-default" data-dismiss="modal">Cerrar</button>
