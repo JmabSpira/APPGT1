@@ -44,7 +44,17 @@
                         
                         <!-- /.card-header -->
                         <div class="card-body">
+                            <div class="input-group col-10">
+                              <label for="filtro" class="col-sm-2 col-form-label">Buscar por Apellido Paterno:</label>
+                              <input type="text" class="form-control col-4" id="filtro" name="filtro" placeholder="Apellido Paterno">
+                                <span class="input-group-append">
+                                  <button onclick = "filtrarAp()" name="btnfiltro" id="btnfiltro" class="btn btn-block btn-info">Buscar</button>
+                                </span>
+                            </div>
+                            <br>
                             <button id = "btnnuevo" type="button" class="btn btn-block btn-outline-primary">Nuevo Registro</button>
+                            
+
                             <br>
                             <table id="persona_data" class="table table-bordered table-striped">
                             <thead>

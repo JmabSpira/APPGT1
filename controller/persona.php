@@ -4,10 +4,20 @@
 
     $persona = new Persona();
 
+
+
     switch($_GET["op"]){
 
         case "listar":
-            $datos=$persona->get_persona();
+            $ap = $_GET["appat"];
+            $datos;
+            if ($ap == " ") {
+                $datos = $persona->get_persona();
+                # code...
+            }else{
+                $datos = $persona->get_persona_x_Apellido($ap);
+            }
+            
             $data= Array();
 
             foreach($datos as $row){

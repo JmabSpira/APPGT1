@@ -2,6 +2,7 @@
 <script src="../../public/plugins/jquery/jquery.min.js"></script>
 <!-- Bootstrap 4 -->
 <script src="../../public/plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
+
 <!-- DataTables  & Plugins -->
 <script src="../../public/plugins/datatables/jquery.dataTables.min.js"></script>
 <script src="../../public/plugins/datatables-bs4/js/dataTables.bootstrap4.min.js"></script>

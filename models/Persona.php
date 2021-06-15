@@ -1,16 +1,28 @@
 <?php
     class Persona extends Conectar{
 
+        
         public function get_persona(){
             $conectar= parent::conexion();
             parent::set_names();
             $sql="SELECT P.per_id,D.docTipo_sigla,P.per_nroDoc,P.per_paterno,P.per_materno,P.per_nombres,P.per_sexo 
             FROM persona P 
             inner join documento_tipo D on D.docTipo_id = P.docTipo_id
-            WHERE per_estado=1";
-            /*$sql="SELECT per_id,per_nroDoc,per_paterno,per_materno,per_nombres,per_sexo,docTipo_id
-            FROM persona WHERE per_estado=1";*/
+            WHERE per_estado=1 ORDER BY per_createdate DESC LIMIT 300";
             $sql=$conectar->prepare($sql);
+            $sql->execute();
+            return $resultado=$sql->fetchAll();
+        }
+        
+        public function get_persona_x_Apellido($per_paterno){
+            $conectar= parent::conexion();
+            parent::set_names();
+            $sql='SELECT P.per_id,D.docTipo_sigla,P.per_nroDoc,P.per_paterno,P.per_materno,P.per_nombres,P.per_sexo 
+            FROM persona P 
+            inner join documento_tipo D on D.docTipo_id = P.docTipo_id
+            WHERE per_estado=1 and per_paterno = ? ORDER BY per_createdate';
+            $sql=$conectar->prepare($sql);
+            $sql->bindValue(1,$per_paterno);
             $sql->execute();
             return $resultado=$sql->fetchAll();
         }
