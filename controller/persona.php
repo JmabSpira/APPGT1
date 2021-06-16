@@ -4,8 +4,6 @@
 
     $persona = new Persona();
 
-
-
     switch($_GET["op"]){
 
         case "listar":
