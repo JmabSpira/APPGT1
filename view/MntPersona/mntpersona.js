@@ -16,7 +16,7 @@ function filtrarAp() {
         app = " ";
     }
     console.log("var"+app);
-
+    document.getElementById("filtro").value = "";
     tabla=$('#persona_data').dataTable({
 		"aProcessing": true,//Activamos el procesamiento del datatables
 	    "aServerSide": true,//Paginación y filtrado realizados por el servidor

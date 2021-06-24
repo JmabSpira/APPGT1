@@ -89,7 +89,7 @@
               <li class="nav-item">
                 <!--
                 <a href="#" class="nav-link active">-->
-                <a href="#" class="nav-link">
+                <a href="../MntBachiller/" class="nav-link">
                   <i class="far fa-circle nav-icon"></i>
                   <p>Bachiller</p>
                 </a>
