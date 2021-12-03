@@ -143,18 +143,18 @@
             </a>
           </li>
           <li class="nav-item">
-            <a href="#" class="nav-link">
+            <a href="../MntFacultad/" class="nav-link">
               <i class="nav-icon far fa-image"></i>
               <p>
-                REQUERIMIENTO 2
+                FACULTAD
               </p>
             </a>
           </li>
           <li class="nav-item">
-            <a href="#" class="nav-link">
+            <a href="../MntEscuela/" class="nav-link">
               <i class="nav-icon fas fa-columns"></i>
               <p>
-                REQUERIMIENTO 3
+                ESCUELA
               </p>
             </a>
           </li>

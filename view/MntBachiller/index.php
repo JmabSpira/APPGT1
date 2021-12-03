@@ -85,7 +85,7 @@
                                 </div>
                                 <!-- /.form-group -->
                                 <div class="form-group row">
-                                    <label for="#" class="col-sm-3 col-form-label">Tipo Diploma</label>
+                                    <label for="#" class="col-sm-3 col-form-label">Nivel Diploma</label>
                                     <div class="col-sm-2">
                                         <input type="text" class="form-control" id="#" value="1">
                                     </div>
@@ -206,12 +206,6 @@
                                         <input type="text" class="form-control" id="#" placeholder="Número de Doc.">
                                     </div>
                                 </div>
-                                <div class="form-group row">
-                                    <label for="#" class="col-sm-3 col-form-label">Año</label>
-                                    <div class="col-sm-5">
-                                        <input type="text" class="form-control" id="#" placeholder="Año de Doc.">
-                                    </div>
-                                </div>
 
                             </div>
                         </form>
@@ -224,18 +218,15 @@
                         <form class="form-horizontal">
                             <div class="card-body">
                                 <div class="row">
-                                    <div class="col-5">
+                                    <div class="col-6">
                                         <label for="#" class="col-sm-12 col-form-label">Fecha</label>
                                     </div>
-                                    <div class="col-4">
+                                    <div class="col-6">
                                         <label for="#" class="col-sm-12 col-form-label">Número</label>
-                                    </div>
-                                    <div class="col-3">
-                                        <label for="#" class="col-sm-12 col-form-label">Año</label>
                                     </div>
                                 </div>
                                 <div class="row">
-                                    <div class="col-5">
+                                    <div class="col-6">
                                         <div class="input-group" data-children-count="1">
                                             <div class="input-group-prepend">
                                                 <span class="input-group-text" data-children-count="0"><i
@@ -246,11 +237,8 @@
                                                 inputmode="numeric">
                                         </div>
                                     </div>
-                                    <div class="col-4">
+                                    <div class="col-6">
                                         <input type="text" class="form-control" placeholder="Número">
-                                    </div>
-                                    <div class="col-3">
-                                        <input type="text" class="form-control" placeholder="Año">
                                     </div>
                                 </div>
                             </div>
