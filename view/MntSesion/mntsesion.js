@@ -2,7 +2,7 @@ var tabla;
 
 function init() {
     filtrarAp();
-    $("#persona_form").on("submit", function (e) {
+    $("#sesion_form").on("submit", function (e) {
         guardaryeditar(e);
 
     });
@@ -11,13 +11,13 @@ function init() {
 
 
 function filtrarAp() {
-    var app = document.getElementById("filtro").value;
-    if (app == "") {
-        app = " ";
+    var sf = document.getElementById("filtro").value;
+    if (sf == "") {
+        sf = " ";
     }
-    console.log("var" + app);
+    console.log("var" + sf);
     document.getElementById("filtro").value = "";
-    tabla = $('#persona_data').dataTable({
+    tabla = $('#sesion_data').dataTable({
         "aProcessing": true, //Activamos el procesamiento del datatables
         "aServerSide": true, //Paginación y filtrado realizados por el servidor
         dom: 'Bfrtip', //Definimos los elementos del control de tabla
@@ -29,7 +29,7 @@ function filtrarAp() {
         ],
         "ajax": {
 
-            url: '../../controller/persona.php?op=listar&appat=' + app,
+            url: '../../controller/sesion.php?op=listar&sesfecha=' + sf,
             type: "get",
             dataType: "json",
             error: function (e) {
@@ -72,7 +72,7 @@ function filtrarAp() {
 
 
 /*$(document).ready(function(){ 
-    tabla=$('#persona_data').dataTable({
+    tabla=$('#sesion_data').dataTable({
 		"aProcessing": true,//Activamos el procesamiento del datatables
 	    "aServerSide": true,//Paginación y filtrado realizados por el servidor
 	    dom: 'Bfrtip',//Definimos los elementos del control de tabla
@@ -83,7 +83,7 @@ function filtrarAp() {
 		            'pdf'
 		        ],
         "ajax":{
-            url: '../../controller/persona.php?op=listar&appat=""',
+            url: '../../controller/sesion.php?op=listar&sesfecha=""',
             type : "get",
             dataType : "json",
             error: function(e){
@@ -128,18 +128,18 @@ function filtrarAp() {
 
 function guardaryeditar(e) {
     e.preventDefault();
-    var formData = new FormData($("#persona_form")[0]);
+    var formData = new FormData($("#sesion_form")[0]);
     $.ajax({
-        url: "../../controller/persona.php?op=guardaryeditar",
+        url: "../../controller/sesion.php?op=guardaryeditar",
         type: "POST",
         data: formData,
         contentType: false,
         processData: false,
         success: function (datos) {
 
-            $('#persona_form')[0].reset();
+            $('#sesion_form')[0].reset();
             $("#modalmantenimiento").modal('hide');
-            $('#persona_data').DataTable().ajax.reload();
+            $('#sesion_data').DataTable().ajax.reload();
 
             swal.fire(
                 'Registro!',
@@ -150,28 +150,28 @@ function guardaryeditar(e) {
     });
 }
 
-function editar(per_id) {
-    $.post("../../controller/persona.php?op=mostrar", {
-        per_id: per_id
+function editar(ses_id) {
+    $.post("../../controller/sesion.php?op=mostrar", {
+        ses_id: ses_id
     }, function (data) {
         data = JSON.parse(data);
-        $('#per_id').val(data.per_id);
-        $('#per_nroDoc').val(data.per_nroDoc);
-        $('#per_paterno').val(data.per_paterno);
-        $('#per_materno').val(data.per_materno);
-        $('#per_nombres').val(data.per_nombres);
+        $('#ses_id').val(data.ses_id);
+        $('#ses_fecha').val(data.ses_fecha);
+        $('#sesTipo_id').val(data.sesTipo_id);
+        $('#org_id').val(data.org_id);
+        $('#ses_estado').val(data.ses_estado);
         //$('#per_sexo').val(data.per_sexo);
-        cargarSexo(data.per_sexo);
+        /*cargarSexo(data.per_sexo);
         console.log(data.per_sexo);
 
         $('#docTipo_id').val(data.docTipo_id);
-
+    */
     });
     $('#mdltitulo').html('Editar Registro');
     $('#modalmantenimiento').modal('show');
 
 }
-
+/*
 function cargarSexo(per_sexo) {
     if (per_sexo == "M") {
         document.querySelector('[value="M"]').checked = true;
@@ -180,12 +180,12 @@ function cargarSexo(per_sexo) {
     }
 }
 
+*/
 
-
-function eliminar(per_id) {
+function eliminar(ses_id) {
 
     swal.fire({
-        title: 'PERSONAS',
+        title: 'SESION',
         text: "Esta seguro de Eliminar el Registro?",
         icon: 'error',
         showCancelButton: true,
@@ -195,13 +195,13 @@ function eliminar(per_id) {
     }).then((result) => {
         if (result.isConfirmed) {
 
-            $.post("../../controller/persona.php?op=eliminar", {
-                per_id: per_id
+            $.post("../../controller/sesion.php?op=eliminar", {
+                ses_id: ses_id
             }, function (data) {
 
             });
 
-            //$('#persona_data').DataTable().ajax.reload();
+            //$('#sesion_data').DataTable().ajax.reload();
 
             swal.fire(
                 'Eliminado!',
@@ -209,18 +209,18 @@ function eliminar(per_id) {
                 'success'
             )
         }
-        $('#persona_data').DataTable().ajax.reload();
+        $('#sesion_data').DataTable().ajax.reload();
     })
 
 }
 
 
 $(document).on("click", "#btnnuevo", function () {
-    $('#per_id').val('');
+    $('#ses_id').val('');
     document.getElementById("filtro").value = "";
     $('#mdltitulo').html('Nuevo Registro');
     $('#modalmantenimiento').modal('show');
-    $('#persona_form')[0].reset();
+    $('#sesion_form')[0].reset();
 
 });
 

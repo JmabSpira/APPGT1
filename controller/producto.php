@@ -1,6 +1,7 @@
 <?php
     require_once("../config/conexion.php");
     require_once("../models/Producto.php");
+    
     $producto = new Producto();
 
     switch($_GET["op"]){

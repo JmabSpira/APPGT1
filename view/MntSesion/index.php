@@ -47,14 +47,14 @@
                             <div class="input-group col-10">
                               <label for="filtro" class="col-sm-2 col-form-label">Búsqueda por:</label>
 
-                              <div class="col-sm-2">
+                              <div class="col-sm-3">
                                 <div class="input-group" data-children-count="1">
                                   <div class="input-group-prepend">
                                     <span class="input-group-text" data-children-count="0"><i
                                         class="far fa-calendar-alt"></i></span>
                                   </div>
                                   <input type="text" class="form-control" id="filtro" name="filtro"
-                                    data-inputmask-alias="datetime" data-inputmask-inputformat="dd/mm/yyyy" data-mask=""
+                                    data-inputmask-alias="datetime" data-inputmask-inputformat="yyyy/mm/dd" data-mask=""
                                     inputmode="numeric">
                                 </div>
                               </div>
@@ -66,20 +66,14 @@
                             <br>
                             <button id = "btnnuevo" type="button" class="btn btn-block btn-outline-primary">Nueva Sesión</button> 
                             <br>
-                            <table id="persona_data" class="table table-bordered table-striped">
+                            <table id="sesion_data" class="table table-bordered table-striped">
                             <thead>
                             <tr>
-                                <th>Codigo</th>
-                                <th>Tipo Doc</th>
-                                <th>Doc. Ident.</th>
-                                <th>Ap. Paterno</th>
-                                <th>Ap. Materno</th>
-                                <th>Nombres</th>
-                                <th>Sexo</th>
-                                <!-- /.card-header 
-                                <th>Tipo Doc</th>
-                                -->
-                                
+                                <th>Nro</th>
+                                <th>Fecha de Sesión</th>
+                                <th>Tipo de Sesión</th>
+                                <th>Órgano</th>
+                                <th>Estado</th>
                                 <th></th>
                                 <th></th>
                             </tr>
@@ -127,7 +121,8 @@
     })
 
     //Datemask dd/mm/yyyy
-    $('#datemask').inputmask('dd/mm/yyyy', { 'placeholder': 'dd/mm/yyyy' })
+    //$('#datemask').inputmask('dd/mm/yyyy', { 'placeholder': 'dd/mm/yyyy' })
+    $('#datemask').inputmask('yyyy/mm/dd', { 'placeholder': 'yyyy/mm/dd' })
 
     $('[data-mask]').inputmask()
 
