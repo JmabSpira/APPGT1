@@ -31,6 +31,25 @@
 
                     <div class="form-group">
                         <label class="form-label" for="per_sexo">Género</label>
+                        <div class="input-group">
+                            <div class="icheck-primary d-inline col-sm-4">
+                                <input type="radio" id="per_sexo1" name="per_sexo" value = "M" checked>
+                                <label for="per_sexo1">
+                                Masculino
+                                </label>
+                            </div>
+
+                            <div class="icheck-primary d-inline col-sm-4">
+                                <input type="radio" id="per_sexo2" name="per_sexo" value = "F">
+                                <label for="per_sexo2">
+                                Femenino
+                                </label>
+                            </div>
+                        </div>
+                    </div>
+                    <!--
+                    <div class="form-group">
+                        <label class="form-label" for="per_sexo">Género</label>
                         <br>
                         <div class="form-check">
                             <input class="form-check-input" type="radio" name="per_sexo" id="per_sexo" value="M"
@@ -42,6 +61,7 @@
                             <label class="form-check-label" for="per_sexo">Femenino</label>
                         </div>
                     </div>
+-->
                     <!-- 
                     <div class="form-group">
                         <label class="form-label" for="per_sexo">Sexo: </label>

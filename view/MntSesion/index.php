@@ -2,7 +2,7 @@
 <html lang="es">
 <head>
     <?php require_once("../../mainhead.php");?>
-    <title>Sesion</title>
+    <title>Sesión</title>
 </head>
 <body class="hold-transition sidebar-mini">
 <!-- Site wrapper -->
@@ -39,14 +39,14 @@
                 <div class="col-12">
                     <div class="card card-primary">
                         <div class="card-header">
-                            <h3 class="card-title">Sesión de Consejo Universitario</h3>
+                            <h3 class="card-title">Sesiones</h3>
                         </div>
                         
                         <!-- /.card-header -->
                         <div class="card-body">
                             <div class="input-group col-10">
                               <label for="filtro" class="col-sm-2 col-form-label">Búsqueda por:</label>
-
+                              
                               <div class="col-sm-3">
                                 <div class="input-group" data-children-count="1">
                                   <div class="input-group-prepend">
@@ -58,13 +58,15 @@
                                     inputmode="numeric">
                                 </div>
                               </div>
-                              <span class="input-group-append">
-                                <button onclick="filtrarAp()" name="btnfiltro" id="btnfiltro"
-                                  class="btn btn-block btn-info">Buscar</button>
-                              </span>
+                                <span class="input-group-append">
+                                  <button onclick = "filtrarAp()" name="btnfiltro" id="btnfiltro" class="btn btn-block btn-info">Buscar</button>
+                                </span>
                             </div>
                             <br>
-                            <button id = "btnnuevo" type="button" class="btn btn-block btn-outline-primary">Nueva Sesión</button> 
+                            
+                            <button id = "btnnuevo" type="button" class="btn btn-block btn-outline-primary">Nuevo Registro</button>
+                            
+
                             <br>
                             <table id="sesion_data" class="table table-bordered table-striped">
                             <thead>
@@ -74,6 +76,10 @@
                                 <th>Tipo de Sesión</th>
                                 <th>Órgano</th>
                                 <th>Estado</th>
+                                <!-- /.card-header 
+                                <th>Tipo Doc</th>
+                                -->
+                                
                                 <th></th>
                                 <th></th>
                             </tr>
@@ -110,16 +116,18 @@
     <script src="//cdn.jsdelivr.net/npm/sweetalert2@10"></script>
     <script type = "text/javascript" src="mntsesion.js"></script>
 
+
+
 <script>
   $(function () {
     //Initialize Select2 Elements
-    $('.select2').select2()
+  //  $('.select2').select2()
 
     //Initialize Select2 Elements
-    $('.select2bs4').select2({
+  /*  $('.select2bs4').select2({
       theme: 'bootstrap4'
     })
-
+*/
     //Datemask dd/mm/yyyy
     //$('#datemask').inputmask('dd/mm/yyyy', { 'placeholder': 'dd/mm/yyyy' })
     $('#datemask').inputmask('yyyy/mm/dd', { 'placeholder': 'yyyy/mm/dd' })

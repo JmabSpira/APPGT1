@@ -12,3 +12,5 @@
 <link rel="stylesheet" href="../../public/plugins/datatables-buttons/css/buttons.bootstrap4.min.css">
 <!-- Theme style -->
 <link rel="stylesheet" href="../../public/dist/css/adminlte.min.css">
+  <!-- iCheck for checkboxes and radio inputs -->
+<link rel="stylesheet" href="../../public/plugins/icheck-bootstrap/icheck-bootstrap.min.css">

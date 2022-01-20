@@ -11,11 +11,11 @@ function init() {
 
 
 function filtrarAp() {
-    var sf = document.getElementById("filtro").value;
-    if (sf == "") {
-        sf = " ";
+    var app = document.getElementById("filtro").value;
+    if (app == "") {
+        app = " ";
     }
-    console.log("var" + sf);
+    console.log("var" + app);
     document.getElementById("filtro").value = "";
     tabla = $('#sesion_data').dataTable({
         "aProcessing": true, //Activamos el procesamiento del datatables
@@ -29,7 +29,7 @@ function filtrarAp() {
         ],
         "ajax": {
 
-            url: '../../controller/sesion.php?op=listar&sesfecha=' + sf,
+            url: '../../controller/sesion.php?op=listar&appat=' + app,
             type: "get",
             dataType: "json",
             error: function (e) {
@@ -72,7 +72,7 @@ function filtrarAp() {
 
 
 /*$(document).ready(function(){ 
-    tabla=$('#sesion_data').dataTable({
+    tabla=$('#persona_data').dataTable({
 		"aProcessing": true,//Activamos el procesamiento del datatables
 	    "aServerSide": true,//Paginación y filtrado realizados por el servidor
 	    dom: 'Bfrtip',//Definimos los elementos del control de tabla
@@ -83,7 +83,7 @@ function filtrarAp() {
 		            'pdf'
 		        ],
         "ajax":{
-            url: '../../controller/sesion.php?op=listar&sesfecha=""',
+            url: '../../controller/persona.php?op=listar&appat=""',
             type : "get",
             dataType : "json",
             error: function(e){
@@ -156,21 +156,54 @@ function editar(ses_id) {
     }, function (data) {
         data = JSON.parse(data);
         $('#ses_id').val(data.ses_id);
-        $('#ses_fecha').val(data.ses_fecha);
-        $('#sesTipo_id').val(data.sesTipo_id);
-        $('#org_id').val(data.org_id);
-        $('#ses_estado').val(data.ses_estado);
-        //$('#per_sexo').val(data.per_sexo);
-        /*cargarSexo(data.per_sexo);
-        console.log(data.per_sexo);
 
-        $('#docTipo_id').val(data.docTipo_id);
-    */
+        $('#org_id').val(data.org_id);
+
+        cargarTipo(data.sesTipo_id);
+        //$('#sesTipo_id').val(data.sesTipo_id);
+
+        //$('#ses_estado').val(data.ses_estado);
+        //$('#per_sexo').val(data.per_sexo);
+        $('#ses_fecha').val(data.ses_fecha);
+        //console.log(data.ses_fecha);
+
+        cargarEstado(data.ses_estado);
+        //console.log(data.ses_estado);
+        //$('#docTipo_id').val(data.docTipo_id);
+
     });
     $('#mdltitulo').html('Editar Registro');
     $('#modalmantenimiento').modal('show');
 
 }
+
+function cargarTipo(sesTipo_id) {
+    if (sesTipo_id == 1) {
+        //document.getElementsByName("sesTip")
+        document.getElementById("sesTipo_id1").checked = true;
+        //document.getElementsByName("sesTipo_id1").checked = true;
+        //document.querySelector('[value=1]').checked = true;
+    } else {
+        document.getElementById("sesTipo_id2").checked = true;
+
+        //document.getElementsByName("sesTipo_id2").checked = true;
+        //document.querySelector('[value=2]').checked = true;
+    }
+}
+
+function cargarEstado(ses_estado) {
+    if (ses_estado == 1) {
+        //document.getElementsByName("ses_estado").checked = true;
+        document.getElementById("ses_estado1").checked = true;
+        //document.querySelector('[value=1]').checked = true;
+    } else {
+        document.getElementById("ses_estado2").checked = true;
+
+        //document.getElementsByName("ses_estado").checked = true;
+        //document.querySelector('[value=0]').checked = true;
+    }
+}
+
 /*
 function cargarSexo(per_sexo) {
     if (per_sexo == "M") {
@@ -185,7 +218,7 @@ function cargarSexo(per_sexo) {
 function eliminar(ses_id) {
 
     swal.fire({
-        title: 'SESION',
+        title: 'SESIONES',
         text: "Esta seguro de Eliminar el Registro?",
         icon: 'error',
         showCancelButton: true,
@@ -201,7 +234,7 @@ function eliminar(ses_id) {
 
             });
 
-            //$('#sesion_data').DataTable().ajax.reload();
+            //$('#persona_data').DataTable().ajax.reload();
 
             swal.fire(
                 'Eliminado!',

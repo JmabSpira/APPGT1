@@ -8,7 +8,69 @@
                 </div>
                 <div class="modal-body">
                     <input type="hidden" id="ses_id" name="ses_id">
+                    
 
+                    <div class="form-group">
+                        <label class="form-label" for="org_id">Órgano:</label>
+                        <select class="form-control select2" style="width: 100%;" id="org_id" name="org_id">
+                            <option value="1">Asamblea Universitaria</option>
+                            <option selected="selected" value="2">Consejo Universitario</option>
+                            <option value="3">Rectorado</option>
+                        </select>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="form-label" for="sesTipo_id">Tipo Sesión:</label>
+                        <div class="input-group">
+                            <div class="icheck-primary d-inline col-sm-4">
+                                <input type="radio" id="sesTipo_id1" name="sesTipo_id" value = 1 checked>
+                                <label for="sesTipo_id1">
+                                Ordinaria
+                                </label>
+                            </div>
+
+                            <div class="icheck-primary d-inline col-sm-4">
+                                <input type="radio" id="sesTipo_id2" name="sesTipo_id" value = 2>
+                                <label for="sesTipo_id2">
+                                Extraordinaria
+                                </label>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="form-label" for="ses_fecha">Fecha:</label>
+                        <div class="input-group" data-children-count="1">
+                            <div class="input-group-prepend">
+                                <span class="input-group-text" data-children-count="0"><i
+                                        class="far fa-calendar-alt"></i></span>
+                            </div>
+                            <input type="text" class="form-control" id="ses_fecha" name="ses_fecha"
+                                    data-inputmask-alias="datetime" data-inputmask-inputformat="yyyy/mm/dd" data-mask=""
+                                    inputmode="numeric">
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="form-label" for="ses_estado">Estado:</label>
+                        <div class="input-group">
+                            <div class="icheck-primary d-inline col-sm-4">
+                                <input type="radio" id="ses_estado1" name="ses_estado" value = 1 checked>
+                                <label for="ses_estado1">
+                                Activado
+                                </label>
+                            </div>
+
+                            <div class="icheck-primary d-inline col-sm-4">
+                                <input type="radio" id="ses_estado2" name="ses_estado" value = 0>
+                                <label for="ses_estado2">
+                                Desactivado
+                                </label>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!--
                     <div class="form-group">
                         <label class="form-label" for="docTipo_id">Tipo Doc. Ident.</label>
                         <select class="form-control select2 select2-hidden-accessible" style="width: 100%;"
@@ -23,7 +85,22 @@
                         </select>
 
                     </div>
+                    
 
+                    <div class="form-group">
+                        <label class="form-label" for="per_sexo">Género</label>
+                        <br>
+                        <div class="form-check">
+                            <input class="form-check-input" type="radio" name="per_sexo" id="per_sexo" value="M"
+                                required>
+                            <label class="form-check-label" for="per_sexo">Masculino</label>
+                        </div>
+                        <div class="form-check">
+                            <input class="form-check-input" type="radio" name="per_sexo" id="per_sexo" value="F">
+                            <label class="form-check-label" for="per_sexo">Femenino</label>
+                        </div>
+                    </div>
+                    -->
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-rounded btn-default" data-dismiss="modal">Cerrar</button>

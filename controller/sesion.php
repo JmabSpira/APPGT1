@@ -7,7 +7,7 @@
     switch($_GET["op"]){
 
         case "listar":
-            $sf = $_GET["sesfecha"];
+            $sf = $_GET["appat"];
             $datos;
             if ($sf == " ") {
                 $datos = $sesion->get_sesion();
@@ -45,10 +45,10 @@
             $datos=$sesion->get_sesion_x_id($_POST["ses_id"]);
             if(empty($_POST["ses_id"])){
                 if(is_array($datos)==true and count($datos)==0){
-                    $sesion->insert_sesion($_POST["sesTipo_id"],$_POST["org_id"],$_POST["ses_fecha"]);
+                    $sesion->insert_sesion($_POST["org_id"],$_POST["sesTipo_id"],$_POST["ses_fecha"],$_POST["ses_estado"]);
                 }
             }else{
-                $sesion->update_sesion($_POST["ses_id"],$_POST["sesTipo_id"],$_POST["org_id"],$_POST["ses_fecha"]);
+                $sesion->update_sesion($_POST["ses_id"],$_POST["org_id"],$_POST["sesTipo_id"],$_POST["ses_fecha"],$_POST["ses_estado"]);
             }
             break;
 
@@ -57,9 +57,9 @@
             if(is_array($datos)==true and count($datos)>0){
                 foreach($datos as $row){
                     $output["ses_id"] = $row["ses_id"];
-                    $output["ses_fecha"] = $row["ses_fecha"];
-                    $output["sesTipo_id"] = $row["sesTipo_id"];
                     $output["org_id"] = $row["org_id"];
+                    $output["sesTipo_id"] = $row["sesTipo_id"];
+                    $output["ses_fecha"] = $row["ses_fecha"];
                     $output["ses_estado"] = $row["ses_estado"];
                 }
                 echo json_encode($output);

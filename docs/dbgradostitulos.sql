@@ -612,3 +612,5 @@ ADD UNIQUE INDEX `esc_code_UNIQUE` (`esc_code` ASC) VISIBLE;
 ;
 
 
+ALTER TABLE `dbgradostitulos`.`expediente` 
+ADD COLUMN `fecha_actAca` DATETIME NOT NULL AFTER `actAca_id`;
