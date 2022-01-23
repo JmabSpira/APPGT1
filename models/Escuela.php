@@ -80,6 +80,16 @@
         }
 
 
+        public function cargarFacultad(){
+            $conectar = parent::conexion();
+            $sql = "SELECT fac_id,fac_sigla FROM facultad order by fac_id";
+            $sql=$conectar->prepare($sql);
+            $sql->execute();
+            return $resultado=$sql->fetchAll();
+        }
+
+
+
 
     }
 

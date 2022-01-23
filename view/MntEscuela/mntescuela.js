@@ -1,4 +1,5 @@
 var tabla;
+var combo;
 
 function init() {
     $("#escuela_form").on("submit", function (e) {
@@ -9,6 +10,69 @@ function init() {
 }
 
 $(document).ready(function () {
+
+    /*
+        const temp = [{
+                "id": 1,
+                "name": "Aguascalientes"
+            },
+            {
+                "id": 2,
+                "name": "Baja California"
+            },
+            {
+                "id": 3,
+                "name": "Baja California Sur"
+            },
+            {
+                "id": 4,
+                "name": "Campeche"
+            },
+            {
+                "id": 5,
+                "name": "Coahuila"
+            },
+        ];
+        var $select = $('#fac_id');
+
+
+        $.each(temp, function (id, name) {
+            $select.append('<option value=' + name.id + '>' + name.name + '</option>');
+        });
+    */
+
+    $(function () {
+        $.ajax({
+            type: 'GET',
+            url: '../../controller/escuela.php?op=cargarFacultad',
+            success: function (response) {
+
+                alert(response);
+                alert(typeof (response));
+
+                var json = JSON.parse(response);
+                const temp = json;
+                alert(temp);
+                var $select = $('#fac_id');
+
+                $.each(temp, function (fac_id, fac_sigla) {
+                    //$('#fac_id').append('<option value="' + fila[1].fac_id + '>' + fila[1].fac_sigla + '</option>')
+                    $select.append('<option value=' + fac_sigla.fac_id + '>' + fac_sigla.fac_sigla + '</option>');
+                })
+
+                /*
+                                for (var i = 0; i < response.length; i++) {
+                                    $('#fac_id').append('<option value="' + (i + 1) + '">' + response['fac_sigla'] + '</option>')
+
+
+                                }
+
+                */
+            }
+
+        })
+    })
+
     tabla = $('#escuela_data').dataTable({
         "aProcessing": true, //Activamos el procesamiento del datatables
         "aServerSide": true, //Paginación y filtrado realizados por el servidor
@@ -59,9 +123,22 @@ $(document).ready(function () {
             }
         }
     }).DataTable();
+
+
+
+    /*combo = $('#fac_id').select2({
+        ajax: {
+            type: 'get',
+            url: '../../controller/escuela.php?op=cargarFacultad',
+            dataType: 'json',
+            // Additional AJAX parameters go here; see the end of this chapter for the full code of this example
+            success:function(response) {
+                $.each
+                
+            }
+        }
+    })*/
 });
-
-
 
 
 function guardaryeditar(e) {
@@ -106,6 +183,28 @@ function editar(esc_id) {
 
 }
 
+function cargarFacultad() {
+
+    combo = $('#fac_id').select2({
+        ajax: {
+            type: 'get',
+            url: '../../controller/escuela.php?op=cargarFacultad',
+            dataType: 'json',
+            // Additional AJAX parameters go here; see the end of this chapter for the full code of this example
+            error: function (e) {
+                console.log(e.responseText);
+            }
+        },
+        "order": [
+            [0, "asc"]
+        ],
+        "language": {
+            "sProcessing": "Procesando...",
+            "sZeroRecords": "No se encontraron resultados",
+            "sLoadingRecords": "Cargando...",
+        }
+    }).select2();
+}
 
 function eliminar(esc_id) {
 

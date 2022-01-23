@@ -3,7 +3,7 @@
     require_once("../models/Escuela.php");
 
     $escuela = new Escuela();
-
+    
     switch($_GET["op"]){
 
         case "listar":
@@ -60,6 +60,48 @@
 
         case "eliminar":
             $escuela->delete_escuela($_POST["esc_id"]);
+            break;
+
+        case "cargarFacultad": 
+            $datos = $escuela->cargarFacultad();
+
+            $data= Array();
+
+            
+/*
+            foreach($datos as $row){
+                $sub_array = array();
+                $sub_array[] = $row["fac_id"];
+                $sub_array[] = $row["fac_sigla"];
+                $data[]=$sub_array;
+            }
+
+            
+           $results = array(
+                //"sEcho"=>0,
+                //"iTotalRecords"=>count($data),
+                //"iTotalDisplayRecords"=>count($data),
+                "aaData"=>$data);
+
+            /*$results = array(
+                //"sEcho"=>0,
+                //"iTotalRecords"=>count($data),
+                //"iTotalDisplayRecords"=>count($data),
+                $data);*/
+
+            foreach ($datos as $row) {
+                # code...
+                $fac_id = $row['fac_id'];
+                $fac_sigla = $row['fac_sigla'];
+                $data[] = array('fac_id'=>$fac_id, 'fac_sigla'=>$fac_sigla);
+            }
+
+            $results = array("data"=>$data);
+            //$results = array($data);
+
+            
+            echo json_encode($data);
+            //echo json_encode($results);
             break;
     }
 ?>
