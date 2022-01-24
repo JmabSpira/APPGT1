@@ -47,27 +47,18 @@ $(document).ready(function () {
             url: '../../controller/escuela.php?op=cargarFacultad',
             success: function (response) {
 
-                alert(response);
-                alert(typeof (response));
+                //alert(response);
+                //alert(typeof (response));
 
                 var json = JSON.parse(response);
                 const temp = json;
-                alert(temp);
+                //alert(temp);
                 var $select = $('#fac_id');
 
                 $.each(temp, function (fac_id, fac_sigla) {
                     //$('#fac_id').append('<option value="' + fila[1].fac_id + '>' + fila[1].fac_sigla + '</option>')
                     $select.append('<option value=' + fac_sigla.fac_id + '>' + fac_sigla.fac_sigla + '</option>');
                 })
-
-                /*
-                                for (var i = 0; i < response.length; i++) {
-                                    $('#fac_id').append('<option value="' + (i + 1) + '">' + response['fac_sigla'] + '</option>')
-
-
-                                }
-
-                */
             }
 
         })
