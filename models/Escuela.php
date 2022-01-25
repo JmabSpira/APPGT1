@@ -58,7 +58,7 @@
             parent::set_names();
             $sql="UPDATE escuela
                 SET
-                    esc_id=?,
+                    /*esc_id=?,*/
                     esc_code = ?,
                     esc_nombre=?,
                     esc_sigla=?,
@@ -68,13 +68,13 @@
                 WHERE
                     esc_id = ?";
             $sql=$conectar->prepare($sql);
-            $sql->bindValue(1,$esc_id);
-            $sql->bindValue(2,$esc_code);
-            $sql->bindValue(3,$esc_nombre);
-            $sql->bindValue(4,$esc_sigla);
-            $sql->bindValue(5,$esc_alias);
-            $sql->bindValue(6,$fac_id);
-            $sql->bindValue(7,$esc_id);
+            //$sql->bindValue(1,$esc_id);
+            $sql->bindValue(1,$esc_code);
+            $sql->bindValue(2,$esc_nombre);
+            $sql->bindValue(3,$esc_sigla);
+            $sql->bindValue(4,$esc_alias);
+            $sql->bindValue(5,$fac_id);
+            $sql->bindValue(6,$esc_id);
             $sql->execute();
             return $resultado=$sql->fetchAll();
         }

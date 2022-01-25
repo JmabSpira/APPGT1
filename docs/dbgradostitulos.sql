@@ -515,6 +515,17 @@ ADD CONSTRAINT `fk_den_nivel`
   ON UPDATE NO ACTION;
 
 
+  ALTER TABLE `dbgradostitulos`.`denominacion` 
+DROP FOREIGN KEY `fk_den_escuela`;
+ALTER TABLE `dbgradostitulos`.`denominacion` 
+CHANGE COLUMN `esc_id` `esc_code` INT NOT NULL ,
+ADD INDEX `fk_den_nivel_idx` (`nivel_id` ASC) VISIBLE,
+DROP INDEX `fk_den_nivel_idx` ;
+;
+ALTER TABLE `dbgradostitulos`.`denominacion` 
+ADD CONSTRAINT `fk_den_escuela`
+  FOREIGN KEY (`esc_code`)
+  REFERENCES `dbgradostitulos`.`escuela` (`esc_code`);
 
   CREATE TABLE `dbgradostitulos`.`expediente` (
   `exp_id` INT NOT NULL AUTO_INCREMENT,

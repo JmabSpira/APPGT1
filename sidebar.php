@@ -159,10 +159,18 @@
             </a>
           </li>
           <li class="nav-item">
+            <a href="../MntDenominacion/" class="nav-link">
+              <i class="nav-icon fas fa-columns"></i>
+              <p>
+                DENOMINACIÓN
+              </p>
+            </a>
+          </li>
+          <li class="nav-item">
             <a href="#" class="nav-link">
               <i class="nav-icon fas fa-book"></i>
               <p>
-                Pages
+                PAGES
                 <i class="fas fa-angle-left right"></i>
               </p>
             </a>

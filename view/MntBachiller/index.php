@@ -2,14 +2,9 @@
 <html lang="es">
 <head>
     <?php require_once("../../mainhead.php");?>
+    <?php require_once("../MntPersona/modalpersona.php");?>
     <title>Bachiller</title>
 
-        <link rel="stylesheet" href="../../public/plugins/select2/css/select2.min.css">
-        <link rel="stylesheet" href="../../public/plugins/select2-bootstrap4-theme/select2-bootstrap4.min.css">
-        
-        <!--
-        <link rel="stylesheet" href="../../public/plugins/tempusdominus-bootstrap-4/css/tempusdominus-bootstrap-4.min.css">
-        -->
 </head>
 <body class="hold-transition sidebar-mini">
 <!-- Site wrapper -->
@@ -269,7 +264,8 @@
                                             placeholder="Ingrese Número de Doc.">
                                     </div>
                                     <div class="col-sm-5">
-                                        <button type="button" class="btn btn-block btn-outline-primary">Nuevo</button>
+                                        <button type="button" class="btn btn-block btn-outline-primary" id = "btnnuevo">Nuevo</button>
+                                         
                                     </div>
 
                                 </div>
@@ -436,17 +432,12 @@
 
     <script src="//cdn.jsdelivr.net/npm/sweetalert2@10"></script>
 
+    <script type = "text/javascript" src="mntbachiller.js"></script>
+
     <!--<script type = "text/javascript" src="mntpersona.js"></script>-->
+
 <script>
   $(function () {
-    //Initialize Select2 Elements
-    $('.select2').select2()
-
-    //Initialize Select2 Elements
-    $('.select2bs4').select2({
-      theme: 'bootstrap4'
-    })
-
     //Datemask dd/mm/yyyy
     $('#datemask').inputmask('dd/mm/yyyy', { 'placeholder': 'dd/mm/yyyy' })
 

@@ -67,28 +67,6 @@
 
             $data= Array();
 
-            
-/*
-            foreach($datos as $row){
-                $sub_array = array();
-                $sub_array[] = $row["fac_id"];
-                $sub_array[] = $row["fac_sigla"];
-                $data[]=$sub_array;
-            }
-
-            
-           $results = array(
-                //"sEcho"=>0,
-                //"iTotalRecords"=>count($data),
-                //"iTotalDisplayRecords"=>count($data),
-                "aaData"=>$data);
-
-            /*$results = array(
-                //"sEcho"=>0,
-                //"iTotalRecords"=>count($data),
-                //"iTotalDisplayRecords"=>count($data),
-                $data);*/
-
             foreach ($datos as $row) {
                 # code...
                 $fac_id = $row['fac_id'];
