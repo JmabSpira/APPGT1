@@ -1,7 +1,6 @@
 <?php
     class Escuela extends Conectar{
 
-        
         public function get_escuela(){
             $conectar= parent::conexion();
             parent::set_names();

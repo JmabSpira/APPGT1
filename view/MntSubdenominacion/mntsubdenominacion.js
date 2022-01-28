@@ -10,11 +10,11 @@ function init() {
 }
 
 $(document).ready(function () {
-
     $(function () {
+        var nivel = 1;
         $.ajax({
             type: 'GET',
-            url: '../../controller/subdenominacion.php?op=cargarDenominacion',
+            url: '../../controller/subdenominacion.php?op=cargarDenominacion&appat=' + nivel,
             success: function (response) {
 
                 //alert(response);
@@ -125,8 +125,10 @@ function editar(subDen_id) {
     $('#modalmantenimiento').modal('show');
 
 }
-
+/*
 function cargarDenominacion() {
+
+    $.post("../../controller/subdenominacion.php?nivel=" + 1);
 
     combo = $('#den_id').select2({
         ajax: {
@@ -148,7 +150,7 @@ function cargarDenominacion() {
         }
     }).select2();
 }
-
+*/
 function eliminar(subDen_id) {
 
     swal.fire({

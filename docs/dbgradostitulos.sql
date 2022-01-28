@@ -625,3 +625,13 @@ ADD UNIQUE INDEX `esc_code_UNIQUE` (`esc_code` ASC) VISIBLE;
 
 ALTER TABLE `dbgradostitulos`.`expediente` 
 ADD COLUMN `fecha_actAca` DATETIME NOT NULL AFTER `actAca_id`;
+
+
+ALTER TABLE `dbgradostitulos`.`expediente` 
+DROP FOREIGN KEY `fk_exp_esc`;
+ALTER TABLE `dbgradostitulos`.`expediente` 
+CHANGE COLUMN `esc_id` `esc_code` INT NOT NULL ;
+ALTER TABLE `dbgradostitulos`.`expediente` 
+ADD CONSTRAINT `fk_exp_esc`
+  FOREIGN KEY (`esc_code`)
+  REFERENCES `dbgradostitulos`.`escuela` (`esc_id`);

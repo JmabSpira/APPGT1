@@ -59,9 +59,9 @@
                                 </div>
                                 <!-- /.form-group -->
                                 <div class="form-group row">
-                                    <label for="#" class="col-sm-3 col-form-label">Generación</label>
+                                    <label for="genCop_id" class="col-sm-3 col-form-label">Generación</label>
                                     <div class="col-sm-2">
-                                        <input type="text" class="form-control" id="#" value="1">
+                                        <input type="text" class="form-control" id="genCop_id" value="1" onkeypress = "pulsar(event,'nivel_id')">
                                     </div>
                                     <div class="col-sm-7">
                                         <input type="text" class="form-control" placeholder="Original" disabled="">
@@ -80,9 +80,9 @@
                                 </div>
                                 <!-- /.form-group -->
                                 <div class="form-group row">
-                                    <label for="#" class="col-sm-3 col-form-label">Nivel Diploma</label>
+                                    <label for="nivel_id" class="col-sm-3 col-form-label">Nivel Diploma</label>
                                     <div class="col-sm-2">
-                                        <input type="text" class="form-control" id="#" value="1">
+                                        <input type="text" class="form-control" id="nivel_id" value="1" onkeypress = "pulsar(event,'esc_code1')">
                                     </div>
                                     <div class="col-sm-7">
                                         <select class="custom-select" style="width: 100%;">
@@ -114,18 +114,27 @@
                                 </div>
                                 -->
                                 <div class="form-group row">
-                                    <label for="#" class="col-sm-3 col-form-label">Escuela</label>
+                                    <label for="esc_code1" class="col-sm-3 col-form-label">Escuela</label>
                                     <div class="col-sm-2">
-                                        <input type="text" class="form-control" id="#" value="1">
+                                        <input type="text" class="form-control" id="esc_code1" value="1" onFocus="this.select()" onkeypress = "pulsar(event,'org_id')" autofocus>
                                     </div>
                                     <div class="col-sm-7">
-                                        <select class="custom-select" style="width: 100%;">
-                                            <option>Seleccione Escuela</option>
+                                        <select class="form-control select2 select2-hidden-accessible" style="width: 100%;"
+                                            data-select2-id="1"  aria-hidden="true" id="esc_code" name="esc_code">
+                                            <option selected="selected" value="0">Seleccione Escuela</option>
+                                        </select>
+                                        <!--
+                                        <select class="form-control select2 select2-hidden-accessible" style="width: 100%;"
+                                            data-select2-id="1" tabindex="-1" aria-hidden="true" id="esc_code" name="esc_code">
+                                            <option selected="selected" value="0" >Seleccione Escuela</option>
+                                            <
                                             <option>Ingenieria de Sistemas</option>
                                             <option>Ingeniería Civil</option>
                                             <option>Derecho</option>
                                             <option>Agronomía</option>
-                                        </select>
+                                            
+                                        </select> 
+                                    -->
                                     </div>
 
                                 </div>
@@ -142,9 +151,9 @@
                         <form class="form-horizontal">
                             <div class="card-body">
                                 <div class="form-group row">
-                                    <label for="#" class="col-sm-3 col-form-label">Tipo de Resol.</label>
+                                    <label for="org_id" class="col-sm-3 col-form-label">Tipo de Resol.</label>
                                     <div class="col-sm-2">
-                                        <input type="text" class="form-control" id="#" value="1">
+                                        <input type="text" class="form-control" id="org_id" value="1" onkeypress = "pulsar(event,'sesTipo_id')">
                                     </div>
                                     <div class="col-sm-7">
                                         <input type="text" class="form-control" placeholder="del Consejo de Facultad"
@@ -154,9 +163,9 @@
                                 </div>
                                 <!-- /.form-group -->
                                 <div class="form-group row">
-                                    <label for="#" class="col-sm-3 col-form-label">Tipo de Sesión</label>
+                                    <label for="sesTipo_id" class="col-sm-3 col-form-label">Tipo de Sesión</label>
                                     <div class="col-sm-2">
-                                        <input type="text" class="form-control" id="#" value="2">
+                                        <input type="text" class="form-control" id="sesTipo_id" value="2" onkeypress = "pulsar(event,'ses_fecha')">
                                     </div>
                                     <div class="col-sm-7">
                                         <input type="text" class="form-control" placeholder="Extraordinaria"
@@ -166,7 +175,7 @@
                                 </div>
                                 <!-- /.form-group -->
                                 <div class="form-group row">
-                                    <label for="#" class="col-sm-3 col-form-label">Fecha Sesión</label>
+                                    <label for="ses_fecha" class="col-sm-3 col-form-label">Fecha Sesión</label>
                                     <div class="col-sm-5">
                                         <div class="input-group" data-children-count="1">
                                             <div class="input-group-prepend">
@@ -175,13 +184,13 @@
                                             </div>
                                             <input type="text" class="form-control" data-inputmask-alias="datetime"
                                                 data-inputmask-inputformat="dd/mm/yyyy" data-mask=""
-                                                inputmode="numeric">
+                                                inputmode="numeric" id = "ses_fecha">
                                         </div>
                                     </div>
 
                                 </div>
                                 <div class="form-group row">
-                                    <label for="#" class="col-sm-3 col-form-label">Fecha de Doc.</label>
+                                    <label for="ada" class="col-sm-3 col-form-label">Fecha de Doc.</label>
                                     <div class="col-sm-5">
                                         <div class="input-group" data-children-count="1">
                                             <div class="input-group-prepend">
@@ -190,7 +199,7 @@
                                             </div>
                                             <input type="text" class="form-control" data-inputmask-alias="datetime"
                                                 data-inputmask-inputformat="dd/mm/yyyy" data-mask=""
-                                                inputmode="numeric">
+                                                inputmode="numeric" id = "ada">
                                         </div>
                                     </div>
 
@@ -198,7 +207,7 @@
                                 <div class="form-group row">
                                     <label for="#" class="col-sm-3 col-form-label">Número</label>
                                     <div class="col-sm-5">
-                                        <input type="text" class="form-control" id="#" placeholder="Número de Doc.">
+                                        <input type="text" class="form-control" id="#" placeholder="Número de Doc." >
                                     </div>
                                 </div>
 
@@ -258,10 +267,10 @@
                         <form class="form-horizontal">
                             <div class="card-body">
                                 <div class="form-group row">
-                                    <label for="#" class="col-sm-3 col-form-label">Nº Doc. Ident.</label>
+                                    <label for="per_id" class="col-sm-3 col-form-label">Nº Doc. Ident.</label>
                                     <div class="col-sm-4">
-                                        <input type="text" class="form-control" id="#"
-                                            placeholder="Ingrese Número de Doc.">
+                                        <input type="text" class="form-control" id="per_id"
+                                            placeholder="Ingrese Número de Doc." onkeypress = "pulsar(event,'actAca_id')">
                                     </div>
                                     <div class="col-sm-5">
                                         <button type="button" class="btn btn-block btn-outline-primary" id = "btnnuevo">Nuevo</button>
@@ -313,13 +322,13 @@
                                     <div class="col-sm-9">
                                         <select class="custom-select" style="width: 100%;" id="docTipo_id"
                                             name="docTipo_id" disabled="">
-                                            <option data-select2-id="3" value="1">Otros</option>
-                                            <option selected="selected" data-select2-id="30" value="2">DNI</option>
-                                            <option data-select2-id="31" value="3">RUC</option>
-                                            <option data-select2-id="32" value="4">LM</option>
-                                            <option data-select2-id="33" value="5">C.E.</option>
-                                            <option data-select2-id="34" value="6">PASAPORTE</option>
-                                            <option data-select2-id="35" value="7">P.NAC.</option>
+                                            <option value="1">Otros</option>
+                                            <option selected="selected" value="2">DNI</option>
+                                            <option value="3">RUC</option>
+                                            <option value="4">LM</option>
+                                            <option value="5">C.E.</option>
+                                            <option value="6">PASAPORTE</option>
+                                            <option value="7">P.NAC.</option>
                                         </select>
                                     </div>
 
@@ -340,9 +349,9 @@
                         <form class="form-horizontal">
                             <div class="card-body">
                                 <div class="form-group row">
-                                    <label for="#" class="col-sm-3 col-form-label">Modalidad</label>
+                                    <label for="actAca_id" class="col-sm-3 col-form-label">Modalidad</label>
                                     <div class="col-sm-2">
-                                        <input type="text" class="form-control" id="#" value="1">
+                                        <input type="text" class="form-control" id="actAca_id" value="1" onkeypress = "pulsar(event,'fecha_actAca')">
                                     </div>
                                     <div class="col-sm-7">
                                         <input type="text" class="form-control" placeholder="Automático" disabled="">
@@ -352,7 +361,7 @@
 
                                 <!-- /.form-group -->
                                 <div class="form-group row">
-                                    <label for="#" class="col-sm-3 col-form-label">Fecha de Acto</label>
+                                    <label for="fecha_actAca" class="col-sm-3 col-form-label">Fecha de Acto</label>
                                     <div class="col-sm-5">
                                         <div class="input-group" data-children-count="1">
                                             <div class="input-group-prepend">
@@ -361,19 +370,16 @@
                                             </div>
                                             <input type="text" class="form-control" data-inputmask-alias="datetime"
                                                 data-inputmask-inputformat="dd/mm/yyyy" data-mask=""
-                                                inputmode="numeric">
+                                                inputmode="numeric" id = "fecha_actAca">
                                         </div>
                                     </div>
                                 </div>
                                 <div class="form-group row">
                                     <label for="#" class="col-sm-3 col-form-label">Denominación</label>
                                     <div class="col-sm-9">
-                                        <select class="custom-select" style="width: 100%;">
-                                            <option>Seleccione Denominacion</option>
-                                            <option>Bachiller en Ciencias de la Ingeniería de Sistemas</option>
-                                            <option>Bachiller en Ciencias de la Ingeniería Civil</option>
-                                            <option>FCPD</option>
-                                            <option>FCE</option>
+                                        <select class="form-control select2 select2-hidden-accessible" style="width: 100%;"
+                                            data-select2-id="1" aria-hidden="true" id="den_id" name="den_id">
+                                            <option selected="selected" value="0">Seleccione Denominación</option>
                                         </select>
                                     </div>
                                 </div>
@@ -433,7 +439,6 @@
     <script src="//cdn.jsdelivr.net/npm/sweetalert2@10"></script>
 
     <script type = "text/javascript" src="mntbachiller.js"></script>
-
     <!--<script type = "text/javascript" src="mntpersona.js"></script>-->
 
 <script>

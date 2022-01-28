@@ -3,9 +3,9 @@
     require_once("../models/Subdenominacion.php");
 
     $subdenominacion = new Subdenominacion();
-    
-    switch($_GET["op"]){
 
+    switch($_GET["op"]){
+        
         case "listar":
             $datos = $subdenominacion->get_subdenominacion();
             $data= Array();
@@ -57,8 +57,11 @@
             $subdenominacion->delete_subdenominacion($_POST["subDen_id"]);
             break;
 
-        case "cargarDenominacion": 
-            $datos = $subdenominacion->cargarDenominacion();
+        case "cargarDenominacionPorNivel": 
+
+            $ap = $_GET["appat"];
+
+            $datos = $subdenominacion->cargarDenominacionPorNivel($ap);
 
             $data= Array();
 
@@ -75,6 +78,21 @@
             
             echo json_encode($data);
             //echo json_encode($results);
+            break;
+
+
+        case "cargarDenominacion": 
+
+            $datos = $subdenominacion->cargarDenominacion();
+
+            $data= Array();
+
+            foreach ($datos as $row) {
+                $den_id = $row['den_id'];
+                $den_MasFem = $row['den_MasFem'];
+                $data[] = array('den_id'=>$den_id, 'den_MasFem'=>$den_MasFem);
+            }
+            echo json_encode($data);
             break;
     }
 ?>
