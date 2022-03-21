@@ -1,3 +1,5 @@
+var combo;
+
 function init() {
     $("#persona_form").on("submit", function (e) {
         guardaryeditar(e);
@@ -30,18 +32,6 @@ function guardaryeditar(e) {
     });
 }
 
-/*
-input.onblur = function () {
-    if (!input.value.includes('@')) { // not email
-        input.classList.add('invalid');
-        error.innerHTML = 'Por favor introduzca un correo válido.'
-    }
-};
-*/
-
-
-
-
 $(document).ready(function () {
     cargarEscuelaBT();
     cargarDenominacion();
@@ -61,7 +51,7 @@ function cargarEscuela() {
 
             var json = JSON.parse(response);
             const temp = json;
-            
+            //alert(temp);
             var $select = $('#esc_code');
 
             $.each(temp, function (esc_code, esc_alias) {
@@ -73,9 +63,7 @@ function cargarEscuela() {
     })
 }
 */
-
 function cargarEscuelaBT() {
-
     $.ajax({
         type: 'GET',
         url: '../../controller/denominacion.php?op=cargarEscuelaBT',
@@ -98,8 +86,6 @@ function cargarEscuelaBT() {
     })
 }
 
-
-
 function cargarSesion() {
     $.get("../../controller/sesion.php?op=sesionActual", {}, function (data) {
         data = JSON.parse(data);
@@ -111,8 +97,6 @@ function cargarSesion() {
     });
 
 }
-
-
 
 function cargarDenominacion() {
     var nivel = 1;
@@ -134,91 +118,6 @@ function cargarDenominacion() {
 
     })
 }
-
-
-/*
-$('#genCop_id').keypress(function (e) {
-    if (e.which == 13) {
-        //EjecutaScript();
-        document.getElementById('nivel_id').focus();
-        //alert("Buscar Generacion");
-
-    }
-});
-*/
-/*
-$(".miClase").keypress(function (e) {
-    if (e.which == 13) {
-        var a = e.target.nextElementSibling;
-        a.focus();
-        console.log(a.innerHTML);
-    }
-});
-
-*/
-/*
-var inputs = document.getElementsByTagName('input');
-
-window.onload = function () {
-
-    //Se ciclan todos los inputs
-
-    for (i = 0; i < inputs.length; i++) {
-
-        if (i == 0) {
-            console.log(inputs[i]);
-            inputs[i].focus();
-        }
-
-        //Agregamos la función a detonar
-        inputs[i].addEventListener("keypress", pulsar);
-        console.log("ingresa")
-
-    }
-
-    //Se liga la funcion al evento click del boton el evento click
-    //document.getElementsByTagName('button')[0].addEventListener("click", aceptar);
-}
-*/
-
-/*
-function pulsar(e, id) {
-    if (e.keyCode === 13 && !e.shiftKey) {
-        e.preventDefault();
-        var boton = document.getElementById(id);
-        alert("Buscar Generacion");
-        boton.focus();
-        boton.select();
-
-    }
-}
-*/
-/*
-function pulsar(e) {
-    if (e.keyCode === 13 && !e.shiftKey) {
-        e.preventDefault();
-
-        for (i = 0; i < inputs.length; i++) {
-            //Se carga el siguiente
-            var nextInput = inputs[i + 1];
-            console.log(nextInput);
-        }
-
-        //Si se encontro el siguiente input
-        if (nextInput) {
-            nextInput.focus();
-
-            nextInput.select();
-
-        } else {
-            document.getElementsByTagName('button')[0].focus();
-
-            document.getElementsByTagName('button')[0].click();
-        }
-
-    }
-}
-*/
 
 $(document).on("click", "#btnnuevo", function () {
     $('#mdltitulo').html('Nuevo Registro');

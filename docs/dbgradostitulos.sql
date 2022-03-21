@@ -635,3 +635,6 @@ ALTER TABLE `dbgradostitulos`.`expediente`
 ADD CONSTRAINT `fk_exp_esc`
   FOREIGN KEY (`esc_code`)
   REFERENCES `dbgradostitulos`.`escuela` (`esc_id`);
+
+ALTER TABLE `dbgradostitulos`.`resolucion` 
+ADD COLUMN `resol_memorando` VARCHAR(150) NULL AFTER `resol_nroSolicitud`;

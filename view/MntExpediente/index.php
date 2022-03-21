@@ -41,7 +41,7 @@
                 <div class="col-md-6">
                     <div class="card card-info">
                         <div class="card-header">
-                            <h3 class="card-title">Información del Diploma</h3>
+                            <h3 class="card-title">Información de Trámite</h3>
                         </div>
                         <!-- /.card-header -->
                         <!-- form start -->
@@ -56,27 +56,6 @@
                                         <input type="text" class="form-control" id = "ses_data" disabled="">
                                     </div>
 
-                                </div>
-                                <!-- /.form-group -->
-                                <div class="form-group row">
-                                    <label for="nivel_id" class="col-sm-3 col-form-label">Nivel Diploma</label>
-                                    <div class="col-sm-2">
-                                        <input type="text" class="form-control" id="nivel_id" value="1" disabled>
-                                    </div>
-                                   
-                                    <div class="col-sm-7">
-                                    <input type="text" class="form-control" placeholder="Grado de Bachiller" disabled="">    
-                                    <!--
-                                        <select class="custom-select" style="width: 100%;" >
-                                            <option>Seleccione Tipo de Diploma</option>
-                                            <option>Grado de Bachiller</option>
-                                            <option>Título Profesional</option>
-                                            <option>Maestría</option>
-                                            <option>Doctorado</option>
-                                        </select>
-                                        -->
-                                    </div>
-                                    
                                 </div>
                                 <!-- /.form-group -->
                                 <div class="form-group row">
@@ -99,11 +78,45 @@
                                     </div>
 
                                 </div>
+                                <!-- /.form-group -->
+                                <div class="form-group row">
+                                    <label for="nivel_id" class="col-sm-3 col-form-label">Nivel Diploma</label>
+                                    <div class="col-sm-2">
+                                        <input type="text" class="form-control" id="nivel_id" value="1" name = "input_exp">
+                                    </div>
+                                    <div class="col-sm-7">
+                                        <select class="custom-select" style="width: 100%;" >
+                                            <option>Seleccione Tipo de Diploma</option>
+                                            <option>Grado de Bachiller</option>
+                                            <option>Título Profesional</option>
+                                            <option>Maestría</option>
+                                            <option>Doctorado</option>
+                                        </select>
+                                    </div>
 
+                                </div>
+                                <!--
+                                <div class="form-group row">
+                                    <label for="#" class="col-sm-3 col-form-label">Facultad</label>
+                                    <div class="col-sm-2">
+                                        <input type="text" class="form-control" id="#" value="1">
+                                    </div>
+                                    <div class="col-sm-7">
+                                        <select class="custom-select" style="width: 100%;">
+                                            <option>Seleccione Facultad</option>
+                                            <option>FIMGC</option>
+                                            <option>FCS</option>
+                                            <option>FCPD</option>
+                                            <option>FCE</option>
+                                        </select>
+                                    </div>
+                                
+                                </div>
+                                -->
                                 <div class="form-group row">
                                     <label for="esc_code1" class="col-sm-3 col-form-label">Escuela</label>
                                     <div class="col-sm-2">
-                                        <input type="text" class="form-control" id="esc_code1" value="1" onFocus="this.select()" name = "input_exp" autofocus>
+                                        <input type="text" class="form-control" id="esc_code" value="1" onFocus="this.select()" name = "input_exp" autofocus>
                                     </div>
                                     <div class="col-sm-7">
                                         <select class="form-control select2 select2-hidden-accessible" style="width: 100%;"
@@ -132,7 +145,7 @@
                     </div>
                     <div class="card card-success">
                         <div class="card-header">
-                            <h3 class="card-title">Información de la Resolución de la Facultad</h3>
+                            <h3 class="card-title">Información de la Resolución</h3>
                         </div>
                         <!-- form start -->
                         <form class="form-horizontal">
@@ -152,10 +165,10 @@
                                 <div class="form-group row">
                                     <label for="sesTipo_id" class="col-sm-3 col-form-label">Tipo de Sesión</label>
                                     <div class="col-sm-2">
-                                        <input type="text" class="form-control" id="sesTipo_id" value="1" name = "input_exp">
+                                        <input type="text" class="form-control" id="sesTipo_id" value="2" name = "input_exp">
                                     </div>
                                     <div class="col-sm-7">
-                                        <input type="text" class="form-control" placeholder="Ordinaria"
+                                        <input type="text" class="form-control" placeholder="Extraordinaria"
                                             disabled="">
                                     </div>
 
@@ -167,7 +180,7 @@
                                         <div class="input-group" data-children-count="1">
                                             <div class="input-group-prepend">
                                                 <span class="input-group-text" data-children-count="0"><i
-                                                        class="far fa-calendar-alt"></i></span>
+                                                        class="far fa-calendar-alt" ></i></span>
                                             </div>
                                             <input type="text" class="form-control" data-inputmask-alias="datetime"
                                                 data-inputmask-inputformat="dd/mm/yyyy" data-mask=""
@@ -194,17 +207,17 @@
                                 <div class="form-group row">
                                     <label for="#" class="col-sm-3 col-form-label">Número</label>
                                     <div class="col-sm-5">
-                                        <input type="text" class="form-control" id="resol_numero" placeholder="Número de Doc." name = "input_exp">
+                                        <input type="text" class="form-control" id="resol_numero" placeholder="Número de Doc." name = "input_exp" >
                                     </div>
                                 </div>
-                                
+
                             </div>
                         </form>
                     </div>
                     <!-- /.card -->
                     <div class="card card-danger">
                         <div class="card-header">
-                            <h3 class="card-title">Información del Expediente</h3>
+                            <h3 class="card-title">Información de la Solicitud</h3>
                         </div>
                         <form class="form-horizontal">
                             <div class="card-body">
@@ -230,16 +243,6 @@
                                     </div>
                                     <div class="col-6">
                                         <input type="text" class="form-control" placeholder="Número" id = "resol_nroSolicitud" name = "input_exp">
-                                    </div>
-                                </div>
-                                <div class="row">
-                                    <div class="col-6">
-                                        <label for="#" class="col-sm-12 col-form-label">Memorando de la Facultad Nº</label>
-                                    </div>
-                                </div>
-                                <div class="row">
-                                    <div class="col-12">
-                                        <input type="text" class="form-control" placeholder="Memorando" id= " resol_memorando" name = "input_exp">
                                     </div>
                                 </div>
                             </div>
@@ -348,7 +351,7 @@
                                 <div class="form-group row">
                                     <label for="actAca_id" class="col-sm-3 col-form-label">Modalidad</label>
                                     <div class="col-sm-2">
-                                        <input type="text" class="form-control" id="actAca_id" value="1" name = "input_exp">
+                                        <input type="text" class="form-control" id="actAca_id" value="1" name = "input_exp"">
                                     </div>
                                     <div class="col-sm-7">
                                         <input type="text" class="form-control" placeholder="Automático" disabled="">
@@ -383,8 +386,10 @@
                                 <div class="form-group row">
                                     <label for="#" class="col-sm-3 col-form-label">Especialidad</label>
                                     <div class="col-sm-9">
-                                        <select class="custom-select" style="width: 100%;" disabled>
+                                        <select class="custom-select" style="width: 100%;">
                                             <option>Seleccione Especialidad</option>
+                                            <option>: Historia</option>
+                                            <option>: Arqueología</option>
                                         </select>
                                     </div>
 
@@ -433,7 +438,9 @@
 
     <script src="//cdn.jsdelivr.net/npm/sweetalert2@10"></script>
 
+    <script src="../../public/dist/js/configExp.js"></script>
     <script type = "text/javascript" src="mntbachiller.js"></script>
+    
     <!--<script type = "text/javascript" src="mntpersona.js"></script>-->
 
 <script>

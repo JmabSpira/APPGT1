@@ -69,5 +69,12 @@
         case "eliminar":
             $sesion->delete_sesion($_POST["ses_id"]);
             break;
+
+        case "sesionActual":
+            $fila = $sesion->get_sesion_actual();
+            echo json_encode($fila);
+
+
+            break;
     }
 ?>

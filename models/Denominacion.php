@@ -86,6 +86,14 @@
             $sql->execute();
             return $resultado=$sql->fetchAll();
         }
+
+        public function cargarEscuelaBT(){
+            $conectar = parent::conexion();
+            $sql = "SELECT esc_code,esc_alias FROM escuela where esc_estado = 1 and fac_id != 70 order by esc_code";
+            $sql=$conectar->prepare($sql);
+            $sql->execute();
+            return $resultado=$sql->fetchAll();
+        }
     }
 
 
