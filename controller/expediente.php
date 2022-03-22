@@ -65,10 +65,46 @@
             break;
         */
 
+
         case "guardar":
                 $expediente->insert_expediente($_POST["ses_id"],$_POST["genCop_id"],$_POST["nivel_id"],$_POST["esc_id"],$_POST["org_id"],$_POST["resol_id"],$_POST["per_id"],$_POST["actAca_id"],$_POST["den_id"],$_POST["subDen_id"],$_POST["exp_denominacion"]);
             break;
 
+        case "cargarGeneracion":
 
+            $ap = $_GET["appat"];
+
+            $datos = $expediente->cargarGeneracion($ap);
+            echo json_encode($datos);
+            break;
+
+        case "cargarOrgano":
+
+            $ap = $_GET["appat"];
+            $datos = $expediente->cargarOrgano($ap);
+            echo json_encode($datos);
+            break;
+
+        case "cargarTipoSesion":
+            $ap = $_GET["appat"];
+            $datos = $expediente->cargarTipoSesion($ap);
+            echo json_encode($datos);
+            break;
+        
+        case "cargarPersona":
+            $datos=$expediente->get_persona_x_doc($_POST["per_nroDoc"]);
+            if(is_array($datos)==true and count($datos)>0){
+                foreach($datos as $row){
+                    $output["per_id"] = $row["per_id"];
+                    $output["per_nroDoc"] = $row["per_nroDoc"];
+                    $output["per_paterno"] = $row["per_paterno"];
+                    $output["per_materno"] = $row["per_materno"];
+                    $output["per_nombres"] = $row["per_nombres"];
+                    $output["per_sexo"] = $row["per_sexo"];
+                    $output["docTipo_id"] = $row["docTipo_id"];
+                }
+                echo json_encode($output);
+            }
+            break;
     }
 ?>

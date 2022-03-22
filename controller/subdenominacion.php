@@ -80,6 +80,30 @@
             //echo json_encode($results);
             break;
 
+        case "cargarDenominacionPorEscuela": 
+
+            $ap = $_GET["appat"];
+            $code = $_GET["code"];
+
+            $datos = $subdenominacion->cargarDenominacionPorEscuela($ap,$code);
+
+            $data= Array();
+
+            foreach ($datos as $row) {
+                # code...
+                $den_id = $row['den_id'];
+                $den_MasFem = $row['den_MasFem'];
+                $data[] = array('den_id'=>$den_id, 'den_MasFem'=>$den_MasFem);
+            }
+
+            $results = array("data"=>$data);
+            //$results = array($data);
+
+            
+            echo json_encode($data);
+            //echo json_encode($results);
+            break;
+
 
         case "cargarDenominacion": 
 

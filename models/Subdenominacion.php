@@ -78,6 +78,16 @@
             return $resultado=$sql->fetchAll();
         }
         
+        public function cargarDenominacionPorEscuela($nivel,$esc_code){
+            $conectar = parent::conexion();
+            $sql = "SELECT den_id, den_MasFem FROM denominacion WHERE nivel_id = ? and esc_code = ?";
+            $sql=$conectar->prepare($sql);
+            $sql->bindValue(1,$nivel);
+            $sql->bindValue(2,$esc_code);
+            $sql->execute();
+            return $resultado=$sql->fetchAll();
+        }
+
         public function cargarDenominacion(){
             $conectar = parent::conexion();
             $sql = "SELECT den_id, den_MasFem FROM denominacion WHERE nivel_id > 1 order by nivel_id";

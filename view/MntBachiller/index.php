@@ -85,7 +85,7 @@
                                         <input type="text" class="form-control" id="genCop_id" value="1">
                                     </div>
                                     <div class="col-sm-7">
-                                        <input type="text" class="form-control" placeholder="Original" disabled="">
+                                        <input type="text" class="form-control" placeholder="Original" id = "genCop_alias" disabled="">
                                         <!--
                                         <select class="custom-select" disabled="" style="width: 100%;">
                                             <option>Seleccione Generación Copia</option>
@@ -103,7 +103,7 @@
                                 <div class="form-group row">
                                     <label for="esc_code1" class="col-sm-3 col-form-label">Escuela</label>
                                     <div class="col-sm-2">
-                                        <input type="text" class="form-control" id="esc_code1" value="1" onFocus="this.select()" name = "input_exp" autofocus>
+                                        <input type="text" class="form-control" id="esc_code1" value="0" onFocus="this.select()" name = "input_exp" autofocus>
                                     </div>
                                     <div class="col-sm-7">
                                         <select class="form-control select2 select2-hidden-accessible" style="width: 100%;"
@@ -140,11 +140,10 @@
                                 <div class="form-group row">
                                     <label for="org_id" class="col-sm-3 col-form-label">Tipo de Resol.</label>
                                     <div class="col-sm-2">
-                                        <input type="text" class="form-control" id="org_id" value="1" name = "input_exp">
+                                        <input type="text" class="form-control" id="org_id" value="7"  name = "input_exp">
                                     </div>
                                     <div class="col-sm-7">
-                                        <input type="text" class="form-control" placeholder="del Consejo de Facultad"
-                                            disabled="">
+                                        <input type="text" class="form-control" id = "org_alias" placeholder = "Decanal" disabled="">
                                     </div>
 
                                 </div>
@@ -152,10 +151,10 @@
                                 <div class="form-group row">
                                     <label for="sesTipo_id" class="col-sm-3 col-form-label">Tipo de Sesión</label>
                                     <div class="col-sm-2">
-                                        <input type="text" class="form-control" id="sesTipo_id" value="1" name = "input_exp">
+                                        <input type="text" class="form-control" id="sesTipo_id" value="1" disabled name = "input_exp">
                                     </div>
                                     <div class="col-sm-7">
-                                        <input type="text" class="form-control" placeholder="Ordinaria"
+                                        <input type="text" class="form-control" id = "sesTipo_nombre" placeholder="Ordinaria"
                                             disabled="">
                                     </div>
 
@@ -171,7 +170,7 @@
                                             </div>
                                             <input type="text" class="form-control" data-inputmask-alias="datetime"
                                                 data-inputmask-inputformat="dd/mm/yyyy" data-mask=""
-                                                inputmode="numeric" id = "ses_fecha" name = "input_exp">
+                                                inputmode="numeric" id = "ses_fecha" name = "input_exp" disabled>
                                         </div>
                                     </div>
 
@@ -264,9 +263,10 @@
                         <form class="form-horizontal">
                             <div class="card-body">
                                 <div class="form-group row">
+                                    <input type="hidden" id="per_id1" name="per_id1">
                                     <label for="per_id" class="col-sm-3 col-form-label">Nº Doc. Ident.</label>
                                     <div class="col-sm-4">
-                                        <input type="text" class="form-control" id="per_id"
+                                        <input type="text" class="form-control" id="per_nroDoc1"
                                             placeholder="Ingrese Número de Doc." name = "input_exp">
                                     </div>
                                     <div class="col-sm-5">
@@ -278,21 +278,21 @@
                                 <div class="form-group row">
                                     <label for="#" class="col-sm-3 col-form-label">Ap. Paterno</label>
                                     <div class="col-sm-9">
-                                        <input type="text" class="form-control" id="#" disabled="">
+                                        <input type="text" class="form-control" id="per_paterno1" disabled="">
                                     </div>
 
                                 </div>
                                 <div class="form-group row">
                                     <label for="#" class="col-sm-3 col-form-label">Ap. Materno</label>
                                     <div class="col-sm-9">
-                                        <input type="text" class="form-control" id="#" disabled="">
+                                        <input type="text" class="form-control" id="per_materno1" disabled="">
                                     </div>
 
                                 </div>
                                 <div class="form-group row">
                                     <label for="#" class="col-sm-3 col-form-label">Nombres:</label>
                                     <div class="col-sm-9">
-                                        <input type="text" class="form-control" id="#" disabled="">
+                                        <input type="text" class="form-control" id="per_nombres1" disabled="">
                                     </div>
 
                                 </div>
@@ -300,14 +300,14 @@
                                     <label for="#" class="col-sm-3 col-form-label">Género</label>
                                     <div class="col-sm-4">
                                         <div class="form-check">
-                                            <input class="form-check-input" type="radio" name="per_sexo" id="per_sexo"
+                                            <input class="form-check-input" type="radio" name="per_sexo1" id="per_sexo1"
                                                 value="M" disabled="">
                                             <label class="form-check-label" for="per_sexo">Masculino</label>
                                         </div>
                                     </div>
                                     <div class="col-sm-4">
                                         <div class="form-check">
-                                            <input class="form-check-input" type="radio" name="per_sexo" id="per_sexo"
+                                            <input class="form-check-input" type="radio" name="per_sexo1" id="per_sexo1"
                                                 value="F" disabled="">
                                             <label class="form-check-label" for="per_sexo">Femenino</label>
                                         </div>
@@ -317,7 +317,7 @@
                                 <div class="form-group row">
                                     <label for="#" class="col-sm-3 col-form-label">Tipo Doc.</label>
                                     <div class="col-sm-9">
-                                        <select class="custom-select" style="width: 100%;" id="docTipo_id"
+                                        <select class="custom-select" style="width: 100%;" id="docTipo_id1"
                                             name="docTipo_id" disabled="">
                                             <option value="1">Otros</option>
                                             <option selected="selected" value="2">DNI</option>

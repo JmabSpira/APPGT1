@@ -99,13 +99,51 @@
             $sql->execute();
             return $resultado=$sql->fetchAll();
         }
-
 */
 
+        public function cargarGeneracion($genCop_id){
+            $conectar = parent::conexion();
+            parent::set_names();
+            $sql = "SELECT genCop_id,genCop_alias FROM generacion_copia WHERE genCop_estado = 1  and genCop_id = ?";
+            $sql=$conectar->prepare($sql);
+            $sql->bindValue(1,$genCop_id);
+            $sql->execute();
+            return $resultado = $sql->fetch();
+            //return $resultado=$sql->fetchAll();
+        }
+
+        public function cargarOrgano($org){
+            $conectar = parent::conexion();
+            parent::set_names();
+            $sql = "SELECT org_id, org_emite FROM organo WHERE org_estado = 1 and org_id = ?";
+            $sql=$conectar->prepare($sql);
+            $sql->bindValue(1,$org);
+            $sql->execute();
+            return $resultado = $sql->fetch();
+            //return $resultado=$sql->fetchAll();
+        }
+        public function cargarTipoSesion($ses){
+            $conectar = parent::conexion();
+            parent::set_names();
+            $sql = "SELECT sesTipo_id, sesTipo_nombre FROM sesion_tipo WHERE sesTipo_estado = 1 and sesTipo_id = ?";
+            $sql=$conectar->prepare($sql);
+            $sql->bindValue(1,$ses);
+            $sql->execute();
+            return $resultado = $sql->fetch();
+            //return $resultado=$sql->fetchAll();
+        }
+
+        public function get_persona_x_doc($per_nroDoc){
+            $conectar= parent::conexion();
+            parent::set_names();
+            $sql="SELECT per_id,per_nroDoc,per_paterno,per_materno,per_nombres,per_sexo,docTipo_id FROM persona WHERE per_nroDoc = ?";
+            $sql=$conectar->prepare($sql);
+            $sql->bindValue(1,$per_nroDoc);
+            $sql->execute();
+            return $resultado=$sql->fetchAll();
+        }
 
 
     }
-
-
 
 ?>
