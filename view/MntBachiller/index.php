@@ -348,10 +348,10 @@
                                 <div class="form-group row">
                                     <label for="actAca_id" class="col-sm-3 col-form-label">Modalidad</label>
                                     <div class="col-sm-2">
-                                        <input type="text" class="form-control" id="actAca_id" value="1" name = "input_exp">
+                                        <input type="text" class="form-control" id="actAca_id" value="6" name = "input_exp">
                                     </div>
                                     <div class="col-sm-7">
-                                        <input type="text" class="form-control" placeholder="Automático" disabled="">
+                                        <input type="text" class="form-control" id = "actAca_alias" placeholder="Automático" disabled="">
                                     </div>
 
                                 </div>

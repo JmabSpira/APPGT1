@@ -85,6 +85,13 @@
             echo json_encode($datos);
             break;
 
+        case "cargarActo":
+
+            $ap = $_GET["appat"];
+            $datos = $expediente->cargarActo($ap);
+            echo json_encode($datos);
+            break;
+
         case "cargarTipoSesion":
             $ap = $_GET["appat"];
             $datos = $expediente->cargarTipoSesion($ap);

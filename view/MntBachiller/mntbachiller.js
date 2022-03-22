@@ -115,8 +115,35 @@ function leerCambio() {
     document.getElementById('org_id').addEventListener("change", cargarOrgano);
     document.getElementById('sesTipo_id').addEventListener("change", cargarTipoSesion);
     document.getElementById('per_nroDoc1').addEventListener("change", cargarPersona);
+    document.getElementById('actAca_id').addEventListener("change", cargarActo);
 
+}
 
+function cargarActo() {
+    var act = $('#actAca_id').val();
+    $.ajax({
+        type: 'GET',
+        url: '../../controller/expediente.php?op=cargarActo&appat=' + act,
+        success: function (response) {
+
+            var json = JSON.parse(response);
+            const temp = json;
+            if (response == "false") {
+                swal.fire(
+                    'Error!',
+                    'Valor inválido.',
+                    'error'
+                )
+                $("#actAca_id").val(6);
+                cargarActo();
+            } else {
+                var $input = $('#actAca_alias');
+                $.each(temp, function (actAca_id, actAca_alias) {
+                    $input.val(actAca_alias);
+                })
+            }
+        }
+    })
 }
 
 function cargarPersona() {

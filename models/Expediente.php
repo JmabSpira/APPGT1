@@ -122,6 +122,18 @@
             return $resultado = $sql->fetch();
             //return $resultado=$sql->fetchAll();
         }
+
+        public function cargarActo($act){
+            $conectar = parent::conexion();
+            parent::set_names();
+            $sql = "SELECT actAca_id, actAca_nombre FROM acto_academico WHERE actAca_estado = 1 and actAca_id =?";
+            $sql=$conectar->prepare($sql);
+            $sql->bindValue(1,$act);
+            $sql->execute();
+            return $resultado = $sql->fetch();
+            //return $resultado=$sql->fetchAll();
+        }
+
         public function cargarTipoSesion($ses){
             $conectar = parent::conexion();
             parent::set_names();
