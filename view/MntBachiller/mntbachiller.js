@@ -1,9 +1,38 @@
 function init() {
+
     $("#persona_form").on("submit", function (e) {
         guardaryeditar(e);
     });
+    navegacion();
+    cargarEscuelaBT();
+    //cargarDenominacion();
+    cargarSesion();
+    leerCambio();
+
+    $(".dato").on('focus', function () {
+        this.select();
+    });
+}
+
+function limpiar() {
+    $('.new').val('');
+    $('input[name=per_sexo1]').prop("checked", false);
 
 }
+
+
+
+function verDatos() {
+    var formData = new FormData($("#expediente_form")[0]);
+    console.log(formData.get('esc_codeE'));
+    console.log(formData.get('resol_fechaSolicitudE'));
+    console.log("Recorremos");
+    for (var entrie of formData.entries()) {
+        console.log(entrie[0] + ': ' + entrie[1]);
+    }
+}
+
+
 
 function guardaryeditar(e) {
     e.preventDefault();
@@ -39,18 +68,8 @@ function guardaryeditar(e) {
     });
 }
 
+
 /*
-input.onblur = function () {
-    if (!input.value.includes('@')) { // not email
-        input.classList.add('invalid');
-        error.innerHTML = 'Por favor introduzca un correo válido.'
-    }
-};
-*/
-
-
-
-
 $(document).ready(function () {
     cargarEscuelaBT();
     //cargarDenominacion();
@@ -58,31 +77,69 @@ $(document).ready(function () {
     leerCambio();
 
 });
-
-/*
-function cargarEscuela() {
-    $.ajax({
-        type: 'GET',
-        url: '../../controller/denominacion.php?op=cargarEscuela',
-        success: function (response) {
-
-            //alert(response);
-            //alert(typeof (response));
-
-            var json = JSON.parse(response);
-            const temp = json;
-            
-            var $select = $('#esc_code');
-
-            $.each(temp, function (esc_code, esc_alias) {
-                //$('#esc_code').append('<option value="' + fila[1].esc_code + '>' + fila[1].esc_alias + '</option>')
-                $select.append('<option value=' + esc_alias.esc_code + '>' + esc_alias.esc_alias + '</option>');
-            })
-        }
-
-    })
-}
 */
+
+function navegacion() {
+    //var campos = document.getElementsByName('inp');
+    var campos = document.getElementsByClassName('Exp');
+    var ids = [];
+
+    for (let i = 0; i < campos.length; i++) {
+        const element = campos[i];
+        //console.log(element.id);
+        ids.push(element.id);
+    }
+    console.log(ids);
+    //console.log(campos);
+
+    for (i = 0; i < campos.length; i++) {
+        //campos[i].addEventListener("keydown", uwu);
+        var elemento = campos[i];
+        //console.log(elemento);
+        elemento.addEventListener("keydown", (e) => {
+            if (e.keyCode === 13) {
+                //console.log(e.target.id);
+                var indice = ids.indexOf(e.target.id)
+                //console.log("AHORA ESTAMOS EN EL INPUT" + (indice + 1));
+                /*
+                if (indice == (campos.length - 1)) {
+                    console.log("El indice es: " + indice);
+                    $("#guardarExp").focus();
+                } else {*/
+                console.log("Entro aqui: " + indice);
+
+                if ($('#sesTipo_id').prop('disabled') && (e.target.id == 'org_id')) {
+                    $('#resol_fecha').focus();
+                } else {
+                    if (indice + 1 == campos.length) {
+                        indice = 0;
+                    }
+                    document.getElementById(ids[indice + 1]).focus();
+                    //document.getElementById(ids[indice + 1]).select();
+                }
+                //document.getElementById(ids[indice + 1]).focus();
+                //document.getElementById(ids[indice + 1]).select();
+                /* }*/
+
+            }
+        });
+    }
+
+}
+
+function validarInput(elemento) {
+
+    jQuery(elemento).on('input', function (evt) {
+        // Allow only numbers.
+        jQuery(this).val(jQuery(this).val().replace(/[^0-9]/g, ''));
+
+    });
+    /*
+    jQuery(elemento).on('focus', function (evt) {
+        jQuery(this).select();
+    });
+*/
+}
 
 function cargarEscuelaBT() {
 
@@ -116,6 +173,53 @@ function leerCambio() {
     document.getElementById('sesTipo_id').addEventListener("change", cargarTipoSesion);
     document.getElementById('per_nroDoc1').addEventListener("change", cargarPersona);
     document.getElementById('actAca_id').addEventListener("change", cargarActo);
+    validarInput("#genCop_id");
+    validarInput("#esc_code1");
+    validarInput("#org_id");
+    validarInput("#sesTipo_id");
+    validarInput("#resol_numero");
+    validarInput("#resol_nroSolicitud");
+    validarInput("#per_nroDoc1");
+    validarInput("#actAca_id");
+    validarInput("#per_nroDoc");
+    document.getElementById('guardarExp').addEventListener("click", guardarExpediente);
+    console.log("llega aqui ---");
+}
+
+
+function guardarExpediente() {
+
+    swal.fire({
+        title: 'EXPEDIENTE',
+        text: "Desea Guardar el Registro?",
+        icon: 'warning',
+        showCancelButton: true,
+        confirmButtonText: 'Guardar',
+        cancelButtonText: 'Cancelar',
+        reverseButtons: true
+    }).then((result) => {
+        if (result.isConfirmed) {
+
+            console.log("Se ha guardado");
+
+            //$('#persona_data').DataTable().ajax.reload();
+
+            swal.fire(
+                'Guardado!',
+                'El registro se ha guardado correctamente.',
+                'success'
+            ).then((result) => {
+                if (result.isConfirmed) {
+                    //window.location.reload();
+                    //$('#esc_code1').focus();
+                    verDatos();
+                    limpiar();
+                }
+            })
+
+        }
+
+    })
 
 }
 
@@ -158,11 +262,12 @@ function cargarPersona() {
                 'No se encontraron registros.',
                 'error'
             )
-            $('#per_nroDoc1').val("");
+            $('#persona_form1')[0].reset();
+
         } else {
             data = JSON.parse(data);
 
-            $('#per_id1').val(data.per_id);
+            $('#per_idE').val(data.per_id);
             $('#per_nroDoc1').val(data.per_nroDoc);
             $('#per_paterno1').val(data.per_paterno);
             $('#per_materno1').val(data.per_materno);
@@ -196,10 +301,13 @@ function cargarOrgano() {
                 $.each(temp, function (org_id, org_emite) {
                     $input.val(org_emite);
                 })
+
                 if (org == 1 || org == 2 || org == 6 || org == 8) {
                     activarCampoSesion(false);
+                    $('#sesTipo_id').focus();
                 } else {
                     activarCampoSesion(true);
+                    $('#resol_fecha').focus();
                 }
             }
         }
@@ -267,6 +375,7 @@ function seleccionarEscuela() {
 }
 
 function selectEscuela() {
+
     var $esc_code = $('#esc_code').val();
     $('#esc_code1').val($esc_code);
     cargarDenominacion();
@@ -312,9 +421,7 @@ function cargarSesion() {
         var infoSes = data.org_acronimo + " - " + data.sesTipo_sigla + " - " + data.ses_fecha;
         $('#ses_data').val(infoSes);
         console.log(data.ses_id + data.org_acronimo + data.ses_fecha);
-
     });
-
 }
 
 function cargarDenominacion() {
