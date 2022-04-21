@@ -4,7 +4,7 @@
 <head>
     <?php require_once("../../mainhead.php");?>
     <?php require_once("../MntPersona/modalpersona.php");?>
-    <title>Bachiller</title>
+    <title>TITULO</title>
 
 </head>
 
@@ -23,12 +23,12 @@
                 <div class="container-fluid">
                     <div class="row mb-2">
                         <div class="col-sm-6">
-                            <h1>Expediente para Grado de Bachiller</h1>
+                            <h1>Expediente para Título Profesional</h1>
                         </div>
                         <div class="col-sm-6">
                             <ol class="breadcrumb float-sm-right">
                                 <li class="breadcrumb-item"><a href="#">Expedientes</a></li>
-                                <li class="breadcrumb-item active">Bachiller</li>
+                                <li class="breadcrumb-item active">TÍTULO</li>
                             </ol>
                         </div>
                     </div>
@@ -66,12 +66,12 @@
                                         <div class="form-group row">
                                             <label for="nivel_id" class="col-sm-3 col-form-label">Nivel Diploma</label>
                                             <div class="col-sm-2">
-                                                <input type="text" class="form-control" id="nivel_id" value="1" name="nivel_idE"
+                                                <input type="text" class="form-control" id="nivel_id" value="2" name="nivel_idE"
                                                     readonly="readonly">
                                             </div>
 
                                             <div class="col-sm-7">
-                                                <input type="text" class="form-control" placeholder="Grado de Bachiller"
+                                                <input type="text" class="form-control" placeholder="Titulo Profesional"
                                                     disabled="">
                                             </div>
 
@@ -403,8 +403,11 @@
                                         <div class="form-group row">
                                             <label for="subDen_id" class="col-sm-3 col-form-label">Especialidad</label>
                                             <div class="col-sm-9">
-                                                <select class="custom-select" style="width: 100%;" disabled>
-                                                    <option>Seleccione Especialidad</option>
+                                                <select class="form-control select2 select2-hidden-accessible Exp"
+                                                    style="width: 100%;" data-select2-id="1" aria-hidden="true"
+                                                    id="subDen_id" name="subDen_idE">
+                                                    <option selected="selected" value="0">Seleccione Especialidad
+                                                    </option>
                                                 </select>
                                             </div>
 
@@ -455,7 +458,7 @@
 
     <script src="//cdn.jsdelivr.net/npm/sweetalert2@10"></script>
 
-    <script type="text/javascript" src="mntbachiller.js"></script>
+    <script type="text/javascript" src="mnttitulo.js"></script>
     <!--<script type = "text/javascript" src="mntpersona.js"></script>-->
 
     <script>

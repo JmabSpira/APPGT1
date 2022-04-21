@@ -73,8 +73,9 @@
         public function insert_sesion($org_id,$sesTipo_id,$ses_fecha){
             $conectar= parent::conexion();
             parent::set_names();
-            $sql="INSERT INTO sesion (org_id,sesTipo_id,ses_fecha,ses_estado,ses_createdate)
-            VALUES (?,?,?,1,now())";
+            $sql="CALL insertarSesion(?,?,?)";
+            /*$sql="INSERT INTO sesion (org_id,sesTipo_id,ses_fecha,ses_estado,ses_createdate)
+            VALUES (?,?,?,1,now())";*/
             /* VALUES (?,?,'2021-07-28',1,NOW())*/
             $sql=$conectar->prepare($sql);
             $sql->bindValue(1,$org_id);

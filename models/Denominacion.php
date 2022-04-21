@@ -94,6 +94,16 @@
             $sql->execute();
             return $resultado=$sql->fetchAll();
         }
+
+        public function cargarEscuelaE($inicio,$fin){
+            $conectar = parent::conexion();
+            $sql = "SELECT esc_code,esc_alias FROM escuela where esc_estado = 1 and esc_code >= ? and esc_code < ? order by esc_code;";
+            $sql=$conectar->prepare($sql);
+            $sql->bindValue(1,$inicio);
+            $sql->bindValue(2,$fin);
+            $sql->execute();
+            return $resultado=$sql->fetchAll();
+        }
     }
 
 

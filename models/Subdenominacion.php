@@ -88,6 +88,16 @@
             return $resultado=$sql->fetchAll();
         }
 
+        public function cargarSubDenominacionPorDen($den){
+            $conectar = parent::conexion();
+            $sql = "SELECT subDen_id, subDen_MasFem FROM subdenominacion where den_id = ?";
+            $sql=$conectar->prepare($sql);
+            $sql->bindValue(1,$den);
+            $sql->execute();
+            return $resultado=$sql->fetchAll();
+        }
+
+
         public function cargarDenominacion(){
             $conectar = parent::conexion();
             $sql = "SELECT den_id, den_MasFem FROM denominacion WHERE nivel_id > 1 order by nivel_id";

@@ -1,9 +1,17 @@
 <?php
     require_once("../config/conexion.php");
     require_once("../models/Expediente.php");
+    
 
     $expediente = new Expediente();
-    
+
+    function formatoFecha($vfecha){
+        $fch=explode("/",$vfecha);
+        $tfecha=$fch[2]."-".$fch[1]."-".$fch[0];
+        return $tfecha;
+            
+    }
+
     switch($_GET["op"]){
 
         /*
@@ -65,9 +73,99 @@
             break;
         */
 
-
+            /*
         case "guardar":
                 $expediente->insert_expediente($_POST["ses_id"],$_POST["genCop_id"],$_POST["nivel_id"],$_POST["esc_id"],$_POST["org_id"],$_POST["resol_id"],$_POST["per_id"],$_POST["actAca_id"],$_POST["den_id"],$_POST["subDen_id"],$_POST["exp_denominacion"]);
+            break;
+
+        case "guardarExpediente":
+            $datos=$expediente->get_expediente_x_id($_POST["exp_id"]);
+            if(empty($_POST["exp_id"])){
+                if(is_array($datos)==true and count($datos)==0){
+                    $expediente->insert_expedienteCC($_POST["per_nroDoc"],$_POST["per_paterno"],$_POST["per_materno"],$_POST["per_nombres"],$_POST["per_sexo"],$_POST["docTipo_id"]);
+                }
+            }else{
+                $expediente->update_expediente($_POST["per_id"],$_POST["per_nroDoc"],$_POST["per_paterno"],$_POST["per_materno"],$_POST["per_nombres"],$_POST["per_sexo"],$_POST["docTipo_id"]);
+            }
+            break;
+*/
+            //$ses_id,$nivel_id,$genCop_id,$esc_code,$org_id,$sesTipo_id,$ses_fecha,$resol_fecha,$resol_numero,
+            //      $resol_fechaSolicitud,$resol_nroSolicitud,$resol_memorando,$per_id,$actAca_id,$fecha_actAca,$den_id,$subDen_id
+/*
+        case "guardarExpediente":
+            $datos=$expediente->get_expediente_persona($_POST["exp_id"]);
+            if(empty($_POST["exp_id"])){
+                if(is_array($datos)==true and count($datos)==0){
+                    $expediente->insert_expedienteCC($_POST["per_nroDoc"],$_POST["per_paterno"],$_POST["per_materno"],$_POST["per_nombres"],$_POST["per_sexo"],$_POST["docTipo_id"]);
+                }
+            }else{
+                $expediente->update_expediente($_POST["per_id"],$_POST["per_nroDoc"],$_POST["per_paterno"],$_POST["per_materno"],$_POST["per_nombres"],$_POST["per_sexo"],$_POST["docTipo_id"]);
+            }
+            break;
+*/
+        case "guardarBachiller":
+            $datos = $expediente->verificarExpediente($_POST["per_idE"],$_POST["nivel_idE"],$_POST["genCop_idE"]);
+            if ($datos['cantidad'] > 0) {
+                echo "ERROR YA EXISTE UN REGISTRO",$datos['cantidad'];
+            }else{
+                $resol_fecha = formatoFecha($_POST["resol_fechaE"]);
+                $resol_fechaSolicitud = formatoFecha($_POST["resol_fechaSolicitudE"]);
+                $fecha_actAca = formatoFecha($_POST["fecha_actAcaE"]);
+                if (isset($_POST["sesTipo_idE"],$_POST["ses_fechaE"])) {
+
+                    $ses_fecha = formatoFecha($_POST["ses_fechaE"]);
+                    
+                    $expediente->insert_expediente($_POST["ses_idE"],$_POST["nivel_idE"],$_POST["genCop_idE"],$_POST["esc_codeE"],$_POST["org_idE"],$_POST["sesTipo_idE"],
+                    $ses_fecha,$resol_fecha,$_POST["resol_numeroE"],$resol_fechaSolicitud,$_POST["resol_nroSolicitudE"],
+                    $_POST["resol_memorandoE"],$_POST["per_idE"],$_POST["actAca_idE"],$fecha_actAca,$_POST["den_idE"]);
+                    echo json_encode($expediente);
+
+                }else{
+                    $expediente->insert_expediente($_POST["ses_idE"],$_POST["nivel_idE"],$_POST["genCop_idE"],$_POST["esc_codeE"],$_POST["org_idE"],null,
+                    NULL,$resol_fecha,$_POST["resol_numeroE"],$resol_fechaSolicitud,$_POST["resol_nroSolicitudE"],
+                    $_POST["resol_memorandoE"],$_POST["per_idE"],$_POST["actAca_idE"],$fecha_actAca,$_POST["den_idE"]);
+                    echo json_encode($expediente);
+                    
+                } 
+                
+            }
+            break;
+
+        case "guardarExpediente":
+            $datos = $expediente->verificarExpediente($_POST["per_idE"],$_POST["nivel_idE"],$_POST["genCop_idE"]);
+            if ($datos['cantidad'] > 0) {
+                echo "ERROR YA EXISTE UN REGISTRO",$datos['cantidad'];
+            }else{
+                $resol_fecha = formatoFecha($_POST["resol_fechaE"]);
+                $resol_fechaSolicitud = formatoFecha($_POST["resol_fechaSolicitudE"]);
+                $fecha_actAca = formatoFecha($_POST["fecha_actAcaE"]);
+                $subDen;
+                if (isset($_POST["subDen_idE"])) {
+                    $subDen = $_POST["subDen_idE"];
+                }else{
+                    $subDen = null;
+                }
+
+                if (isset($_POST["sesTipo_idE"],$_POST["ses_fechaE"])) {
+
+                    $ses_fecha = formatoFecha($_POST["ses_fechaE"]);
+                    
+                    $expediente->insert_expedienteT($_POST["ses_idE"],$_POST["nivel_idE"],$_POST["genCop_idE"],$_POST["esc_codeE"],$_POST["org_idE"],$_POST["sesTipo_idE"],
+                    $ses_fecha,$resol_fecha,$_POST["resol_numeroE"],$resol_fechaSolicitud,$_POST["resol_nroSolicitudE"],
+                    $_POST["resol_memorandoE"],$_POST["per_idE"],$_POST["actAca_idE"],$fecha_actAca,$_POST["den_idE"],$subDen);
+                    //echo $expediente;
+                    echo json_encode($expediente);
+                    //echo $expediente;
+
+                }else{
+                    $expediente->insert_expedienteT($_POST["ses_idE"],$_POST["nivel_idE"],$_POST["genCop_idE"],$_POST["esc_codeE"],$_POST["org_idE"],null,
+                    NULL,$resol_fecha,$_POST["resol_numeroE"],$resol_fechaSolicitud,$_POST["resol_nroSolicitudE"],
+                    $_POST["resol_memorandoE"],$_POST["per_idE"],$_POST["actAca_idE"],$fecha_actAca,$_POST["den_idE"],$subDen);
+                    //echo $expediente;
+                    echo json_encode($expediente);
+                    //echo $expediente->errorInfo();
+                } 
+            }
             break;
 
         case "cargarGeneracion":

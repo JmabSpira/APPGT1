@@ -104,6 +104,28 @@
             //echo json_encode($results);
             break;
 
+        case "cargarSubDenominacionPorDen": 
+
+            $den = $_GET["den"];
+
+            $datos = $subdenominacion->cargarSubDenominacionPorDen($den);
+
+            $data= Array();
+
+            foreach ($datos as $row) {
+                # code...
+                $subDen_id = $row['subDen_id'];
+                $subDen_MasFem = $row['subDen_MasFem'];
+                $data[] = array('subDen_id'=>$subDen_id, 'subDen_MasFem'=>$subDen_MasFem);
+            }
+
+            $results = array("data"=>$data);
+            //$results = array($data);
+
+            
+            echo json_encode($data);
+            //echo json_encode($results);
+            break;
 
         case "cargarDenominacion": 
 

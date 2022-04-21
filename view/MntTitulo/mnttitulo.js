@@ -41,6 +41,7 @@ function guardarPersona(e) {
         processData: false,
         success: function (datos) {
 
+            $('#per_idE').val(formData.get('per_idE'));
             $('#per_nroDoc1').val(formData.get('per_nroDoc'));
             $('#per_paterno1').val(formData.get('per_paterno'));
             $('#per_materno1').val(formData.get('per_materno'));
@@ -137,6 +138,34 @@ function validarInput(elemento) {
 
 function cargarEscuelaBT() {
 
+    var inicio = 1;
+    var fin = 60;
+
+    $.ajax({
+        type: 'GET',
+        url: '../../controller/denominacion.php?op=cargarEscuelaE&inicio=' + inicio + '&fin=' + fin,
+        success: function (response) {
+
+            //alert(response);
+            //alert(typeof (response));
+
+            var json = JSON.parse(response);
+            const temp = json;
+            //alert(temp);
+            var $select = $('#esc_code');
+
+            $.each(temp, function (esc_code, esc_alias) {
+                //$('#esc_code').append('<option value="' + fila[1].esc_code + '>' + fila[1].esc_alias + '</option>')
+                $select.append('<option value=' + esc_alias.esc_code + '>' + esc_alias.esc_alias + '</option>');
+            })
+        }
+
+    })
+}
+
+/*
+function cargarEscuelaBT() {
+
     $.ajax({
         type: 'GET',
         url: '../../controller/denominacion.php?op=cargarEscuelaBT',
@@ -158,7 +187,7 @@ function cargarEscuelaBT() {
 
     })
 }
-
+*/
 function leerCambio() {
     document.getElementById('genCop_id').addEventListener("change", cargarGeneracion);
     document.getElementById('esc_code1').addEventListener("change", seleccionarEscuela);
@@ -201,7 +230,7 @@ function guardarExpediente(e) {
             //$('#persona_data').DataTable().ajax.reload();
 
             $.ajax({
-                url: "../../controller/expediente.php?op=guardarBachiller",
+                url: "../../controller/expediente.php?op=guardarExpediente",
                 type: "POST",
                 data: formData,
                 contentType: false,
@@ -218,7 +247,7 @@ function guardarExpediente(e) {
                                 //window.location.reload();
                                 //$('#esc_code1').focus();
                                 //verDatos();
-                                limpiar();
+                                //limpiar();
                             }
                         })
                 }
@@ -381,12 +410,12 @@ function seleccionarEscuela() {
             'Valor inválido.',
             'error'
         )
+
         $('#esc_code1').val(0);
         $select.val(0);
-
         $('#den_id').val(0);
-    }
 
+    }
 
 }
 
@@ -442,7 +471,7 @@ function cargarSesion() {
 
 function cargarDenominacion() {
 
-    var nivel = 1;
+    var nivel = 2;
     var code = $('#esc_code').val();
 
     $.ajax({
@@ -464,6 +493,41 @@ function cargarDenominacion() {
                 $select.append('<option value=' + den_MasFem.den_id + '>' + den_MasFem.den_MasFem + '</option>');
             })
             document.getElementById("den_id").selectedIndex = 1;
+            cargarSubDenominacion();
+        }
+
+    })
+}
+
+function cargarSubDenominacion() {
+
+    var den = $('#den_id').val();
+
+    $.ajax({
+        type: 'GET',
+        url: '../../controller/subdenominacion.php?op=cargarSubDenominacionPorDen&den=' + den,
+        success: function (response) {
+
+            var json = JSON.parse(response);
+            const temp = json;
+            //alert(temp);
+            if (!jQuery.isEmptyObject(temp)) {
+                $('#subDen_id').prop('disabled', false);
+                var $select = $('#subDen_id');
+
+                $select
+                    .empty()
+                    .append('<option selected="selected" value="0">Seleccione Especialidad</option>');
+
+                $.each(temp, function (subDen_id, subDen_MasFem) {
+                    //$('#den_id').append('<option value="' + fila[1].den_id + '>' + fila[1].den_MasFem + '</option>')
+                    $select.append('<option value=' + subDen_MasFem.subDen_id + '>' + subDen_MasFem.subDen_MasFem + '</option>');
+                })
+                document.getElementById("subDen_id").selectedIndex = 1;
+            } else {
+                $('#subDen_id').val(0);
+                $('#subDen_id').prop('disabled', true);
+            }
         }
 
     })

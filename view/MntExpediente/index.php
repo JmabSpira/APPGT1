@@ -398,8 +398,11 @@
                     <div class="card">
                         <div class="card-body row">
                             <div class="col-md-6">
-                                <button type="button" class="btn btn-outline-primary btn-block Exp" id="guardarExp" name = "inp"><i
+                                <button type="submit" id="guardarExp" value="add" name = "inp"
+                                        class="btn btn-outline-primary btn-block Exp"><i
                                         class="fas fa-save" ></i> Guardar</button>
+                                <!-- <button type="button" class="btn btn-outline-primary btn-block Exp"  ><i
+                                        class="fas fa-save" ></i> Guardar</button>-->
                             </div>
                             <div class="col-md-6">
                                 <button type="button" class="btn btn-outline-danger btn-block"><i

@@ -638,3 +638,69 @@ ADD CONSTRAINT `fk_exp_esc`
 
 ALTER TABLE `dbgradostitulos`.`resolucion` 
 ADD COLUMN `resol_memorando` VARCHAR(150) NULL AFTER `resol_nroSolicitud`;
+
+ALTER TABLE `dbgradostitulos`.`expediente` 
+DROP FOREIGN KEY `fk_exp_org`;
+ALTER TABLE `dbgradostitulos`.`expediente` 
+DROP COLUMN `org_id`,
+DROP INDEX `fk_exp_org_idx` ;
+;
+
+
+ALTER TABLE `dbgradostitulos`.`resolucion` 
+CHANGE COLUMN `resol_numero` `resol_numero` VARCHAR(4) NOT NULL ;
+
+ALTER TABLE `dbgradostitulos`.`expediente` 
+CHANGE COLUMN `nivel_id` `nivel_id` INT NOT NULL AFTER `ses_id`;
+
+
+
+USE `dbgradostitulos`;
+DROP procedure IF EXISTS `insertarExpediente`;
+
+DELIMITER $$
+USE `dbgradostitulos`$$
+CREATE PROCEDURE insertarExpediente (in ses_idE int,in nivel_idE int,in genCop_idE int,  in esc_codeE int,
+ in org_idR int,in sesTipo_idR int, in ses_fechaR date,
+ in resol_fechaR date,in resol_numeroR VARCHAR(4), 
+ in resol_fechaSolicitudR date,in resol_nroSolicitudR VARCHAR(15), in resol_memorandoR VARCHAR(150),
+ in per_idE int, in actAca_idE int, in fecha_actAcaE date, in den_idE int, in subDen_idE int)
+BEGIN
+
+	DECLARE EXIT HANDLER FOR SQLEXCEPTION
+	BEGIN
+	SHOW ERRORS LIMIT 1;
+	ROLLBACK;
+	END; 
+    
+	DECLARE EXIT HANDLER FOR SQLWARNING
+	BEGIN
+	SHOW WARNINGS LIMIT 1;
+	ROLLBACK;
+	END;
+    
+	START TRANSACTION;
+     
+    INSERT INTO sesion (org_id,sesTipo_id,ses_fecha,ses_estado,ses_createdate)
+		VALUES (org_idR,sesTipo_idR,ses_fechaR,1,now());
+            -- SELECT MAX(id) AS id FROM tabla
+	INSERT INTO resolucion(ses_id,resol_fecha,resol_numero,resol_fechaSolicitud,resol_nroSolicitud,resol_memorando,resol_estado,resol_createdate)
+		VALUES (LAST_INSERT_ID(),resol_fechaR,resol_numeroR,resol_fechaSolicitudR,resol_nroSolicitudR,resol_memorandoR,1,now());
+	 SET @sexo := (SELECT per_sexo FROM persona WHERE per_id = per_idE);
+	 SET @denF := (SELECT CONCAT(IF(@sexo = 'M', D.den_Mas, D.den_Fem),S.subDen_MasFem)
+		FROM subdenominacion S
+		INNER JOIN denominacion D on S.den_id = D.den_id
+		WHERE D.den_id = den_idE and S.subDen_id = subDen_idE);
+
+	 INSERT INTO expediente(ses_id,nivel_id,genCop_id,esc_code,resol_id,per_id,actAca_id,fecha_actAca,den_id,subDen_id,exp_denominacion,exp_estado,exp_createdate)
+		VALUES (ses_idE,nivel_idE,genCop_idE,esc_codeE,LAST_INSERT_ID(),per_idE,actAca_idE,fecha_actAcaE,den_idE,subDen_idE,@denF,1,now());
+	 
+     COMMIT;
+
+END$$
+
+DELIMITER ;
+
+ALTER TABLE `dbgradostitulos`.`expediente` 
+ADD COLUMN `exp_procesado` SMALLINT NOT NULL DEFAULT '0' AFTER `exp_denominacion`;
+

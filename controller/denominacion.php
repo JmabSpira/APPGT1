@@ -102,5 +102,30 @@
             echo json_encode($data);
             //echo json_encode($results);
             break;
+
+      case "cargarEscuelaE": 
+
+            $inicio = $_GET["inicio"];
+            $fin = $_GET["fin"];
+
+            $datos = $denominacion->cargarEscuelaE($inicio,$fin);
+
+            $data= Array();
+
+            foreach ($datos as $row) {
+                # code...
+                $esc_code = $row['esc_code'];
+                $esc_alias = $row['esc_alias'];
+                $data[] = array('esc_code'=>$esc_code, 'esc_alias'=>$esc_alias);
+            }
+
+            $results = array("data"=>$data);
+            //$results = array($data);
+
+            
+            echo json_encode($data);
+            //echo json_encode($results);
+            break;
+            
     }
 ?>

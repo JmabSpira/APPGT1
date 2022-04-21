@@ -1,4 +1,5 @@
 <?php
+
     class Expediente extends Conectar{
 
         /*
@@ -41,27 +42,79 @@
             return $resultado=$sql->fetchAll();
         }
         */
-        public function insert_expediente($ses_id,$genCop_id,$nivel_id,$esc_id,$org_id,$resol_id,$per_id,$actAca_id,$fecha_actAca,$den_id,$subDen_id,$exp_denominacion){
+        public function verificarExpediente($per_idE,$nivel_idE,$genCop_idE){
+            $conectar = parent::conexion();
+            parent::set_names();
+            $sql = "SELECT COUNT(exp_id) as cantidad FROM expediente WHERE per_id = ? and nivel_id = ? and genCop_id = ?";
+            $sql=$conectar->prepare($sql);
+            $sql->bindValue(1,$per_idE);
+            $sql->bindValue(2,$nivel_idE);
+            $sql->bindValue(3,$genCop_idE);
+            $sql->execute();
+            //return $resultado = $sql->fetch();
+            return $resultado = $sql->fetch();
+        }
+
+        public function insert_expediente($ses_id,$nivel_id,$genCop_id,$esc_code,$org_id,$sesTipo_id,$ses_fecha,$resol_fecha,$resol_numero,
+        $resol_fechaSolicitud,$resol_nroSolicitud,$resol_memorando,$per_id,$actAca_id,$fecha_actAca,$den_id){
             $conectar= parent::conexion();
             parent::set_names();
-            $sql="INSERT INTO expediente (ses_id,genCop_id,nivel_id,esc_id,org_id,resol_id,per_id,actAca_id,fecha_actAca,den_id,subDen_id,exp_denominacion,exp_estado,exp_createdate)
-				VALUES (?,?,?,?,?,?,?,?,?,?,?,?,1, now())";
+            $sql="CALL insertarExpedienteCC(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
             $sql=$conectar->prepare($sql);
             $sql->bindValue(1,$ses_id);
-            $sql->bindValue(2,$genCop_id);
-            $sql->bindValue(3,$nivel_id);
-            $sql->bindValue(4,$esc_id);
+            $sql->bindValue(2,$nivel_id);
+            $sql->bindValue(3,$genCop_id);
+            $sql->bindValue(4,$esc_code);
             $sql->bindValue(5,$org_id);
-            $sql->bindValue(6,$resol_id);
-            $sql->bindValue(7,$per_id);
-            $sql->bindValue(8,$actAca_id);
-            $sql->bindValue(9,$fecha_actAca);
-            $sql->bindValue(10,$den_id);
-            $sql->bindValue(11,$subDen_id);
-            $sql->bindValue(12,$exp_denominacion);
+            $sql->bindValue(6,$sesTipo_id);
+            $sql->bindValue(7,$ses_fecha);
+            $sql->bindValue(8,$resol_fecha);
+            $sql->bindValue(9,$resol_numero);
+            $sql->bindValue(10,$resol_fechaSolicitud);
+            $sql->bindValue(11,$resol_nroSolicitud);
+            $sql->bindValue(12,$resol_memorando);
+            $sql->bindValue(13,$per_id);
+            $sql->bindValue(14,$actAca_id);
+            $sql->bindValue(15,$fecha_actAca);
+            $sql->bindValue(16,$den_id);
             $sql->execute();
+            //return $results=@mysql_query($sql) or die ('Error: '.mysql_error());
             return $resultado=$sql->fetchAll();
         }
+
+        public function insert_expedienteT($ses_id,$nivel_id,$genCop_id,$esc_code,$org_id,$sesTipo_id,$ses_fecha,$resol_fecha,$resol_numero,
+             $resol_fechaSolicitud,$resol_nroSolicitud,$resol_memorando,$per_id,$actAca_id,$fecha_actAca,$den_id,$subDen_id){
+            $conectar= parent::conexion();
+            parent::set_names();
+            $sql="CALL insertarExpedienteT(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
+            $sql=$conectar->prepare($sql);
+            $sql->bindValue(1,$ses_id);
+            $sql->bindValue(2,$nivel_id);
+            $sql->bindValue(3,$genCop_id);
+            $sql->bindValue(4,$esc_code);
+            $sql->bindValue(5,$org_id);
+            $sql->bindValue(6,$sesTipo_id);
+            $sql->bindValue(7,$ses_fecha);
+            $sql->bindValue(8,$resol_fecha);
+            $sql->bindValue(9,$resol_numero);
+            $sql->bindValue(10,$resol_fechaSolicitud);
+            $sql->bindValue(11,$resol_nroSolicitud);
+            $sql->bindValue(12,$resol_memorando);
+            $sql->bindValue(13,$per_id);
+            $sql->bindValue(14,$actAca_id);
+            $sql->bindValue(15,$fecha_actAca);
+            $sql->bindValue(16,$den_id);
+            $sql->bindValue(17,$subDen_id);
+            $sql->execute();
+
+            /*
+            echo "\nPDO::errorInfo():\n";
+            print_r($sql->errorInfo());*/
+            //return $resultado=$sql->errorInfo();
+            //return $results=@mysql_query($sql) or die ('Error: '.mysql_error());
+            return $resultado=$sql->fetchAll();
+        }
+
 /*
         public function update_expediente($subDen_id,$den_id,$subDen_MasFem){
             $conectar= parent::conexion();
@@ -137,6 +190,7 @@
         public function cargarTipoSesion($ses){
             $conectar = parent::conexion();
             parent::set_names();
+            
             $sql = "SELECT sesTipo_id, sesTipo_nombre FROM sesion_tipo WHERE sesTipo_estado = 1 and sesTipo_id = ?";
             $sql=$conectar->prepare($sql);
             $sql->bindValue(1,$ses);
