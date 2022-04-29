@@ -247,7 +247,7 @@ function guardarExpediente(e) {
                                 //window.location.reload();
                                 //$('#esc_code1').focus();
                                 //verDatos();
-                                //limpiar();
+                                limpiar();
                             }
                         })
                 }
