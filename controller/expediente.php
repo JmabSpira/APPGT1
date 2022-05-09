@@ -14,7 +14,31 @@
 
     switch($_GET["op"]){
 
+        case "listar":
+            $datos = $expediente->get_lista_expediente(1);
+            $data= Array();
+            foreach($datos as $row){
+                $sub_array = array();
+                $sub_array[] = $row["exp_id"];
+                $sub_array[] = $row["nombre"];
+                $sub_array[] = $row["exp_denominacion"];
+                $sub_array[] = $row["fechaA"];
+                
+                //$sub_array[] = '<button type="button" onClick="editar('.$row["den_id"].');"  id="'.$row["den_id"].'" class="btn btn-outline-primary btn-icon"><div><i class="fa fa-edit"></i></div></button>';
+                $sub_array[] = '<button type="button" onClick="eliminar('.$row["exp_id"].');"  id="'.$row["exp_id"].'" class="btn btn-outline-danger btn-icon"><div><i class="fa fa-trash"></i></div></button>';
+                $data[]=$sub_array;
+            }
+
+            $results = array(
+                "sEcho"=>1,
+                "iTotalRecords"=>count($data),
+                "iTotalDisplayRecords"=>count($data),
+                "aaData"=>$data);
+            echo json_encode($results);
+
+            break;
         /*
+
         case "listar":
             $datos = $expediente->get_expediente();
             $data= Array();
@@ -67,11 +91,11 @@
                 echo json_encode($output);
             }
             break;
-
+*/
         case "eliminar":
-            $expediente->delete_expediente($_POST["den_id"]);
+            $expediente->delete_expediente($_POST["exp_id"]);
             break;
-        */
+        
 
             /*
         case "guardar":

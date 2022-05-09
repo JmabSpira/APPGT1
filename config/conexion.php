@@ -1,4 +1,5 @@
 <?php
+    
 
     class Conectar{
         protected $dbh;
@@ -21,7 +22,7 @@
         }
 
         public function set_names(){
-			return $this->dbh->query("SET NAMES 'utf8'");
+			return $this->dbh->query("SET NAMES 'utf8'; SET lc_time_names = 'es_ES'");
         }
 
     }

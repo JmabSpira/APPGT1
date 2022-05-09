@@ -704,3 +704,10 @@ DELIMITER ;
 ALTER TABLE `dbgradostitulos`.`expediente` 
 ADD COLUMN `exp_procesado` SMALLINT NOT NULL DEFAULT '0' AFTER `exp_denominacion`;
 
+ALTER TABLE `dbgradostitulos`.`expediente` 
+CHARACTER SET = utf8mb4 , COLLATE = utf8mb4_spanish_ci ;
+
+ALTER SCHEMA `dbgradostitulos`  DEFAULT CHARACTER SET utf8mb4  DEFAULT COLLATE utf8mb4_spanish_ci ;
+
+ALTER SCHEMA `dbgradostitulos`  DEFAULT CHARACTER SET utf8  DEFAULT COLLATE utf8_spanish_ci ;
+

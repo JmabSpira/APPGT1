@@ -15,33 +15,57 @@
             $sql->execute();
             return $resultado=$sql->fetchAll();
         }
+*/
 
-        public function get_expediente_x_id($subDen_id){
+        public function get_lista_expediente($ses_id){
             $conectar= parent::conexion();
             parent::set_names();
-            $sql="SELECT subDen_id,den_id,subDen_MasFem FROM expediente WHERE subDen_id = ?";
+            $sql="SELECT E.exp_id,upper(CONCAT(p.per_nombres,' ',p.per_paterno,' ',p.per_materno)) as nombre, E.exp_denominacion, DATE_FORMAT(IF(s.ses_fecha is null,r.resol_fecha,s.ses_fecha),'%d/%m/%Y') as fechaA FROM EXPEDIENTE E
+            INNER JOIN persona p on p.per_id = E.per_id
+            INNER JOIN resolucion r on r.resol_id = E.resol_id
+            INNER JOIN sesion s on s.ses_id = r.ses_id
+            INNER JOIN escuela es on es.esc_code = E.esc_code
+            INNER JOIN acto_academico a on a.actAca_id = E.actAca_id
+            where E.ses_id = ?
+            ORDER BY a.actAca_nombre,es.fac_id,E.esc_code,p.per_nombres asc";
             $sql=$conectar->prepare($sql);
-            $sql->bindValue(1,$subDen_id);
+            $sql->bindValue(1,$ses_id);
+            $sql->execute();
+            return $resultado=$sql->fetchAll();
+        }
+
+        public function get_expediente_x_id($id){
+            $conectar= parent::conexion();
+            parent::set_names();
+            $sql="SELECT E.exp_id,r.resol_memorando,f.fac_nombre,E.exp_denominacion,p.per_sexo,CONCAT(p.per_nombres,' ',p.per_paterno,' ',p.per_materno) as nombre,
+            r.resol_nroSolicitud, CONCAT(DAY(r.resol_fechaSolicitud),' de ',MONTHNAME(r.resol_fechaSolicitud),' de ',YEAR(r.resol_fechaSolicitud)) as fechaSolicitud,
+            es.esc_alias,CONCAT(DAY(E.fecha_actAca),' de ',MONTHNAME(E.fecha_actAca),' de ',YEAR(E.fecha_actAca)) as factAca,
+            CONCAT(DAY(s.ses_fecha),' de ',MONTHNAME(s.ses_fecha),' de ',YEAR(s.ses_fecha)) as sesfecha,
+            CONCAT(r.resol_numero,'-',YEAR(r.resol_fecha)) as resolcom,
+            CONCAT(DAY(r.resol_fecha),' de ',MONTHNAME(r.resol_fecha),' de ',YEAR(r.resol_fecha)) as resolfecha FROM EXPEDIENTE E
+            INNER JOIN persona p on p.per_id = E.per_id
+            INNER JOIN resolucion r on r.resol_id = E.resol_id
+            INNER JOIN sesion s on s.ses_id = r.ses_id
+            INNER JOIN escuela es on es.esc_code = E.esc_code
+            INNER JOIN facultad f on es.fac_id = f.fac_id
+            where E.exp_id = ?";
+            $sql=$conectar->prepare($sql);
+            $sql->bindValue(1,$id);
             $sql->execute();
             return $resultado=$sql->fetchAll();
         }
 
 
-        public function delete_expediente($subDen_id){
+        public function delete_expediente($exp_id){
             $conectar= parent::conexion();
             parent::set_names();
-            $sql="UPDATE expediente
-                SET
-                    subDen_estado=0,
-                    subDen_deletedate=now()
-                WHERE
-                    subDen_id = ?";
+            $sql="DELETE FROM expediente WHERE exp_id = ?";
             $sql=$conectar->prepare($sql);
-            $sql->bindValue(1,$subDen_id);
+            $sql->bindValue(1,$exp_id);
             $sql->execute();
             return $resultado=$sql->fetchAll();
         }
-        */
+        
         public function verificarExpediente($per_idE,$nivel_idE,$genCop_idE){
             $conectar = parent::conexion();
             parent::set_names();

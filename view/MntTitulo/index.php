@@ -43,7 +43,7 @@
                         <div class="row">
                             <input type="hidden" id="exp_id" name="exp_id">
                             <div class="col-md-6">
-                                <div class="card card-info">
+                                <div class="card card-primary">
                                     <div class="card-header">
                                         <h3 class="card-title">Información del Diploma</h3>
                                     </div>
@@ -132,7 +132,7 @@
                                     <!--</form>-->
 
                                 </div>
-                                <div class="card card-success">
+                                <div class="card card-orange">
                                     <div class="card-header">
                                         <h3 class="card-title">Información de la Resolución de la Facultad</h3>
                                     </div>
@@ -210,7 +210,7 @@
                                     <!--</form>-->
                                 </div>
                                 <!-- /.card -->
-                                <div class="card card-danger">
+                                <div class="card card-olive">
                                     <div class="card-header">
                                         <h3 class="card-title">Información del Expediente</h3>
                                     </div>
@@ -265,7 +265,7 @@
                             <!-- right column -->
                             <div class="col-md-6">
                                 <!-- Form Element sizes -->
-                                <div class="card card-primary">
+                                <div class="card card-lightblue">
 
                                     <div class="card-header">
                                         <h3 class="card-title">Información del Interesado</h3>
@@ -353,7 +353,7 @@
                                 <!-- /.card -->
 
                                 <!-- general form elements disabled -->
-                                <div class="card card-warning">
+                                <div class="card card-maroon">
                                     <div class="card-header">
                                         <h3 class="card-title">Información del Acto Académico</h3>
                                     </div>
