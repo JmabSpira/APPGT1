@@ -711,3 +711,50 @@ ALTER SCHEMA `dbgradostitulos`  DEFAULT CHARACTER SET utf8mb4  DEFAULT COLLATE u
 
 ALTER SCHEMA `dbgradostitulos`  DEFAULT CHARACTER SET utf8  DEFAULT COLLATE utf8_spanish_ci ;
 
+ALTER TABLE `dbgradostitulos`.`facultad` 
+ADD COLUMN `fac_alias` VARCHAR(150) NULL DEFAULT NULL AFTER `fac_nombre`,
+ADD COLUMN `fac_autoridad` VARCHAR(150) NULL DEFAULT NULL AFTER `fac_sigla`;
+
+
+CREATE TABLE `dbgradostitulos`.`diligencia` (
+  `dil_id` INT NOT NULL AUTO_INCREMENT,
+  `dil_proveido` VARCHAR(150) NOT NULL DEFAULT 'NULL',
+  `dil_memosg` VARCHAR(150) NOT NULL DEFAULT 'NULL',
+  `dil_memogt` VARCHAR(150) NOT NULL DEFAULT 'NULL',
+  `dil_estado` TINYINT(1) NOT NULL DEFAULT 1,
+  `dil_createdate` DATETIME NULL,
+  `dil_modifieddate` DATETIME NULL,
+  `dil_deletedate` DATETIME NULL,
+  PRIMARY KEY (`dil_id`))
+ENGINE = InnoDB
+DEFAULT CHARACTER SET = utf8
+COLLATE = utf8_spanish_ci;
+
+ALTER TABLE `dbgradostitulos`.`diligencia` 
+ADD COLUMN `dil_fechaE` DATE NOT NULL AFTER `dil_memogt`;
+
+CREATE TABLE `dbgradostitulos`.`documento` (
+  `doc_id` INT NOT NULL AUTO_INCREMENT,
+  `exp_id` INT NOT NULL,
+  `dil_id` INT NOT NULL,
+  `doc_nombre` VARCHAR(50) NULL,
+  `doc_createdate` DATETIME NULL,
+  PRIMARY KEY (`doc_id`),
+  INDEX `fk_doc_exp_idx` (`exp_id` ASC) VISIBLE,
+  INDEX `fk_doc_dil_idx` (`dil_id` ASC) VISIBLE,
+  CONSTRAINT `fk_doc_exp`
+    FOREIGN KEY (`exp_id`)
+    REFERENCES `dbgradostitulos`.`expediente` (`exp_id`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION,
+  CONSTRAINT `fk_doc_dil`
+    FOREIGN KEY (`dil_id`)
+    REFERENCES `dbgradostitulos`.`diligencia` (`dil_id`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION)
+ENGINE = InnoDB
+DEFAULT CHARACTER SET = utf8
+COLLATE = utf8_spanish_ci;
+
+ALTER TABLE `dbgradostitulos`.`documento` 
+CHANGE COLUMN `doc_tipo` `doc_tipo` CHAR(3) NOT NULL ;

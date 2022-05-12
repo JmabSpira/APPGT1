@@ -3,7 +3,7 @@
 
 <head>
   <?php require_once("../../mainhead.php");?>
-  <title>Resoluciones</title>
+  <title>Diploma</title>
 </head>
 
 <body class="hold-transition sidebar-mini">
@@ -21,11 +21,11 @@
         <div class="container-fluid">
           <div class="row mb-2">
             <div class="col-sm-6">
-              <h1>Resoluciones</h1>
+              <h1>Diploma</h1>
             </div>
             <div class="col-sm-6">
               <ol class="breadcrumb float-sm-right">
-                <li class="breadcrumb-item"><a href="#">Resoluciones</a></li>
+                <li class="breadcrumb-item"><a href="#">Diploma</a></li>
                 <li class="breadcrumb-item active"></li>
               </ol>
             </div>
@@ -41,7 +41,7 @@
             <div class="col-12">
               <div class="card card-primary">
                 <div class="card-header">
-                  <h3 class="card-title">Resoluciones</h3>
+                  <h3 class="card-title">Diploma</h3>
                 </div>
 
                 <!-- /.card-header -->
@@ -51,39 +51,26 @@
                       <label for="nivel_id" class="col-form-label">Sesión Universitaria Actual</label>
                     </div>
                     <div class="col-3">
-                      <label for="nivel_id" class="col-form-label">Proveido del Rectorado</label>
+                      <label for="nivel_id" class="col-form-label">Fecha de Entrega</label>
                     </div>
                     <div class="col-3">
-                      <label for="nivel_id" class="col-form-label">Memo. de Secretaría General</label>
+                      <label for="nivel_id" class="col-form-label">Nro Resolución Inicial</label>
                     </div>
-                    <div class="col-3">
-                      <label for="nivel_id" class="col-form-label">Memo. de Grados y Títulos</label>
-                    </div>
-                  </div>
+                  </div>  
                   <div class="row">
                     <div class="col-3">
                       <input type="text" class="form-control" placeholder="Sesión Actual" readonly>
                     </div>
                     <div class="col-3">
-                      <input type="text" class="form-control" placeholder="Proveido" readonly>
+                      <input type="text" class="form-control" placeholder="Fecha de entrega" readonly>
                     </div>
                     <div class="col-3">
-                      <input type="text" class="form-control" placeholder="Memo SG" readonly>
+                      <input type="text" class="form-control" placeholder="Nro Resolución Inicial" readonly>
                     </div>
                     <div class="col-3">
-                      <input type="text" class="form-control" placeholder="Memo GT" readonly>
+                      <button id="btnnuevo" type="button" class="btn btn-block btn-outline-primary">Generar Diplomas</button>
                     </div>
                   </div>
-                  <br>
-                  <div class="row">
-                    <div class="col-12" style="text-align:center">
-                      <label  for="nivel_id" class="col-form-label">Actualmente hay 178 expedientes sin procesar.</label>
-                    </div>
-                  </div>
-                  <br>
-                  <button id="btnnuevo" type="button" class="btn btn-block btn-outline-primary">Procesar
-                    Expedientes</button>
-
                   <br>
                   <table id="resolucion_data" class="table table-bordered table-striped">
                     <thead>
@@ -92,11 +79,11 @@
                         <th>Exp</th>
                         <th>Nombres</th>
                         <th>Denominación</th>
-                        <th>Fecha Aprobación</th>
+                        <th>RCU Nº</th>
                         <!-- /.card-header 
-                                <th>Tipo Doc</th>
+                                <th>Diploma Nº</th>
                                 -->
-                        <th></th>
+                        <th>Doc.</th>
                       </tr>
                     </thead>
                     <tbody>
@@ -116,7 +103,7 @@
     </div>
     <!-- /.content-wrapper -->
 
-    <?php require_once("modalresolucion.php");?>
+    <?php require_once("modaldiploma.php");?>
     <?php require_once("../../footer.php");?>
 
     <!-- Control Sidebar -->
@@ -130,7 +117,18 @@
 
   <script src="//cdn.jsdelivr.net/npm/sweetalert2@10"></script>
 
-  <script type="text/javascript" src="mntresolucion.js"></script>
+  <script type="text/javascript" src="mntdiploma.js"></script>
+    <script>
+        $(function () {
+            //Datemask dd/mm/yyyy
+            $('#datemask').inputmask('dd/mm/yyyy', {
+                'placeholder': 'dd/mm/yyyy'
+            })
+
+            $('[data-mask]').inputmask()
+
+        })
+    </script>
 </body>
 
 </html>

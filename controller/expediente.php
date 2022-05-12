@@ -19,6 +19,7 @@
             $data= Array();
             foreach($datos as $row){
                 $sub_array = array();
+                $sub_array[] = $row["num"];
                 $sub_array[] = $row["exp_id"];
                 $sub_array[] = $row["nombre"];
                 $sub_array[] = $row["exp_denominacion"];
@@ -92,6 +93,7 @@
             }
             break;
 */
+
         case "eliminar":
             $expediente->delete_expediente($_POST["exp_id"]);
             break;

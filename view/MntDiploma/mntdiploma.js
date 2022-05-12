@@ -1,15 +1,17 @@
 var tabla;
+var combo;
 
 function init() {
-    $("#facultad_form").on("submit", function (e) {
-        guardaryeditar(e);
+    $("#resolucion_form").on("submit", function (e) {
+        //guardaryeditar(e);
+        procesarExpediente(e);
 
     });
-
 }
 
 $(document).ready(function () {
-    tabla = $('#facultad_data').dataTable({
+
+    tabla = $('#resolucion_data').dataTable({
         "aProcessing": true, //Activamos el procesamiento del datatables
         "aServerSide": true, //Paginación y filtrado realizados por el servidor
         dom: 'Bfrtip', //Definimos los elementos del control de tabla
@@ -20,7 +22,7 @@ $(document).ready(function () {
             'pdf'
         ],
         "ajax": {
-            url: '../../controller/facultad.php?op=listar',
+            url: '../../controller/expediente.php?op=listar',
             type: "get",
             dataType: "json",
             error: function (e) {
@@ -62,23 +64,26 @@ $(document).ready(function () {
 });
 
 
+function procesarExpediente(e) {
+    e.preventDefault();
+    console.log("Se van a procesar los expedientes");
+}
 
-
-
+/*
 function guardaryeditar(e) {
     e.preventDefault();
-    var formData = new FormData($("#facultad_form")[0]);
+    var formData = new FormData($("#resolucion_form")[0]);
     $.ajax({
-        url: "../../controller/facultad.php?op=guardaryeditar",
+        url: "../../controller/denominacion.php?op=guardaryeditar",
         type: "POST",
         data: formData,
         contentType: false,
         processData: false,
         success: function (datos) {
 
-            $('#facultad_form')[0].reset();
+            $('#resolucion_form')[0].reset();
             $("#modalmantenimiento").modal('hide');
-            $('#facultad_data').DataTable().ajax.reload();
+            $('#denominacion_data').DataTable().ajax.reload();
 
             swal.fire(
                 'Registro!',
@@ -88,29 +93,32 @@ function guardaryeditar(e) {
         }
     });
 }
-
-function editar(fac_id) {
-    $.post("../../controller/facultad.php?op=mostrar", {
-        fac_id: fac_id
+*/
+/*
+function editar(exp_id) {
+    $.post("../../controller/denominacion.php?op=mostrar", {
+        exp_id: exp_id
     }, function (data) {
         data = JSON.parse(data);
-        $('#fac_id').val(data.fac_id);
-        $('#fac_nombre').val(data.fac_nombre);
-        $('#fac_alias').val(data.fac_alias);
-        $('#fac_sigla').val(data.fac_sigla);
-        $('#fac_autoridad').val(data.fac_autoridad);
+        $('#exp_id').val(data.exp_id);
+        $('#nivel_id').val(data.nivel_id);
+        $('#esc_code').val(data.esc_code);
+        $('#den_Mas').val(data.den_Mas);
+        $('#den_Fem').val(data.den_Fem);
+        $('#den_MasFem').val(data.den_MasFem);
+
     });
     $('#mdltitulo').html('Editar Registro');
     $('#modalmantenimiento').modal('show');
 
 }
+*/
 
-
-function eliminar(fac_id) {
+function eliminar(exp_id) {
 
     swal.fire({
-        title: 'FACULTADES',
-        text: "Esta seguro de Eliminar el Registro?",
+        title: 'EXPEDIENTE',
+        text: "Esta seguro de Eliminar el Expediente?",
         icon: 'error',
         showCancelButton: true,
         confirmButtonText: 'Si',
@@ -119,29 +127,31 @@ function eliminar(fac_id) {
     }).then((result) => {
         if (result.isConfirmed) {
 
-            $.post("../../controller/facultad.php?op=eliminar", {
-                fac_id: fac_id
+            $.post("../../controller/expediente.php?op=eliminar", {
+                exp_id: exp_id
             }, function (data) {
 
             });
 
+            //$('#denominacion_data').DataTable().ajax.reload();
+
             swal.fire(
                 'Eliminado!',
-                'El registro se elimino correctamente.',
+                'El expediente se elimino correctamente.',
                 'success'
             )
         }
-        $('#facultad_data').DataTable().ajax.reload();
+        $('#resolucion_data').DataTable().ajax.reload();
     })
 
 }
 
 
 $(document).on("click", "#btnnuevo", function () {
-    $('#fac_id').val('');
+    $('#exp_id').val('');
     $('#mdltitulo').html('Nuevo Registro');
     $('#modalmantenimiento').modal('show');
-    $('#facultad_form')[0].reset();
+    $('#resolucion_form')[0].reset();
 
 });
 

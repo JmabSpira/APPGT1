@@ -14,7 +14,9 @@
                 $sub_array = array();
                 $sub_array[] = $row["fac_id"];
                 $sub_array[] = $row["fac_nombre"];
+                $sub_array[] = $row["fac_alias"];
                 $sub_array[] = $row["fac_sigla"];
+                $sub_array[] = $row["fac_autoridad"];
                 
                 $sub_array[] = '<button type="button" onClick="editar('.$row["fac_id"].');"  id="'.$row["fac_id"].'" class="btn btn-outline-primary btn-icon"><div><i class="fa fa-edit"></i></div></button>';
                 $sub_array[] = '<button type="button" onClick="eliminar('.$row["fac_id"].');"  id="'.$row["fac_id"].'" class="btn btn-outline-danger btn-icon"><div><i class="fa fa-trash"></i></div></button>';
@@ -34,10 +36,10 @@
             $datos=$facultad->get_facultad_x_id($_POST["fac_id"]);
             if(empty($_POST["fac_id"])){
                 if(is_array($datos)==true and count($datos)==0){
-                    $facultad->insert_facultad($_POST["fac_nombre"],$_POST["fac_sigla"]);
+                    $facultad->insert_facultad($_POST["fac_nombre"],$_POST["fac_alias"],$_POST["fac_sigla"],$_POST["fac_autoridad"]);
                 }
             }else{
-                $facultad->update_facultad($_POST["fac_id"],$_POST["fac_nombre"],$_POST["fac_sigla"]);
+                $facultad->update_facultad($_POST["fac_id"],$_POST["fac_nombre"],$_POST["fac_alias"],$_POST["fac_sigla"],$_POST["fac_autoridad"]);
             }
             break;
 
@@ -47,7 +49,9 @@
                 foreach($datos as $row){
                     $output["fac_id"] = $row["fac_id"];
                     $output["fac_nombre"] = $row["fac_nombre"];
+                    $output["fac_alias"] = $row["fac_alias"];
                     $output["fac_sigla"] = $row["fac_sigla"];
+                    $output["fac_autoridad"] = $row["fac_autoridad"];
                 }
                 echo json_encode($output);
             }

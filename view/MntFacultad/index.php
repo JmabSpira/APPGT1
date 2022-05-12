@@ -51,7 +51,9 @@
                             <tr>
                                 <th>Código</th>
                                 <th>Nombre</th>
+                                <th>Alias</th>
                                 <th>Sigla</th>
+                                <th>Autoridad</th>
                                 <th></th>
                                 <th></th>
                             </tr>

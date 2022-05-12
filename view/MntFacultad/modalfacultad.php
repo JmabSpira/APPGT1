@@ -14,9 +14,19 @@
                             placeholder="Ingrese Nombre de Facultad" required>
                     </div>
                     <div class="form-group">
+                        <label class="form-label" for="fac_alias">Alias:</label>
+                        <input type="text" class="form-control" id="fac_alias" name="fac_alias"
+                            placeholder="Ingrese Alias de Facultad" required>
+                    </div>
+                    <div class="form-group">
                         <label class="form-label" for="fac_sigla">Sigla:</label>
                         <input type="text" class="form-control" id="fac_sigla" name="fac_sigla"
                             placeholder="Ingrese Sigla:" required>
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label" for="fac_autoridad">Autoridad:</label>
+                        <input type="text" class="form-control" id="fac_autoridad" name="fac_autoridad"
+                            placeholder="Ingrese Autoridad de Facultad" required>
                     </div>
                     <!-- 
                     <div class="form-group">

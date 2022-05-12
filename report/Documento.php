@@ -4,9 +4,6 @@
     require_once("../config/conexion.php");
     require_once("../models/Expediente.php");
 
-
-
-
     function generarResolucionIndividual($id){
 
             $expediente = new Expediente();

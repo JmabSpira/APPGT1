@@ -20,14 +20,13 @@
         public function get_lista_expediente($ses_id){
             $conectar= parent::conexion();
             parent::set_names();
-            $sql="SELECT E.exp_id,upper(CONCAT(p.per_nombres,' ',p.per_paterno,' ',p.per_materno)) as nombre, E.exp_denominacion, DATE_FORMAT(IF(s.ses_fecha is null,r.resol_fecha,s.ses_fecha),'%d/%m/%Y') as fechaA FROM EXPEDIENTE E
+            $sql="SELECT ROW_NUMBER() over (ORDER BY E.nivel_id,es.fac_id,E.esc_code,a.actAca_nombre,p.per_nombres asc) as num,E.exp_id,upper(CONCAT(p.per_nombres,' ',p.per_paterno,' ',p.per_materno)) as nombre, E.exp_denominacion, DATE_FORMAT(IF(s.ses_fecha is null,r.resol_fecha,s.ses_fecha),'%d/%m/%Y') as fechaA FROM EXPEDIENTE E
             INNER JOIN persona p on p.per_id = E.per_id
             INNER JOIN resolucion r on r.resol_id = E.resol_id
             INNER JOIN sesion s on s.ses_id = r.ses_id
             INNER JOIN escuela es on es.esc_code = E.esc_code
             INNER JOIN acto_academico a on a.actAca_id = E.actAca_id
-            where E.ses_id = ?
-            ORDER BY a.actAca_nombre,es.fac_id,E.esc_code,p.per_nombres asc";
+            where E.ses_id = ?";
             $sql=$conectar->prepare($sql);
             $sql->bindValue(1,$ses_id);
             $sql->execute();
@@ -40,8 +39,8 @@
             $sql="SELECT E.exp_id,r.resol_memorando,f.fac_nombre,E.exp_denominacion,p.per_sexo,CONCAT(p.per_nombres,' ',p.per_paterno,' ',p.per_materno) as nombre,
             r.resol_nroSolicitud, CONCAT(DAY(r.resol_fechaSolicitud),' de ',MONTHNAME(r.resol_fechaSolicitud),' de ',YEAR(r.resol_fechaSolicitud)) as fechaSolicitud,
             es.esc_alias,CONCAT(DAY(E.fecha_actAca),' de ',MONTHNAME(E.fecha_actAca),' de ',YEAR(E.fecha_actAca)) as factAca,
-            CONCAT(DAY(s.ses_fecha),' de ',MONTHNAME(s.ses_fecha),' de ',YEAR(s.ses_fecha)) as sesfecha,
-            CONCAT(r.resol_numero,'-',YEAR(r.resol_fecha)) as resolcom,
+            CONCAT(DAY(s.ses_fecha),' de ',MONTHNAME(s.ses_fecha),' de ',YEAR(s.ses_fecha)) as sesfecha,s.org_id,
+            CONCAT(r.resol_numero,'-',YEAR(r.resol_fecha),'-',f.fac_sigla) as resolcom,
             CONCAT(DAY(r.resol_fecha),' de ',MONTHNAME(r.resol_fecha),' de ',YEAR(r.resol_fecha)) as resolfecha FROM EXPEDIENTE E
             INNER JOIN persona p on p.per_id = E.per_id
             INNER JOIN resolucion r on r.resol_id = E.resol_id
