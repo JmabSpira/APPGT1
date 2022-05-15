@@ -127,12 +127,8 @@
             $TBS->MergeField('pro.escuela', $escuela);
             $TBS->MergeField('pro.letra', $letra);
 
-
-
-
             $TBS->PlugIn(OPENTBS_DELETE_COMMENTS);
 
-            
             $save_as = (isset($_POST['save_as']) && (trim($_POST['save_as'])!=='') && ($_SERVER['SERVER_NAME']=='localhost')) ? trim($_POST['save_as']) : '';
             $output_file_name = str_replace('.', $nombre.'_'.date('Y-m-d').$save_as.'.', $template);
             //se verifica si el nombre esta vacio
@@ -143,8 +139,6 @@
                 $TBS->Show(OPENTBS_FILE, $output_file_name);
                 exit("Resolución [$output_file_name] ha sido creado.");
             }
-            
-
     }
 
     generarResolucionIndividual(13);

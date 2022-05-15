@@ -127,9 +127,7 @@
                 $TBS->Show(OPENTBS_FILE, $output_file_name);
                 exit("Resolución [$output_file_name] ha sido creado.");
             }
-            
-
     }
-    generarResolucionIndividual(12,1);
+    generarResolucionIndividual(13,1);
 
 ?>
