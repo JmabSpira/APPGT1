@@ -15,7 +15,9 @@
     switch($_GET["op"]){
 
         case "listar":
-            $datos = $expediente->get_lista_expediente(1);
+            $ses = $_GET["ses"];
+
+            $datos = $expediente->get_lista_expediente($ses);
             $data= Array();
             foreach($datos as $row){
                 $sub_array = array();
@@ -38,6 +40,38 @@
             echo json_encode($results);
 
             break;
+
+        case "listarR":
+
+            $ses = $_GET["ses"];
+            $dil = $_GET["dil"];
+
+            $datos = $expediente->get_lista_expediente($ses);
+            $data= Array();
+            foreach($datos as $row){
+                $sub_array = array();
+                $sub_array[] = $row["num"];
+                $sub_array[] = $row["exp_id"];
+                $sub_array[] = $row["nombre"];
+                $sub_array[] = $row["exp_denominacion"];
+                
+                $href = 'href="../../report/resolucionBF.php?exp='.$row["exp_id"].'&dil='.$dil.'&tipo=1"';
+
+                //$sub_array[] = '<button '.$estado.' type="button" onClick="generarDoc('.$row["doc_id"].');"  id="'.$row["doc_id"].'" class="btn btn-outline-primary btn-icon"><div><i class="fa fa-file-word"></i></div></button>';
+                $sub_array[] = '<a '.$href.'><button type="button" class="btn btn-outline-primary btn-icon"><div><i class="fa fa-file-word"></i></div></button> 
+                </a>';
+                $data[]=$sub_array;
+            }
+
+            $results = array(
+                "sEcho"=>1,
+                "iTotalRecords"=>count($data),
+                "iTotalDisplayRecords"=>count($data),
+                "aaData"=>$data);
+            echo json_encode($results);
+
+            break;
+
         /*
 
         case "listar":

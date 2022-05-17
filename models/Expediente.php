@@ -17,6 +17,7 @@
         }
 */
 
+        
         public function get_lista_expediente($ses_id){
             $conectar= parent::conexion();
             parent::set_names();
@@ -54,6 +55,18 @@
             return $resultado=$sql->fetchAll();
         }
 
+        public function get_diligencia($dil_id){
+            $conectar= parent::conexion();
+            parent::set_names();
+            $sql="SELECT dil_id,d.ses_id,CONCAT(DAY(s.ses_fecha),' de ',MONTHNAME(s.ses_fecha),' de ',YEAR(s.ses_fecha)) as sesfecha,dil_proveido,dil_memosg,dil_memogt,dil_fechaE
+            FROM  diligencia d
+            INNER JOIN sesion s on s.ses_id = d.ses_id
+            WHERE dil_id = ? and dil_estado = 1;";
+            $sql=$conectar->prepare($sql);
+            $sql->bindValue(1,$dil_id);
+            $sql->execute();
+            return $resultado=$sql->fetchAll();
+        }
 
         public function delete_expediente($exp_id){
             $conectar= parent::conexion();
@@ -176,6 +189,21 @@
             return $resultado=$sql->fetchAll();
         }
 */
+
+        public function get_expedientes($ses){
+            $conectar= parent::conexion();
+            parent::set_names();
+            $sql="SELECT ROW_NUMBER() over (ORDER BY E.nivel_id,es.fac_id,E.esc_code,a.actAca_nombre,p.per_nombres asc) as num,E.exp_id FROM expediente E
+            INNER JOIN escuela es on es.esc_code = E.esc_code
+            INNER JOIN acto_academico a on a.actAca_id = E.actAca_id
+            INNER JOIN persona p on p.per_id = E.per_id
+            where E.ses_id = ? LIMIT 3";
+            $sql=$conectar->prepare($sql);
+            $sql->bindValue(1,$ses);
+            $sql->execute();
+            return $resultado=$sql->fetchAll();
+        }
+
 
         public function cargarGeneracion($genCop_id){
             $conectar = parent::conexion();

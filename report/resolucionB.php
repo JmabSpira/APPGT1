@@ -24,8 +24,7 @@
         return $cadena;
     }
 
-    function generarResolucionIndividual($exp_id,$dil_id){
-
+    function generarResolucionIndividual($doc_id,$tipo){
             $expediente = new Expediente();
             $TBS = new clsTinyButStrong; 
             $TBS->Plugin(TBS_INSTALL, OPENTBS_PLUGIN); 
@@ -51,7 +50,7 @@
             $sexo = "";
             $org_id = 7;
 
-            $datos = $expediente->get_expediente_x_id($exp_id);
+            $datos = $expediente->get_expediente_x_id(103);
             if(is_array($datos)==true and count($datos)>0){
                 foreach($datos as $row){
                     $idExp = $row["exp_id"];
@@ -92,7 +91,7 @@
             $letra = ($sexo =='M') ? 'o' : 'a';
 
                 //Cargando template
-            $template = 'RB.docx';  
+            $template = 'Resolucion/RB.docx';  
 
             $TBS->LoadTemplate($template, OPENTBS_ALREADY_UTF8);
 
@@ -117,10 +116,20 @@
 
             $TBS->PlugIn(OPENTBS_DELETE_COMMENTS);
             
-            $save_as = (isset($_POST['save_as']) && (trim($_POST['save_as'])!=='') && ($_SERVER['SERVER_NAME']=='localhost')) ? trim($_POST['save_as']) : '';
-            $output_file_name = str_replace('.', $nombre.'_'.date('Y-m-d').$save_as.'.', $template);
+            $save = '';
+            //$save_as = (isset($_POST['save_as']) && (trim($_POST['save_as'])!=='') && ($_SERVER['SERVER_NAME']=='localhost')) ? trim($_POST['save_as']) : '';
+            if ($tipo == 1) {
+                //0 siginifica descagar automática
+                $save = (isset($_POST['save_as']) && (trim($_POST['save_as'])!=='') && ($_SERVER['SERVER_NAME']=='localhost')) ? trim($_POST['save_as']) : '';
+            }else{
+                //1 significa preguntar donde descargar
+                $save = ' ';
+            }
+            
+            $output_file_name = str_replace('.', $nombre.'_'.date('Y-m-d').$save.'.', $template);
+            //$save = ($tipo ==1) ? 'i' : '';
             //se verifica si el nombre esta vacio
-            if ($save_as==='s') {
+            if ($save==='') {
                 $TBS->Show(OPENTBS_DOWNLOAD, $output_file_name);
                 exit();
             } else {
@@ -128,6 +137,17 @@
                 exit("Resolución [$output_file_name] ha sido creado.");
             }
     }
-    generarResolucionIndividual(13,1);
-
+    
+    generarResolucionIndividual(103,0);;
+/*
+    if (isset($_GET['doc'],$_GET['tipo'])) {
+        $doc = $_GET['doc'];
+        $tipo = $_GET['tipo'];
+        generarResolucionIndividual($doc,$tipo);
+    }else{
+        $doc = $_GET['doc'];
+        $tipo = $_GET['tipo'];
+        echo("No se ha podido pasar los datos: ".$doc . $tipo);
+    }
+    */
 ?>

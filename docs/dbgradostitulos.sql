@@ -758,3 +758,54 @@ COLLATE = utf8_spanish_ci;
 
 ALTER TABLE `dbgradostitulos`.`documento` 
 CHANGE COLUMN `doc_tipo` `doc_tipo` CHAR(3) NOT NULL ;
+
+ALTER TABLE `dbgradostitulos`.`documento` 
+DROP COLUMN `doc_tipo`;
+
+
+
+
+CREATE TABLE `dbgradostitulos`.`diploma` (
+  `dip_id` INT NOT NULL AUTO_INCREMENT,
+  `exp_id` INT NOT NULL,
+  `dil_id` INT NOT NULL,
+  `dip_nombre` VARCHAR(50) NULL DEFAULT 'NULL',
+  `dip_createdate` DATETIME NULL,
+  PRIMARY KEY (`dip_id`),
+  INDEX `fk_dip_exp_idx` (`exp_id` ASC) VISIBLE,
+  INDEX `fk_dip_dil_idx` (`dil_id` ASC) VISIBLE,
+  CONSTRAINT `fk_dip_exp`
+    FOREIGN KEY (`exp_id`)
+    REFERENCES `dbgradostitulos`.`expediente` (`exp_id`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION,
+  CONSTRAINT `fk_dip_dil`
+    FOREIGN KEY (`dil_id`)
+    REFERENCES `dbgradostitulos`.`diligencia` (`dil_id`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION)
+ENGINE = InnoDB
+DEFAULT CHARACTER SET = utf8
+COLLATE = utf8_spanish_ci;
+
+ALTER TABLE `dbgradostitulos`.`documento` 
+ADD UNIQUE INDEX `exp_id_UNIQUE` (`exp_id` ASC) VISIBLE,
+ADD UNIQUE INDEX `dil_id_UNIQUE` (`dil_id` ASC) VISIBLE;
+;
+
+ALTER TABLE `dbgradostitulos`.`documento` 
+DROP INDEX `dil_id_UNIQUE` ,
+DROP INDEX `exp_id_UNIQUE` ;
+
+;
+
+ALTER TABLE `dbgradostitulos`.`diligencia` 
+ADD COLUMN `ses_id` INT NOT NULL AFTER `dil_id`,
+ADD INDEX `fk_dil_ses_idx` (`ses_id` ASC) VISIBLE;
+;
+ALTER TABLE `dbgradostitulos`.`diligencia` 
+ADD CONSTRAINT `fk_dil_ses`
+  FOREIGN KEY (`ses_id`)
+  REFERENCES `dbgradostitulos`.`sesion` (`ses_id`)
+  ON DELETE NO ACTION
+  ON UPDATE NO ACTION;

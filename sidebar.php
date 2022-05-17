@@ -39,7 +39,7 @@
             <a href="#" class="nav-link">
               <i class="nav-icon fas fa-tachometer-alt"></i>
               <p>
-                Home
+                Inicio
                 <i class="right fas fa-angle-left"></i>
               </p>
             </a>
@@ -65,11 +65,10 @@
             </ul>
           </li>
           <li class="nav-item">
-            <a href="../MntResolucion/" class="nav-link">
+            <a href="../MntLista/" class="nav-link">
               <i class="nav-icon fas fa-th"></i>
               <p>
-                Resoluciones
-                <span class="right badge badge-danger">Nuevo</span>
+                Lista de Expedientes
               </p>
             </a>
           </li>
@@ -80,7 +79,6 @@
               <p>
                 Expedientes
                 <i class="fas fa-angle-left right"></i>
-                <span class="badge badge-info right">7</span>
               </p>
             </a>
             <ul class="nav nav-treeview">
@@ -138,7 +136,6 @@
               <i class="nav-icon far fa-calendar-alt"></i>
               <p>
                 PERSONA
-                <span class="badge badge-info right">2</span>
               </p>
             </a>
           </li>

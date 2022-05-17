@@ -3,7 +3,7 @@
 
 <head>
   <?php require_once("../../mainhead.php");?>
-  <title>Resoluciones</title>
+  <title>Lista de Expedientes</title>
 </head>
 
 <body class="hold-transition sidebar-mini">
@@ -21,11 +21,11 @@
         <div class="container-fluid">
           <div class="row mb-2">
             <div class="col-sm-6">
-              <h1>Resoluciones</h1>
+              <h1>Lista de Expedientes</h1>
             </div>
             <div class="col-sm-6">
               <ol class="breadcrumb float-sm-right">
-                <li class="breadcrumb-item"><a href="#">Resoluciones</a></li>
+                <li class="breadcrumb-item"><a href="#">Lista de Expedientes</a></li>
                 <li class="breadcrumb-item active"></li>
               </ol>
             </div>
@@ -41,52 +41,22 @@
             <div class="col-12">
               <div class="card card-primary">
                 <div class="card-header">
-                  <h3 class="card-title">Resoluciones</h3>
+                  <h3 class="card-title">Lista de Expedientes</h3>
                 </div>
 
                 <!-- /.card-header -->
                 <div class="card-body">
-                  <div class="row">
-                    <div class="col-3">
-                      <label for="nivel_id" class="col-form-label">Sesión Universitaria Actual</label>
-                    </div>
-                    <div class="col-1">
-                      <label for="nivel_id" class="col-form-label">Diligencia</label>
-                    </div>
-                    <div class="col-2">
-                      <label for="nivel_id" class="col-form-label">Proveido del Rectorado</label>
-                    </div>
-                    <div class="col-3">
-                      <label for="nivel_id" class="col-form-label">Memo. de Secretaría General</label>
-                    </div>
-                    <div class="col-3">
-                      <label for="nivel_id" class="col-form-label">Memo. de Grados y Títulos</label>
-                    </div>
-                  </div>
-                  <div class="row">
-                    <div class="col-1">
-                      <input type="text" class="form-control Exp" id="ses_id" readonly>
-                    </div>
-                    <div class="col-2">
-                      <input type="text" class="form-control Exp" id="ses_data" placeholder="Sesion Actual" disabled="">
-                    </div>
-                    <div class="col-1">
-                      <input type="text" class="form-control Exp" id="dil_id" readonly>
-                    </div>
-                    <div class="col-2">
-                      <input type="text" class="form-control" placeholder="Proveido" readonly>
-                    </div>
-                    <div class="col-3">
-                      <input type="text" class="form-control" placeholder="Memo SG" readonly>
-                    </div>
-                    <div class="col-3">
-                      <input type="text" class="form-control" placeholder="Memo GT" readonly>
-                    </div>
-                  </div>
+                                <div class="form-group row">
+                                    <label for="ses_id" class="col-sm-4 col-form-label">Sesión Universitaria Actual:</label>
+                                    <div class="col-sm-1">
+                                        <input type="text" class="form-control Exp" id="ses_id" readonly>
+                                    </div>
+                                    <div class="col-sm-3">
+                                        <input type="text" class="form-control" id = "ses_data" disabled="">
+                                    </div>
+
+                                </div>
                   <br>
-                  <button id="btnnuevo" type="button" class="btn btn-block btn-outline-primary">Generar Resoluciones</button>
-<br>
-                  
                   <table id="resolucion_data" class="table table-bordered table-striped">
                     <thead>
                       <tr>
@@ -94,6 +64,10 @@
                         <th>Exp</th>
                         <th>Nombres</th>
                         <th>Denominación</th>
+                        <th>Fecha Aprobación</th>
+                        <!-- /.card-header 
+                                <th>Tipo Doc</th>
+                                -->
                         <th></th>
                       </tr>
                     </thead>
@@ -114,7 +88,6 @@
     </div>
     <!-- /.content-wrapper -->
 
-    <?php require_once("modalresolucion.php");?>
     <?php require_once("../../footer.php");?>
 
     <!-- Control Sidebar -->
@@ -128,7 +101,7 @@
 
   <script src="//cdn.jsdelivr.net/npm/sweetalert2@10"></script>
 
-  <script type="text/javascript" src="mntresolucion.js"></script>
+  <script type="text/javascript" src="mntlista.js"></script>
 </body>
 
 </html>
