@@ -809,3 +809,106 @@ ADD CONSTRAINT `fk_dil_ses`
   REFERENCES `dbgradostitulos`.`sesion` (`ses_id`)
   ON DELETE NO ACTION
   ON UPDATE NO ACTION;
+
+
+USE `dbgradostitulos`;
+DROP procedure IF EXISTS `insertarSesion`;
+
+USE `dbgradostitulos`;
+DROP procedure IF EXISTS `dbgradostitulos`.`insertarSesion`;
+;
+
+USE `dbgradostitulos`;
+DROP procedure IF EXISTS `eliminarSesion`;
+
+USE `dbgradostitulos`;
+DROP procedure IF EXISTS `dbgradostitulos`.`eliminarSesion`;
+;
+
+USE `dbgradostitulos`;
+DROP procedure IF EXISTS `eliminarSesion`;
+
+USE `dbgradostitulos`;
+DROP procedure IF EXISTS `dbgradostitulos`.`eliminarSesion`;
+;
+
+DELIMITER $$
+USE `dbgradostitulos`$$
+CREATE DEFINER=`root`@`localhost` PROCEDURE `eliminarSesion`(in ses_idE int)
+BEGIN
+
+	DECLARE EXIT HANDLER FOR SQLEXCEPTION
+	BEGIN
+	SHOW ERRORS LIMIT 1;
+	ROLLBACK;
+	END; 
+    
+	DECLARE EXIT HANDLER FOR SQLWARNING
+	BEGIN
+	SHOW WARNINGS LIMIT 1;
+	ROLLBACK;
+	END;
+    
+	START TRANSACTION;
+    
+    SET @cantidad = (SELECT COUNT(exp_id) as cantidad FROM expediente WHERE ses_id = ses_idE);
+    SET @ses_actual = (SELECT ses_id from sesion where ses_estado = 1);
+    SET @ses_anterior = (SELECT S.ses_id FROM sesion S
+            INNER JOIN organo O ON O.org_id = S.org_id
+            INNER JOIN sesion_tipo ST on ST.sesTipo_id = S.sesTipo_id
+            WHERE ses_fecha = (SELECT max(ses_fecha) FROM sesion WHERE ses_estado = 0 AND (S.org_id = 1 or S.org_id = 2 or S.org_id = 3)));
+    
+    IF @cantidad = 0 THEN
+		IF @ses_actual = ses_idE THEN
+			IF isnull(@ses_anterior)=0 THEN
+				UPDATE sesion SET ses_estado = 2, ses_deletedate = now() WHERE ses_id = ses_idE;
+				UPDATE sesion SET ses_estado = 1, ses_modifieddate = now() WHERE ses_id = @ses_anterior;
+			ELSE
+				UPDATE sesion SET ses_estado = 2, ses_deletedate = now() WHERE ses_id = ses_idE;
+			END IF;
+		ELSE
+			UPDATE sesion SET ses_estado = 2, ses_deletedate = now() WHERE ses_id = ses_idE;
+		END IF;
+	END IF;
+	DELETE FROM diligencia WHERE ses_id = ses_idE;
+    
+	COMMIT;
+END$$
+
+DELIMITER ;
+;
+
+USE `dbgradostitulos`;
+DROP procedure IF EXISTS `insertarDiligencia`;
+
+DELIMITER $$
+USE `dbgradostitulos`$$
+CREATE PROCEDURE `insertarDiligencia` (in dil_proveidoN varchar(150),in dil_memosgN varchar(150),in dil_memogtN varchar(150),in dil_fechaEN date)
+BEGIN
+
+	DECLARE EXIT HANDLER FOR SQLEXCEPTION
+	BEGIN
+	SHOW ERRORS LIMIT 1;
+	ROLLBACK;
+	END; 
+    
+	DECLARE EXIT HANDLER FOR SQLWARNING
+	BEGIN
+	SHOW WARNINGS LIMIT 1;
+	ROLLBACK;
+	END;
+    
+	START TRANSACTION;
+    
+    SET @ses_actual = (SELECT ses_id from sesion where ses_estado = 1);
+    SET @dil_actual = (SELECT dil_id from diligencia where ses_id = @ses_actual);
+    IF isnull(@dil_actual) THEN
+		INSERT INTO diligencia (ses_id,dil_proveido,dil_memosg,dil_memogt,dil_fechaE,dil_estado,dil_createdate)
+		VALUES (@ses_actual,dil_proveidoN,dil_memosgN,dil_memogtN,dil_fechaEN,1,now());
+	END IF;
+	COMMIT;
+            
+END$$
+
+DELIMITER ;
+

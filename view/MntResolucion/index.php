@@ -50,10 +50,12 @@
                     <div class="col-3">
                       <label for="nivel_id" class="col-form-label">Sesión Universitaria Actual</label>
                     </div>
+                    <!--
                     <div class="col-1">
                       <label for="nivel_id" class="col-form-label">Diligencia</label>
                     </div>
-                    <div class="col-2">
+                    -->
+                    <div class="col-3">
                       <label for="nivel_id" class="col-form-label">Proveido del Rectorado</label>
                     </div>
                     <div class="col-3">
@@ -64,23 +66,30 @@
                     </div>
                   </div>
                   <div class="row">
+                    <input type="hidden" id="ses_id" name="ses_id">
+                    <input type="hidden" id="dil_id" name="dil_id">
+                    <!--
                     <div class="col-1">
+                      
                       <input type="text" class="form-control Exp" id="ses_id" readonly>
                     </div>
-                    <div class="col-2">
-                      <input type="text" class="form-control Exp" id="ses_data" placeholder="Sesion Actual" disabled="">
+                  -->
+                    <div class="col-3">
+                      <input type="text" class="form-control" id="ses_data" placeholder="Sesion Actual" disabled="">
                     </div>
+                    <!--
                     <div class="col-1">
                       <input type="text" class="form-control Exp" id="dil_id" readonly>
                     </div>
-                    <div class="col-2">
-                      <input type="text" class="form-control" placeholder="Proveido" readonly>
+                    -->
+                    <div class="col-3">
+                      <input type="text" class="form-control" id="dil_proveido" placeholder="Proveido" readonly>
                     </div>
                     <div class="col-3">
-                      <input type="text" class="form-control" placeholder="Memo SG" readonly>
+                      <input type="text" class="form-control" id="dil_memosg" placeholder="Memo SG" readonly>
                     </div>
                     <div class="col-3">
-                      <input type="text" class="form-control" placeholder="Memo GT" readonly>
+                      <input type="text" class="form-control" id="dil_memogt" placeholder="Memo GT" readonly>
                     </div>
                   </div>
                   <br>
@@ -114,7 +123,6 @@
     </div>
     <!-- /.content-wrapper -->
 
-    <?php require_once("modalresolucion.php");?>
     <?php require_once("../../footer.php");?>
 
     <!-- Control Sidebar -->

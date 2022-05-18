@@ -1,33 +1,32 @@
 var tabla;
+var ses;
+var dil;
 
 function init() {
-    cargarSesion();
-    $("#resolucion_form").on("submit", function (e) {
-        //guardaryeditar(e);
-        procesarExpediente(e);
+    cargarDiligencia();
 
-    });
 }
 
-function cargarSesion() {
-
-    $.get("../../controller/sesion.php?op=sesionActual", {}, function (data) {
+function cargarDiligencia() {
+    $.get("../../controller/diligencia.php?op=diligenciaActual", {}, function (data) {
         data = JSON.parse(data);
-        $('#ses_id').val(data.ses_id);
-        console.log(data.ses_id);
-        var ses = data.ses_id;
-        console.log("Ses: " + ses);
-        var infoSes = data.org_acronimo + " - " + data.sesTipo_sigla + " - " + data.ses_fecha;
-        $('#ses_data').val(infoSes);
-        console.log(data.ses_id + data.org_acronimo + data.ses_fecha);
 
-        listarPorSesion(ses);
+        $('#ses_id').val(data.ses_id);
+        ses = data.ses_id;
+        $('#dil_id').val(data.dil_id);
+        dil = data.dil_id;
+        $('#ses_data').val(data.sesfecha);
+        $('#dil_proveido').val(data.dil_proveido);
+        $('#dil_memosg').val(data.dil_memosg);
+        $('#dil_memogt').val(data.dil_memogt);
+
+        listarPorSesion(ses, dil);
     });
+
 }
 
-function listarPorSesion(ses) {
+function listarPorSesion(ses, dil) {
 
-    console.log("var en tabla: " + ses);
     $(document).ready(function () {
 
         tabla = $('#resolucion_data').dataTable({
@@ -41,7 +40,7 @@ function listarPorSesion(ses) {
                 'pdf'
             ],
             "ajax": {
-                url: '../../controller/expediente.php?op=listarR&ses=' + ses + '&dil=' + 1,
+                url: '../../controller/expediente.php?op=listarR&ses=' + ses + '&dil=' + dil,
                 type: "get",
                 dataType: "json",
                 error: function (e) {
@@ -83,12 +82,8 @@ function listarPorSesion(ses) {
     });
 }
 
-function procesarExpediente(e) {
-    e.preventDefault();
-    //'href', '../../../report/resolucionBF.php?ses=' + 1 + '&dil=' + 1 + '&tipo=0'
-    console.log("Se van a procesar los expedientes");
-}
 
+/*
 function generarDoc(doc_id) {
 
     swal.fire({
@@ -105,12 +100,12 @@ function generarDoc(doc_id) {
 
             console.log(doc_id);
 
-            /*
+            
             $.post("../../report/resolucionB.php?op=individual", {
                 doc_id: doc_id
             }, function (data) {
 
-            });*/
+            });
 
             //$('#denominacion_data').DataTable().ajax.reload();
         }
@@ -118,11 +113,11 @@ function generarDoc(doc_id) {
     })
 
 }
+*/
 
-
-$(document).on("click", "#btnnuevo", function () {
+$(document).on("click", "#btnnuevo", function (e) {
     //$('#exp_id').val('');
-
+    e.preventDefault();
     swal.fire({
         title: 'RESOLUCIÓN',
         text: "Esta seguro de generar las Resoluciones?",
@@ -135,10 +130,9 @@ $(document).on("click", "#btnnuevo", function () {
         if (result.isConfirmed) {
 
             console.log("se van a generar las resoluciones");
-            var url = '../../../report/resolucionBF.php?ses=' + 1 + '&dil=' + 1 + '&tipo=0';
-
+            //var url = '../../../report/resolucionBF.php?ses=' + ses + '&dil=' + dil + '&tipo=0';
             $.ajax({
-                url: '../../report/resolucionBF.php?ses=' + 1 + '&dil=' + 1 + '&tipo=0',
+                url: '../../report/resolucionBF.php?ses=' + ses + '&dil=' + dil + '&tipo=0',
                 success: function (response) {
                     var texto = "Se han generado un total de " + response + " resoluciones."
                     swal.fire(
@@ -152,6 +146,7 @@ $(document).on("click", "#btnnuevo", function () {
     })
 
 });
+
 
 
 init();

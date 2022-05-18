@@ -49,6 +49,7 @@
                 }
             }else{
                 $sesion->update_sesion($_POST["ses_id"],$_POST["org_id"],$_POST["sesTipo_id"],$_POST["ses_fecha"],$_POST["ses_estado"]);
+                //echo json_encode($sesion);
             }
             break;
 
