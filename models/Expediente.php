@@ -37,17 +37,20 @@
         public function get_expediente_x_id($id){
             $conectar= parent::conexion();
             parent::set_names();
-            $sql="SELECT E.exp_id,r.resol_memorando,f.fac_nombre,E.exp_denominacion,p.per_sexo,CONCAT(p.per_nombres,' ',p.per_paterno,' ',p.per_materno) as nombre,
+            $sql="SELECT E.exp_id,E.nivel_id,r.resol_memorando,f.fac_nombre,E.exp_denominacion,p.per_sexo,CONCAT(p.per_nombres,' ',p.per_paterno,' ',p.per_materno) as nombre,
             r.resol_nroSolicitud, CONCAT(DAY(r.resol_fechaSolicitud),' de ',MONTHNAME(r.resol_fechaSolicitud),' de ',YEAR(r.resol_fechaSolicitud)) as fechaSolicitud,
             es.esc_alias,CONCAT(DAY(E.fecha_actAca),' de ',MONTHNAME(E.fecha_actAca),' de ',YEAR(E.fecha_actAca)) as factAca,
             CONCAT(DAY(s.ses_fecha),' de ',MONTHNAME(s.ses_fecha),' de ',YEAR(s.ses_fecha)) as sesfecha,s.org_id,
             CONCAT(r.resol_numero,'-',YEAR(r.resol_fecha),'-',f.fac_sigla) as resolcom,
-            CONCAT(DAY(r.resol_fecha),' de ',MONTHNAME(r.resol_fecha),' de ',YEAR(r.resol_fecha)) as resolfecha FROM EXPEDIENTE E
+            CONCAT(DAY(r.resol_fecha),' de ',MONTHNAME(r.resol_fecha),' de ',YEAR(r.resol_fecha)) as resolfecha,
+            LOWER(A.actAca_nombre) as modalidad
+            FROM EXPEDIENTE E
             INNER JOIN persona p on p.per_id = E.per_id
             INNER JOIN resolucion r on r.resol_id = E.resol_id
             INNER JOIN sesion s on s.ses_id = r.ses_id
             INNER JOIN escuela es on es.esc_code = E.esc_code
             INNER JOIN facultad f on es.fac_id = f.fac_id
+            INNER JOIN acto_academico A on A.actAca_id = E.actAca_id
             where E.exp_id = ?";
             $sql=$conectar->prepare($sql);
             $sql->bindValue(1,$id);
@@ -55,13 +58,37 @@
             return $resultado=$sql->fetchAll();
         }
 
+        public function get_expediente_diploma($id){
+            $conectar= parent::conexion();
+            parent::set_names();
+            $sql="SELECT E.exp_id,E.nivel_id,CONCAT(p.per_nombres,' ',p.per_paterno,' ',p.per_materno) as nombre,
+            IF(E.nivel_id = 1,substring(E.exp_denominacion,14),E.exp_denominacion) as den,
+            LPAD(DAY(IF(s.ses_fecha is null,r.resol_fecha,s.ses_fecha)),2,'0') as dia,lower(MONTHNAME(IF(s.ses_fecha is null,r.resol_fecha,s.ses_fecha))) as mes,
+            YEAR(IF(s.ses_fecha is null,r.resol_fecha,s.ses_fecha)) as anio, f.fac_alias, f.fac_autoridad, es.esc_alias, p.per_nroDoc 
+            FROM EXPEDIENTE E 
+            INNER JOIN persona p on p.per_id = E.per_id 
+            INNER JOIN resolucion r on r.resol_id = E.resol_id 
+            INNER JOIN sesion s on s.ses_id = r.ses_id 
+            INNER JOIN escuela es on es.esc_code = E.esc_code 
+            INNER JOIN facultad f on es.fac_id = f.fac_id
+            where exp_id = ?";
+            $sql=$conectar->prepare($sql);
+            $sql->bindValue(1,$id);
+            $sql->execute();
+            return $resultado=$sql->fetchAll();
+        }
+
+
         public function get_diligencia($dil_id){
             $conectar= parent::conexion();
             parent::set_names();
-            $sql="SELECT dil_id,d.ses_id,CONCAT(DAY(s.ses_fecha),' de ',MONTHNAME(s.ses_fecha),' de ',YEAR(s.ses_fecha)) as sesfecha,dil_proveido,dil_memosg,dil_memogt,dil_fechaE
+            $sql="SELECT dil_id,d.ses_id,CONCAT(DAY(s.ses_fecha),' de ',MONTHNAME(s.ses_fecha),' de ',YEAR(s.ses_fecha)) as sesfecha,dil_proveido,dil_memosg,
+            dil_memogt,CONCAT(DAY(dil_fechaE),' de ',MONTHNAME(dil_fechaE),' de ',YEAR(dil_fechaE)) as dil_fechaE,LPAD(DAY(dil_fechaE),2,'0') as diaE,
+            lower(MONTHNAME(dil_fechaE)) as mesE, YEAR(dil_fechaE) as anioE,
+            date_format(s.ses_fecha,'%d-%m-%Y') as sesion
             FROM  diligencia d
             INNER JOIN sesion s on s.ses_id = d.ses_id
-            WHERE dil_id = ? and dil_estado = 1;";
+            WHERE dil_estado = 1";
             $sql=$conectar->prepare($sql);
             $sql->bindValue(1,$dil_id);
             $sql->execute();

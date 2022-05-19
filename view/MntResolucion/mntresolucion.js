@@ -40,7 +40,7 @@ function listarPorSesion(ses, dil) {
                 'pdf'
             ],
             "ajax": {
-                url: '../../controller/expediente.php?op=listarR&ses=' + ses + '&dil=' + dil,
+                url: '../../controller/expediente.php?op=listarR&ses=' + ses + '&dil=' + dil + '&tipo=0',
                 type: "get",
                 dataType: "json",
                 error: function (e) {

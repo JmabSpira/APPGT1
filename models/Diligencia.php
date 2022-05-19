@@ -92,7 +92,14 @@
         public function get_diligencia_actual(){
             $conectar= parent::conexion();
             parent::set_names();
-            $sql="SELECT d.dil_id,d.ses_id,CONCAT(DAY(s.ses_fecha),' de ',MONTHNAME(s.ses_fecha),' de ',YEAR(s.ses_fecha)) as sesfecha,d.dil_proveido,d.dil_memosg,d.dil_memogt,d.dil_fechaE
+            /*$sql="SELECT d.dil_id,d.ses_id,CONCAT(DAY(s.ses_fecha),' de ',MONTHNAME(s.ses_fecha),' de ',YEAR(s.ses_fecha)) as sesfecha,d.dil_proveido,d.dil_memosg,d.dil_memogt,d.dil_fechaE, date_format(s.ses_fecha,'%d-%m-%Y') as sesion
+            FROM  diligencia d
+            INNER JOIN sesion s on s.ses_id = d.ses_id
+            WHERE dil_estado = 1";*/
+            $sql = "SELECT dil_id,d.ses_id,CONCAT(DAY(s.ses_fecha),' de ',MONTHNAME(s.ses_fecha),' de ',YEAR(s.ses_fecha)) as sesfecha,dil_proveido,dil_memosg,
+            dil_memogt,CONCAT(DAY(dil_fechaE),' de ',MONTHNAME(dil_fechaE),' de ',YEAR(dil_fechaE)) as dil_fechaE,LPAD(DAY(dil_fechaE),2,'0') as diaE,
+            lower(MONTHNAME(dil_fechaE)) as mesE, YEAR(dil_fechaE) as anioE,
+            date_format(s.ses_fecha,'%d-%m-%Y') as sesion
             FROM  diligencia d
             INNER JOIN sesion s on s.ses_id = d.ses_id
             WHERE dil_estado = 1";

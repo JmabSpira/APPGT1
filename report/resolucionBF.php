@@ -4,27 +4,26 @@
     require_once("../config/conexion.php");
     require_once("../models/Expediente.php");
 
-    function crearArticulo($denM,$nombreM,$sexo){
-        $e4 = ($sexo =='M') ? 'del egresado' : 'de la egresada';
+    function crearArticulo($denM,$nombreM,$sexo,$nivelDM){
 
-        $cadena = "GRADO ACADÉMICO DE $denM a favor $e4 $nombreM";
+        $cadena = "$nivelDM DE $denM a favor de $nombreM";
          return $cadena;
     }
 
-    function crearAprobacion($org_id,$sesfecha,$facultad,$den,$resolcom,$resolfecha,$sexo){
+    function crearAprobacion($org_id,$sesfecha,$facultad,$den,$resolcom,$resolfecha,$sexo,$nivelD){
         $e3 = ($sexo =='M') ? 'del' : 'de la';
 
         if ($org_id == 7) {
-            $cadena = "con fecha $resolfecha, el Decano de la $facultad aprobó otorgar el Grado Académico de $den a favor $e3 recurrente, según la Resolución Decanal N° $resolcom-D, con cargo a dar cuenta al Consejo de Facultad, en mérito a la Resolución del Consejo Universitario N° 859-2019-UNSCH-CU";
+            $cadena = "con fecha $resolfecha, el Decano de la $facultad aprobó otorgar el $nivelD de $den a favor $e3 recurrente, según la Resolución Decanal N° $resolcom-D, con cargo a dar cuenta al Consejo de Facultad, en mérito a la Resolución del Consejo Universitario N° 859-2019-UNSCH-CU";
         }else{
-            $cadena = "con fecha $sesfecha, el Consejo de la $facultad aprobó otorgar el Grado Académico de $den a favor $e3 recurrente, según la Resolución del Consejo de Facultad N° $resolcom-CF, de fecha $resolfecha";
+            $cadena = "con fecha $sesfecha, el Consejo de la $facultad aprobó otorgar el $nivelD de $den a favor $e3 recurrente, según la Resolución del Consejo de Facultad N° $resolcom-CF, de fecha $resolfecha";
         }
         return $cadena;
     }
         
     function generarArchivo($exp_id,$dil_id,$tipo){
         $expediente = new Expediente();
-        $TBS = new clsTinyButStrong; 
+        $TBS = new clsTinyButStrong;    
         $TBS->Plugin(TBS_INSTALL, OPENTBS_PLUGIN);
 
         $outputD = [];
@@ -44,6 +43,7 @@
         if(is_array($datos)==true and count($datos)>0){
             foreach($datos as $row){
                 $outputE["idExp"] = $row["exp_id"];
+                $outputE["nivel_id"] = $row["nivel_id"];
                 $outputE["memof"] = $row["resol_memorando"];
                 $outputE["facultad"] = $row["fac_nombre"];
                 $outputE["den"] = $row["exp_denominacion"];
@@ -57,20 +57,31 @@
                 $outputE["org_id"] = $row["org_id"];
                 $outputE["resolcom"] = $row["resolcom"];
                 $outputE["resolfecha"] = $row["resolfecha"];
+                $outputE["modalidad"] = $row["modalidad"];
             }
         }
 
+        
         $denM = mb_strtoupper($outputE["den"]);
         $nombreM = mb_strtoupper($outputE["nombre"]);
-        $aprobacion = crearAprobacion($outputE["org_id"],$outputE["sesfecha"],$outputE["facultad"],$outputE["den"],$outputE["resolcom"],$outputE["resolfecha"],$outputE["sexo"]);
-        $articulo = crearArticulo($denM,$nombreM,$outputE["sexo"]);
+        $nivelD = ($outputE["nivel_id"] == 1) ? 'Grado Académico' : 'Título Profesional';
+        $nivelDM = mb_strtoupper($nivelD);
+        $aprobacion = crearAprobacion($outputE["org_id"],$outputE["sesfecha"],$outputE["facultad"],$outputE["den"],$outputE["resolcom"],$outputE["resolfecha"],$outputE["sexo"],$nivelD);
+        $articulo = crearArticulo($denM,$nombreM,$outputE["sexo"],$nivelDM);
         $egre = ($outputE["sexo"] =='M') ? 'egresado' : 'egresada';
         $ela = ($outputE["sexo"] =='M') ? 'el' : 'la';
         $dela = ($outputE["sexo"] =='M') ? 'del' : 'de la';
         $arts = ($outputE["sexo"] =='M') ? 'del interesado' : 'de la interesada';
         $letra = ($outputE["sexo"] =='M') ? 'o' : 'a';
-
-        $template = 'Resolucion/RB.docx';
+        
+        $template = '';
+        if ($outputE["nivel_id"] == 1) {
+            $template = 'Resolucion/RB.docx';
+        } else {
+            $template = 'Resolucion/RT.docx';
+        }
+        
+        
         $TBS->LoadTemplate($template, OPENTBS_ALREADY_UTF8);
 
         $TBS->MergeField('pro.proveido', $outputD["dil_proveido"]);
@@ -91,6 +102,9 @@
         $TBS->MergeField('pro.articulo', $articulo);
         $TBS->MergeField('pro.arts', $arts);
         $TBS->MergeField('pro.letra', $letra);
+        if ($outputE["nivel_id"] == 2) {
+             $TBS->MergeField('pro.modalidad', $outputE["modalidad"]);
+        }
 
         $TBS->PlugIn(OPENTBS_DELETE_COMMENTS);
         
@@ -104,7 +118,7 @@
             $save = ' ';
         }
         
-        $outputE_file_name = str_replace('.', $outputE["nombre"].'_'.date('Y-m-d').$save.'.', $template);
+        $outputE_file_name = str_replace('.', '_'.$outputE["nombre"].'_'.date('d-m-Y').'.', $template);
         //$save = ($tipo ==1) ? 'i' : '';
         //se verifica si el nombre esta vacio
         if ($save==='') {

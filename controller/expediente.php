@@ -45,6 +45,7 @@
 
             $ses = $_GET["ses"];
             $dil = $_GET["dil"];
+            $doc = $_GET["tipo"];
 
             $datos = $expediente->get_lista_expediente($ses);
             $data= Array();
@@ -55,8 +56,13 @@
                 $sub_array[] = $row["nombre"];
                 $sub_array[] = $row["exp_denominacion"];
                 
-                $href = 'href="../../report/resolucionBF.php?exp='.$row["exp_id"].'&dil='.$dil.'&tipo=1"';
-
+                if ($doc == 1) {
+                    $href = 'href="../../report/diploma.php?exp='.$row["exp_id"].'&dil='.$dil.'&tipo=1"';
+                }elseif ($doc == 0) {
+                    $href = 'href="../../report/resolucionBF.php?exp='.$row["exp_id"].'&dil='.$dil.'&tipo=1"';
+                }else{
+                    echo("Error de tipo de documento");
+                }
                 //$sub_array[] = '<button '.$estado.' type="button" onClick="generarDoc('.$row["doc_id"].');"  id="'.$row["doc_id"].'" class="btn btn-outline-primary btn-icon"><div><i class="fa fa-file-word"></i></div></button>';
                 $sub_array[] = '<a '.$href.'><button type="button" class="btn btn-outline-primary btn-icon"><div><i class="fa fa-file-word"></i></div></button> 
                 </a>';

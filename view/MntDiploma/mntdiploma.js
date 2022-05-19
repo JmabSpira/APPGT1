@@ -4,7 +4,6 @@ var dil;
 
 function init() {
     cargarDiligencia();
-
 }
 
 function cargarDiligencia() {
@@ -38,7 +37,7 @@ function listarPorSesion(ses, dil) {
                 'pdf'
             ],
             "ajax": {
-                url: '../../controller/expediente.php?op=listarR&ses=' + ses + '&dil=' + dil,
+                url: '../../controller/expediente.php?op=listarR&ses=' + ses + '&dil=' + dil + '&tipo=1',
                 type: "get",
                 dataType: "json",
                 error: function (e) {
@@ -96,18 +95,18 @@ $(document).on("click", "#btnnuevo", function (e) {
 
             console.log("se van a generar los diplomas");
             //var url = '../../../report/resolucionBF.php?ses=' + ses + '&dil=' + dil + '&tipo=0';
-            /*
+
             $.ajax({
-                url: '../../report/resolucionBF.php?ses=' + ses + '&dil=' + dil + '&tipo=0',
+                url: '../../report/diploma.php?ses=' + ses + '&dil=' + dil + '&tipo=0',
                 success: function (response) {
-                    var texto = "Se han generado un total de " + response + " resoluciones."
+                    var texto = "Se han generado un total de " + response + " diplomas."
                     swal.fire(
-                        'RESOLUCIONES',
+                        'DIPLOMAS',
                         texto,
                         'success'
                     )
                 }
-            })*/
+            })
         }
     })
 
