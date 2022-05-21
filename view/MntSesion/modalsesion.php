@@ -47,7 +47,7 @@
                             </div>
                             <input type="text" class="form-control" id="ses_fecha" name="ses_fecha"
                                     data-inputmask-alias="datetime" data-inputmask-inputformat="yyyy/mm/dd" data-mask=""
-                                    inputmode="numeric">
+                                    inputmode="numeric" required>
                         </div>
                     </div>
 

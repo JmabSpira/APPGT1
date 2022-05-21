@@ -103,22 +103,6 @@
             //return $resultado=$sql->errorInfo();
         }
 
-        /*
-        public function get_sesion_actual(){
-            $conectar= parent::conexion();
-            parent::set_names();
-            $sql="SELECT S.ses_id, O.org_acronimo, ST.sesTipo_sigla, S.ses_fecha
-            FROM sesion S
-            INNER JOIN organo O ON O.org_id = S.org_id
-            INNER JOIN sesion_tipo ST on ST.sesTipo_id = S.sesTipo_id
-            WHERE ses_fecha = (SELECT max(ses_fecha) FROM sesion WHERE ses_estado = 1 AND (S.org_id = 1 or S.org_id = 2))";
-            $sql=$conectar->prepare($sql);
-            $sql->execute();
-            //return $resultado=$sql->fetchAll();
-            return $resultado = $sql->fetch();
-        }
-
-*/
         public function get_sesion_actual(){
             $conectar= parent::conexion();
             parent::set_names();
@@ -133,7 +117,8 @@
             return $resultado = $sql->fetch();
         }
 
-    }
 
+
+    }
 
 ?>

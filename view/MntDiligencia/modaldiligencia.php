@@ -33,7 +33,7 @@
                             </div>
                             <input type="text" class="form-control" id="dil_fechaE" name="dil_fechaE"
                                 data-inputmask-alias="datetime" data-inputmask-inputformat="yyyy/mm/dd" data-mask=""
-                                inputmode="numeric">
+                                inputmode="numeric" required>
                         </div>
                     </div>
                 </div>
