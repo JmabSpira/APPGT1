@@ -7,6 +7,7 @@
     switch($_GET["op"]){
 
         case "listar":
+            
             $datos = $facultad->get_facultad();
             $data= Array();
 

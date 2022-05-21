@@ -103,7 +103,7 @@
             //echo json_encode($results);
             break;
 
-      case "cargarEscuelaE": 
+        case "cargarEscuelaE": 
 
             $inicio = $_GET["inicio"];
             $fin = $_GET["fin"];

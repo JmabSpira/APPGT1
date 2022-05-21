@@ -1,23 +1,6 @@
 <?php
-
     class Expediente extends Conectar{
 
-        /*
-        public function get_expediente(){
-            $conectar= parent::conexion();
-            parent::set_names();
-            $sql="SELECT S.subDen_id,N.nivel_nombre,D.den_MasFem,S.subDen_MasFem
-            FROM expediente S
-            INNER JOIN denominacion D on S.den_id = D.den_id
-            INNER JOIN nivel N on N.nivel_id = D.nivel_id
-            WHERE subDen_estado = 1 order by subDen_id";
-            $sql=$conectar->prepare($sql);
-            $sql->execute();
-            return $resultado=$sql->fetchAll();
-        }
-*/
-
-        
         public function get_lista_expediente($ses_id){
             $conectar= parent::conexion();
             parent::set_names();
@@ -77,7 +60,6 @@
             $sql->execute();
             return $resultado=$sql->fetchAll();
         }
-
 
         public function get_diligencia($dil_id){
             $conectar= parent::conexion();
@@ -178,27 +160,6 @@
             return $resultado=$sql->fetchAll();
         }
 
-/*
-        public function update_expediente($subDen_id,$den_id,$subDen_MasFem){
-            $conectar= parent::conexion();
-            parent::set_names();
-            $sql="UPDATE expediente
-                SET
-                    den_id = ?,
-                    subDen_MasFem=?,
-                    subDen_modifieddate=now()
-                WHERE
-                    subDen_id = ?";
-            $sql=$conectar->prepare($sql);
-            $sql->bindValue(1,$den_id);
-            $sql->bindValue(2,$subDen_MasFem);
-            $sql->bindValue(3,$subDen_id);
-            $sql->execute();
-            return $resultado=$sql->fetchAll();
-        }
-
-*/
-
         public function cargarEscuela(){
             $conectar = parent::conexion();
             $sql = "SELECT esc_code,esc_alias FROM escuela order by esc_code";
@@ -206,16 +167,6 @@
             $sql->execute();
             return $resultado=$sql->fetchAll();
         }
-        
-/*
-        public function cargarDenominacion(){
-            $conectar = parent::conexion();
-            $sql = "SELECT den_id, den_MasFem FROM denominacion WHERE nivel_id > 1 order by nivel_id";
-            $sql=$conectar->prepare($sql);
-            $sql->execute();
-            return $resultado=$sql->fetchAll();
-        }
-*/
 
         public function get_expedientes($ses){
             $conectar= parent::conexion();
@@ -230,7 +181,6 @@
             $sql->execute();
             return $resultado=$sql->fetchAll();
         }
-
 
         public function cargarGeneracion($genCop_id){
             $conectar = parent::conexion();
@@ -286,8 +236,49 @@
             $sql->execute();
             return $resultado=$sql->fetchAll();
         }
+        /*
+        public function get_expediente(){
+            $conectar= parent::conexion();
+            parent::set_names();
+            $sql="SELECT S.subDen_id,N.nivel_nombre,D.den_MasFem,S.subDen_MasFem
+            FROM expediente S
+            INNER JOIN denominacion D on S.den_id = D.den_id
+            INNER JOIN nivel N on N.nivel_id = D.nivel_id
+            WHERE subDen_estado = 1 order by subDen_id";
+            $sql=$conectar->prepare($sql);
+            $sql->execute();
+            return $resultado=$sql->fetchAll();
+        }
+*/
+/*
+        public function update_expediente($subDen_id,$den_id,$subDen_MasFem){
+            $conectar= parent::conexion();
+            parent::set_names();
+            $sql="UPDATE expediente
+                SET
+                    den_id = ?,
+                    subDen_MasFem=?,
+                    subDen_modifieddate=now()
+                WHERE
+                    subDen_id = ?";
+            $sql=$conectar->prepare($sql);
+            $sql->bindValue(1,$den_id);
+            $sql->bindValue(2,$subDen_MasFem);
+            $sql->bindValue(3,$subDen_id);
+            $sql->execute();
+            return $resultado=$sql->fetchAll();
+        }
 
-
+*/
+/*
+        public function cargarDenominacion(){
+            $conectar = parent::conexion();
+            $sql = "SELECT den_id, den_MasFem FROM denominacion WHERE nivel_id > 1 order by nivel_id";
+            $sql=$conectar->prepare($sql);
+            $sql->execute();
+            return $resultado=$sql->fetchAll();
+        }
+*/
     }
-
 ?>
+

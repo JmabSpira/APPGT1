@@ -78,7 +78,6 @@
             return $resultado=$sql->fetchAll();
         }
 
-
         public function cargarFacultad(){
             $conectar = parent::conexion();
             $sql = "SELECT fac_id,fac_sigla FROM facultad order by fac_id";
@@ -86,10 +85,7 @@
             $sql->execute();
             return $resultado=$sql->fetchAll();
         }
-
-
-
-
+        
     }
 
 

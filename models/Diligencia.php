@@ -74,7 +74,7 @@
             return $resultado=$sql->fetchAll();
         }
 
-        /*
+/*
         public function get_diligencia_actual(){
             $conectar= parent::conexion();
             parent::set_names();
