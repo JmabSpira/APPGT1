@@ -50,7 +50,7 @@ function guardarPersona(e) {
             $('#docTipo_id1').val(formData.get('docTipo_id'));
 
             $('#persona_form')[0].reset();
-            $("#modalmantenimiento").modal('hide');
+            $("#modalpersona").modal('hide');
 
             swal.fire(
                 'Registro!',
@@ -536,7 +536,7 @@ function cargarSubDenominacion() {
 
 $(document).on("click", "#btnnuevo", function () {
     $('#mdltitulo').html('Nuevo Registro');
-    $('#modalmantenimiento').modal('show');
+    $('#modalpersona').modal('show');
     //$('#persona_form')[0].reset();
 
 });

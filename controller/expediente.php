@@ -25,6 +25,7 @@
                 $sub_array[] = $row["exp_id"];
                 $sub_array[] = $row["nombre"];
                 $sub_array[] = $row["exp_denominacion"];
+                $sub_array[] = $row["modalidad"];
                 $sub_array[] = $row["fechaA"];
                 
                 //$sub_array[] = '<button type="button" onClick="editar('.$row["den_id"].');"  id="'.$row["den_id"].'" class="btn btn-outline-primary btn-icon"><div><i class="fa fa-edit"></i></div></button>';
@@ -66,6 +67,37 @@
                 //$sub_array[] = '<button '.$estado.' type="button" onClick="generarDoc('.$row["doc_id"].');"  id="'.$row["doc_id"].'" class="btn btn-outline-primary btn-icon"><div><i class="fa fa-file-word"></i></div></button>';
                 $sub_array[] = '<a '.$href.'><button type="button" class="btn btn-outline-primary btn-icon"><div><i class="fa fa-file-word"></i></div></button> 
                 </a>';
+                $data[]=$sub_array;
+            }
+
+            $results = array(
+                "sEcho"=>1,
+                "iTotalRecords"=>count($data),
+                "iTotalDisplayRecords"=>count($data),
+                "aaData"=>$data);
+            echo json_encode($results);
+
+            break;
+
+        case "listarFiltro":
+            $fac = $_GET["fac"];
+            $esc = $_GET["esc"];
+            $niv = $_GET["niv"];
+
+            $datos = $expediente->get_reporte($fac,$esc,$niv);
+            $data= Array();
+            foreach($datos as $row){
+                $sub_array = array();
+                $sub_array[] = $row["num"];
+                $sub_array[] = $row["exp_id"];
+                $sub_array[] = $row["nombre"];
+                $sub_array[] = $row["exp_denominacion"];
+                $sub_array[] = $row["modalidad"];
+                $sub_array[] = $row["fechaA"];
+                $sub_array[] = $row["sesfecha"];
+                
+                //$sub_array[] = '<button type="button" onClick="editar('.$row["den_id"].');"  id="'.$row["den_id"].'" class="btn btn-outline-primary btn-icon"><div><i class="fa fa-edit"></i></div></button>';
+                //$sub_array[] = '<button type="button" onClick="eliminar('.$row["exp_id"].');"  id="'.$row["exp_id"].'" class="btn btn-outline-danger btn-icon"><div><i class="fa fa-trash"></i></div></button>';
                 $data[]=$sub_array;
             }
 
@@ -170,7 +202,15 @@
             break;
 */
         case "guardarBachiller":
-            $datos = $expediente->verificarExpediente($_POST["per_idE"],$_POST["nivel_idE"],$_POST["genCop_idE"]);
+            $perID = "";
+            if(empty($_POST["per_idE"])){
+                $infoP = $expediente->obtenerID($_POST["per_nroDocE"]);
+                $perID = $infoP['per_id'];
+            }else{
+                $perID = $_POST["per_idE"];
+            }
+            //$datos = $expediente->verificarExpediente($_POST["per_idE"],$_POST["nivel_idE"],$_POST["genCop_idE"]);
+            $datos = $expediente->verificarExpediente($perID,$_POST["nivel_idE"],$_POST["genCop_idE"]);
             if ($datos['cantidad'] > 0) {
                 echo "ERROR YA EXISTE UN REGISTRO",$datos['cantidad'];
             }else{
@@ -180,16 +220,24 @@
                 if (isset($_POST["sesTipo_idE"],$_POST["ses_fechaE"])) {
 
                     $ses_fecha = formatoFecha($_POST["ses_fechaE"]);
-                    
+                    /*
                     $expediente->insert_expediente($_POST["ses_idE"],$_POST["nivel_idE"],$_POST["genCop_idE"],$_POST["esc_codeE"],$_POST["org_idE"],$_POST["sesTipo_idE"],
                     $ses_fecha,$resol_fecha,$_POST["resol_numeroE"],$resol_fechaSolicitud,$_POST["resol_nroSolicitudE"],
-                    $_POST["resol_memorandoE"],$_POST["per_idE"],$_POST["actAca_idE"],$fecha_actAca,$_POST["den_idE"]);
+                    $_POST["resol_memorandoE"],$_POST["per_idE"],$_POST["actAca_idE"],$fecha_actAca,$_POST["den_idE"]);*/
+
+                    $expediente->insert_expediente($_POST["ses_idE"],$_POST["nivel_idE"],$_POST["genCop_idE"],$_POST["esc_codeE"],$_POST["org_idE"],$_POST["sesTipo_idE"],
+                    $ses_fecha,$resol_fecha,$_POST["resol_numeroE"],$resol_fechaSolicitud,$_POST["resol_nroSolicitudE"],
+                    $_POST["resol_memorandoE"],$perID,$_POST["actAca_idE"],$fecha_actAca,$_POST["den_idE"]);
                     echo json_encode($expediente);
 
                 }else{
+                    /*
                     $expediente->insert_expediente($_POST["ses_idE"],$_POST["nivel_idE"],$_POST["genCop_idE"],$_POST["esc_codeE"],$_POST["org_idE"],null,
                     NULL,$resol_fecha,$_POST["resol_numeroE"],$resol_fechaSolicitud,$_POST["resol_nroSolicitudE"],
-                    $_POST["resol_memorandoE"],$_POST["per_idE"],$_POST["actAca_idE"],$fecha_actAca,$_POST["den_idE"]);
+                    $_POST["resol_memorandoE"],$_POST["per_idE"],$_POST["actAca_idE"],$fecha_actAca,$_POST["den_idE"]);*/
+                    $expediente->insert_expediente($_POST["ses_idE"],$_POST["nivel_idE"],$_POST["genCop_idE"],$_POST["esc_codeE"],$_POST["org_idE"],null,
+                    NULL,$resol_fecha,$_POST["resol_numeroE"],$resol_fechaSolicitud,$_POST["resol_nroSolicitudE"],
+                    $_POST["resol_memorandoE"],$perID,$_POST["actAca_idE"],$fecha_actAca,$_POST["den_idE"]);
                     echo json_encode($expediente);
                     
                 } 
@@ -198,7 +246,16 @@
             break;
 
         case "guardarExpediente":
-            $datos = $expediente->verificarExpediente($_POST["per_idE"],$_POST["nivel_idE"],$_POST["genCop_idE"]);
+            $perID = "";
+            if(empty($_POST["per_idE"])){
+                $infoP = $expediente->obtenerID($_POST["per_nroDocE"]);
+                $perID = $infoP['per_id'];
+            }else{
+                $perID = $_POST["per_idE"];
+            }
+
+            //$datos = $expediente->verificarExpediente($_POST["per_idE"],$_POST["nivel_idE"],$_POST["genCop_idE"]);
+            $datos = $expediente->verificarExpediente($perID,$_POST["nivel_idE"],$_POST["genCop_idE"]);
             if ($datos['cantidad'] > 0) {
                 echo "ERROR YA EXISTE UN REGISTRO",$datos['cantidad'];
             }else{
@@ -215,18 +272,24 @@
                 if (isset($_POST["sesTipo_idE"],$_POST["ses_fechaE"])) {
 
                     $ses_fecha = formatoFecha($_POST["ses_fechaE"]);
-                    
+                    /*
                     $expediente->insert_expedienteT($_POST["ses_idE"],$_POST["nivel_idE"],$_POST["genCop_idE"],$_POST["esc_codeE"],$_POST["org_idE"],$_POST["sesTipo_idE"],
                     $ses_fecha,$resol_fecha,$_POST["resol_numeroE"],$resol_fechaSolicitud,$_POST["resol_nroSolicitudE"],
-                    $_POST["resol_memorandoE"],$_POST["per_idE"],$_POST["actAca_idE"],$fecha_actAca,$_POST["den_idE"],$subDen);
+                    $_POST["resol_memorandoE"],$_POST["per_idE"],$_POST["actAca_idE"],$fecha_actAca,$_POST["den_idE"],$subDen);*/
+                    $expediente->insert_expedienteT($_POST["ses_idE"],$_POST["nivel_idE"],$_POST["genCop_idE"],$_POST["esc_codeE"],$_POST["org_idE"],$_POST["sesTipo_idE"],
+                    $ses_fecha,$resol_fecha,$_POST["resol_numeroE"],$resol_fechaSolicitud,$_POST["resol_nroSolicitudE"],
+                    $_POST["resol_memorandoE"],$perID,$_POST["actAca_idE"],$fecha_actAca,$_POST["den_idE"],$subDen);
                     //echo $expediente;
                     echo json_encode($expediente);
                     //echo $expediente;
 
                 }else{
+                    /*$expediente->insert_expedienteT($_POST["ses_idE"],$_POST["nivel_idE"],$_POST["genCop_idE"],$_POST["esc_codeE"],$_POST["org_idE"],null,
+                    NULL,$resol_fecha,$_POST["resol_numeroE"],$resol_fechaSolicitud,$_POST["resol_nroSolicitudE"],
+                    $_POST["resol_memorandoE"],$_POST["per_idE"],$_POST["actAca_idE"],$fecha_actAca,$_POST["den_idE"],$subDen);*/
                     $expediente->insert_expedienteT($_POST["ses_idE"],$_POST["nivel_idE"],$_POST["genCop_idE"],$_POST["esc_codeE"],$_POST["org_idE"],null,
                     NULL,$resol_fecha,$_POST["resol_numeroE"],$resol_fechaSolicitud,$_POST["resol_nroSolicitudE"],
-                    $_POST["resol_memorandoE"],$_POST["per_idE"],$_POST["actAca_idE"],$fecha_actAca,$_POST["den_idE"],$subDen);
+                    $_POST["resol_memorandoE"],$perID,$_POST["actAca_idE"],$fecha_actAca,$_POST["den_idE"],$subDen);
                     //echo $expediente;
                     echo json_encode($expediente);
                     //echo $expediente->errorInfo();
@@ -276,6 +339,27 @@
                 }
                 echo json_encode($output);
             }
+            break;
+
+        case "cargarNivel": 
+
+            $datos = $expediente->cargarNivel();
+
+            $data= Array();
+
+            foreach ($datos as $row) {
+                # code...
+                $nivel_id = $row['nivel_id'];
+                $nivel_nombre = $row['nivel_nombre'];
+                $data[] = array('nivel_id'=>$nivel_id, 'nivel_nombre'=>$nivel_nombre);
+            }
+
+            $results = array("data"=>$data);
+            //$results = array($data);
+
+            
+            echo json_encode($data);
+            //echo json_encode($results);
             break;
     }
 ?>

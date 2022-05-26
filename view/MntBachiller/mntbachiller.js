@@ -49,7 +49,7 @@ function guardarPersona(e) {
             $('#docTipo_id1').val(formData.get('docTipo_id'));
 
             $('#persona_form')[0].reset();
-            $("#modalmantenimiento").modal('hide');
+            $("#modalpersona").modal('hide');
 
             swal.fire(
                 'Registro!',
@@ -125,7 +125,7 @@ function validarInput(elemento) {
 
     jQuery(elemento).on('input', function (evt) {
         // Allow only numbers.
-        jQuery(this).val(jQuery(this).val().replace(/[^0-9]/g, ''));
+        jQuery(this).val(jQuery(this).val().replace(/[^1-9]/g, ''));
 
     });
     /*
@@ -173,7 +173,7 @@ function leerCambio() {
     validarInput("#sesTipo_id");
     validarInput("#resol_numero");
     validarInput("#resol_nroSolicitud");
-    validarInput("#per_nroDoc1");
+    validarNumeros("#per_nroDoc1");
     validarInput("#actAca_id");
     validarInput("#per_nroDoc");
     document.getElementById('guardarExp').addEventListener("click", guardarExpediente);
@@ -472,7 +472,7 @@ function cargarDenominacion() {
 
 $(document).on("click", "#btnnuevo", function () {
     $('#mdltitulo').html('Nuevo Registro');
-    $('#modalmantenimiento').modal('show');
+    $('#modalpersona').modal('show');
     //$('#persona_form')[0].reset();
 
 });

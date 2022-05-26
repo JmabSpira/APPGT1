@@ -1,4 +1,4 @@
-<div id="modalmantenimiento" class="modal fade bd-example-modal" tabindex="-1" role="dialog"
+<div id="modalpersona" class="modal fade bd-example-modal" tabindex="-1" role="dialog"
     aria-labelledby="myLargeModalLabel" aria-hidden="true">
     <div class="modal-dialog">
         <div class="modal-content">
@@ -11,7 +11,7 @@
                     <div class="form-group">
                         <label class="form-label" for="per_nroDoc">Nro Doc. Ident.</label>
                         <input type="text" class="form-control" id="per_nroDoc" name="per_nroDoc"
-                            placeholder="Nro Doc. Identidad" required>
+                            placeholder="Nro Doc. Identidad" maxlength = "8" required>
                     </div>
                     <div class="form-group">
                         <label class="form-label" for="per_paterno">Ap. Paterno</label>

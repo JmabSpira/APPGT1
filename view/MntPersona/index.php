@@ -46,7 +46,7 @@
                         <div class="card-body">
                             <div class="input-group col-10">
                               <label for="filtro" class="col-sm-2 col-form-label">Búsqueda por:</label>
-                              <input type="text" class="form-control col-3" id="filtro" name="filtro" placeholder="Apellido Paterno">
+                              <input type="text" class="form-control col-3" id="filtro" name="filtro" placeholder="DNI o Apellido Paterno">
                                 <span class="input-group-append">
                                   <button onclick = "filtrarAp()" name="btnfiltro" id="btnfiltro" class="btn btn-block btn-info">Buscar</button>
                                 </span>

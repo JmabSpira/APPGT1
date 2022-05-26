@@ -8,7 +8,7 @@
 
 </head>
 
-<body class="hold-transition sidebar-mini">
+<body class="hold-transition sidebar-mini sidebar-collapse">
     <!-- Site wrapper -->
     <div class="wrapper">
 
@@ -104,7 +104,7 @@
                                             <label for="esc_code1" class="col-sm-3 col-form-label">Escuela</label>
                                             <div class="col-sm-2">
                                                 <input type="text" class="form-control dato Exp" id="esc_code1"
-                                                    value="0" onFocus="this.select()" name="esc_codeE" autofocus>
+                                                    value="1" onFocus="this.select()" name="esc_codeE" autofocus>
                                             </div>
                                             <div class="col-sm-7">
                                                 <select class="form-control select2 select2-hidden-accessible"

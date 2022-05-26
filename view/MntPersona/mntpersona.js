@@ -2,11 +2,12 @@ var tabla;
 
 function init() {
     filtrarAp();
+
     $("#persona_form").on("submit", function (e) {
         guardaryeditar(e);
 
     });
-
+    document.getElementById('docTipo_id').addEventListener("change", validar);
 }
 
 
@@ -124,34 +125,51 @@ function filtrarAp() {
 });
 */
 
-
-
-
 function guardaryeditar(e) {
     e.preventDefault();
-    var formData = new FormData($("#persona_form")[0]);
-    $.ajax({
-        url: "../../controller/persona.php?op=guardaryeditar",
-        type: "POST",
-        data: formData,
-        contentType: false,
-        processData: false,
-        success: function (datos) {
 
-            $('#persona_form')[0].reset();
-            $("#modalmantenimiento").modal('hide');
-            $('#persona_data').DataTable().ajax.reload();
+    info = '' + $('#per_nroDoc').val();
+    cant = document.getElementById("per_nroDoc").maxLength;
+    if (cant == info.length) {
+        var formData = new FormData($("#persona_form")[0]);
 
-            swal.fire(
-                'Registro!',
-                'El registro correctamente.',
-                'success'
-            )
-        }
-    });
+        $.ajax({
+            url: "../../controller/persona.php?op=guardaryeditar",
+            type: "POST",
+            data: formData,
+            contentType: false,
+            processData: false,
+            success: function (datos) {
+
+                if (datos == false) {
+                    swal.fire(
+                        'Registro!',
+                        'El registro correctamente.',
+                        'success'
+                    )
+                    $('#persona_form')[0].reset();
+                    $("#modalpersona").modal('hide');
+                    $('#persona_data').DataTable().ajax.reload();
+
+                } else {
+                    swal.fire(
+                        'ERROR!',
+                        'No se completó la acción. Error: ' + datos,
+                        'error'
+                    )
+                }
+            }
+
+        });
+    } else {
+        swal.fire("El documento de identidad debe tener " + cant + " dígitos");
+    }
 }
 
 function editar(per_id) {
+    //document.getElementById('docTipo_id').removeEventListener("change", validar);
+
+
     $.post("../../controller/persona.php?op=mostrar", {
         per_id: per_id
     }, function (data) {
@@ -162,14 +180,17 @@ function editar(per_id) {
         $('#per_materno').val(data.per_materno);
         $('#per_nombres').val(data.per_nombres);
         //$('#per_sexo').val(data.per_sexo);
-        cargarSexo(data.per_sexo);
-        console.log(data.per_sexo);
+        $('input[name=per_sexo][value =' + data.per_sexo + ']').prop("checked", true);
+        //cargarSexo(data.per_sexo);
+        //console.log(data.per_sexo);
 
         $('#docTipo_id').val(data.docTipo_id);
 
     });
+    $('#per_nroDoc').prop('readonly', true);
+    $('#docTipo_id').prop('disabled', true);
     $('#mdltitulo').html('Editar Registro');
-    $('#modalmantenimiento').modal('show');
+    $('#modalpersona').modal('show');
 
 }
 
@@ -180,8 +201,6 @@ function cargarSexo(per_sexo) {
         document.querySelector('[value="F"]').checked = true;
     }
 }
-
-
 
 function eliminar(per_id) {
 
@@ -215,15 +234,32 @@ function eliminar(per_id) {
 
 }
 
+function validar() {
+    opt = $('#docTipo_id').val();
+    $('#per_nroDoc').val('');
+    if (opt == "1") {
+        $('#per_nroDoc').attr('maxlength', '15');
+    } else if (opt == "2") {
+        $('#per_nroDoc').attr('maxlength', '8');
+    } else if (opt == "3") {
+        $('#per_nroDoc').attr('maxlength', '11');
+    } else if (opt == "4" || opt == "5") {
+        $('#per_nroDoc').attr('maxlength', '12');
+    } else {
+        $('#per_nroDoc').attr('maxlength', '10');
+    }
+}
 
 $(document).on("click", "#btnnuevo", function () {
     $('#per_id').val('');
+    $('#per_nroDoc').prop('readonly', false);
+    $('#docTipo_id').prop('disabled', false);
     document.getElementById("filtro").value = "";
+
     $('#mdltitulo').html('Nuevo Registro');
-    $('#modalmantenimiento').modal('show');
+    $('#modalpersona').modal('show');
     $('#persona_form')[0].reset();
-
+    validarNumeros("#per_nroDoc");
 });
-
 
 init();

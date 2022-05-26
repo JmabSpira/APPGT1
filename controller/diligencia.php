@@ -38,12 +38,18 @@
             $datos=$diligencia->get_diligencia_x_id($_POST["dil_id"]);
             if(empty($_POST["dil_id"])){
                 if(is_array($datos)==true and count($datos)==0){
-                    $diligencia->insert_diligencia($_POST["dil_proveido"],$_POST["dil_memosg"],$_POST["dil_memogt"],$_POST["dil_fechaE"]);
+                    $actual = $diligencia->verificarDiligencia();
+                    if ($actual['cantidad'] > 0) {
+                        echo "Ya existe una diligencia activa para esta sesión";
+                    }else{
+                        $diligencia->insert_diligencia($_POST["dil_proveido"],$_POST["dil_memosg"],$_POST["dil_memogt"],$_POST["dil_fechaE"]);
+                    }
                 }
             }else{
                 $diligencia->update_diligencia($_POST["dil_id"],$_POST["dil_proveido"],$_POST["dil_memosg"],$_POST["dil_memogt"],$_POST["dil_fechaE"]);
                 //echo json_encode($diligencia);
             }
+            
             break;
 
         case "mostrar":

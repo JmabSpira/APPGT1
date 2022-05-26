@@ -9,6 +9,11 @@ function init() {
 
 function cargarDiligencia() {
     $.get("../../controller/diligencia.php?op=diligenciaActual", {}, function (data) {
+        if (data === 'false') {
+            swal.fire('No hay una diligencia activa');
+            $('#btnnuevo').prop("disabled", true);
+        }
+
         data = JSON.parse(data);
 
         $('#ses_id').val(data.ses_id);

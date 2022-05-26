@@ -7,16 +7,20 @@ function init() {
 }
 
 function cargarDiligencia() {
-    $.get("../../controller/diligencia.php?op=diligenciaActual", {}, function (data) {
-        data = JSON.parse(data);
 
+    $.get("../../controller/diligencia.php?op=diligenciaActual", {}, function (data) {
+
+        if (data === 'false') {
+            $('#btnnuevo').prop("disabled", true);
+            swal.fire('No hay una diligencia activa');
+        }
+        data = JSON.parse(data);
         $('#ses_id').val(data.ses_id);
         ses = data.ses_id;
         $('#dil_id').val(data.dil_id);
         dil = data.dil_id;
         $('#ses_data').val(data.sesfecha);
         $('#dil_fechaE').val(data.dil_fechaE);
-
         listarPorSesion(ses, dil);
     });
 

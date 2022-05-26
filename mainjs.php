@@ -29,8 +29,10 @@
 
 
 
+
 <!-- AdminLTE App -->
 <script src="../../public/dist/js/adminlte.min.js"></script>
 <!-- AdminLTE for demo purposes -->
 <script src="../../public/dist/js/demo.js"></script>
+<script src="../../public/dist/js/validaciones.js"></script>
 

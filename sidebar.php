@@ -202,6 +202,41 @@
               </li>
             </ul>
           </li>
+          <li class="nav-item">
+            <a href="#" class="nav-link">
+              <i class="nav-icon fas fa-book"></i>
+              <p>
+                Reportes
+                <i class="fas fa-angle-left right"></i>
+              </p>
+            </a>
+            <ul class="nav nav-treeview">
+              <li class="nav-item">
+                <a href="../Reportes/index.php?filtro=1" class="nav-link">
+                  <i class="nav-icon far fa-calendar-alt"></i>
+                  <p>
+                    Por Facultad
+                  </p>
+                </a>
+              </li>
+              <li class="nav-item">
+                <a href="../Reportes/index.php?filtro=2" class="nav-link">
+                  <i class="nav-icon far fa-image"></i>
+                  <p>
+                    Por Escuela
+                  </p>
+                </a>
+              </li>
+              <li class="nav-item">
+                <a href="../Reportes/index.php?filtro=3" class="nav-link">
+                  <i class="nav-icon fas fa-columns"></i>
+                  <p>
+                    Por Nivel
+                  </p>
+                </a>
+              </li>
+            </ul>
+          </li>
         </ul>
       </nav>
       <!-- /.sidebar-menu -->

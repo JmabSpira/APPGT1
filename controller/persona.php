@@ -13,7 +13,7 @@
                 $datos = $persona->get_persona();
                 # code...
             }else{
-                $datos = $persona->get_persona_x_Apellido($ap);
+                $datos = $persona->get_persona_x_filtro($ap);
             }
             
             $data= Array();
@@ -47,10 +47,18 @@
             $datos=$persona->get_persona_x_id($_POST["per_id"]);
             if(empty($_POST["per_id"])){
                 if(is_array($datos)==true and count($datos)==0){
-                    $persona->insert_persona($_POST["per_nroDoc"],$_POST["per_paterno"],$_POST["per_materno"],$_POST["per_nombres"],$_POST["per_sexo"],$_POST["docTipo_id"]);
+                    $validar=$persona->validarPersona($_POST["per_nroDoc"]);
+                    if ($validar['cantidad'] > 0) {
+                        echo "Ya existe una persona registrada con el documento de identidad.";
+                    }else{
+                        $persona->insert_persona($_POST["per_nroDoc"],$_POST["per_paterno"],$_POST["per_materno"],$_POST["per_nombres"],$_POST["per_sexo"],$_POST["docTipo_id"]);
+                        
+                    }
                 }
             }else{
-                $persona->update_persona($_POST["per_id"],$_POST["per_nroDoc"],$_POST["per_paterno"],$_POST["per_materno"],$_POST["per_nombres"],$_POST["per_sexo"],$_POST["docTipo_id"]);
+                //$persona->update_persona($_POST["per_id"],$_POST["per_nroDoc"],$_POST["per_paterno"],$_POST["per_materno"],$_POST["per_nombres"],$_POST["per_sexo"],$_POST["docTipo_id"]);
+                $persona->update_persona($_POST["per_id"],$_POST["per_paterno"],$_POST["per_materno"],$_POST["per_nombres"],$_POST["per_sexo"]);
+                
             }
             break;
 
@@ -73,5 +81,7 @@
         case "eliminar":
             $persona->delete_persona($_POST["per_id"]);
             break;
+        
+        
     }
 ?>

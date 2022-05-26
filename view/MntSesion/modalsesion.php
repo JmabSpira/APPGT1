@@ -62,7 +62,7 @@
                             </div>
 
                             <div class="icheck-primary d-inline col-sm-4">
-                                <input type="radio" id="ses_estado2" name="ses_estado" value = 0>
+                                <input type="radio" id="ses_estado2" name="ses_estado" value = 0 disabled>
                                 <label for="ses_estado2">
                                 Desactivado
                                 </label>

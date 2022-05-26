@@ -63,25 +63,39 @@ $(document).ready(function () {
 function guardaryeditar(e) {
     e.preventDefault();
     var formData = new FormData($("#diligencia_form")[0]);
-    $.ajax({
-        url: "../../controller/diligencia.php?op=guardaryeditar",
-        type: "POST",
-        data: formData,
-        contentType: false,
-        processData: false,
-        success: function (datos) {
 
-            $('#diligencia_form')[0].reset();
-            $("#modalmantenimiento").modal('hide');
-            $('#diligencia_data').DataTable().ajax.reload();
+    var fecha = $('#dil_fechaE').val();
+    if (validarFecha(fecha)) {
+        $.ajax({
+            url: "../../controller/diligencia.php?op=guardaryeditar",
+            type: "POST",
+            data: formData,
+            contentType: false,
+            processData: false,
+            success: function (datos) {
 
-            swal.fire(
-                'Registro!',
-                'El registro correctamente.',
-                'success'
-            )
-        }
-    });
+                $('#diligencia_form')[0].reset();
+                $("#modalmantenimiento").modal('hide');
+                $('#diligencia_data').DataTable().ajax.reload();
+
+                if (datos == false) {
+                    swal.fire(
+                        'Registro!',
+                        'El registro correctamente.',
+                        'success'
+                    )
+                } else {
+                    swal.fire(
+                        'ERROR!',
+                        'No se completó la acción. ' + datos,
+                        'error'
+                    )
+                }
+            }
+        });
+    } else {
+        swal.fire("Ingrese una fecha válida")
+    }
 }
 
 function editar(dil_id) {
@@ -129,7 +143,6 @@ function eliminar(dil_id) {
     })
 
 }
-
 
 $(document).on("click", "#btnnuevo", function () {
     $('#dil_id').val('');

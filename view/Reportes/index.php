@@ -3,10 +3,10 @@
 
 <head>
   <?php require_once("../../mainhead.php");?>
-  <title>Lista de Expedientes</title>
+  <title>Reportes</title>
 </head>
 
-<body class="hold-transition sidebar-mini">
+<body class="hold-transition sidebar-mini sidebar-collapse">
   <!-- Site wrapper -->
   <div class="wrapper">
 
@@ -21,11 +21,11 @@
         <div class="container-fluid">
           <div class="row mb-2">
             <div class="col-sm-6">
-              <h1>Lista de Expedientes</h1>
+              <h1>Reporte</h1>
             </div>
             <div class="col-sm-6">
               <ol class="breadcrumb float-sm-right">
-                <li class="breadcrumb-item"><a href="#">Lista de Expedientes</a></li>
+                <li class="breadcrumb-item"><a href="#">Reporte</a></li>
                 <li class="breadcrumb-item active"></li>
               </ol>
             </div>
@@ -41,21 +41,25 @@
             <div class="col-12">
               <div class="card card-primary">
                 <div class="card-header">
-                  <h3 class="card-title">Lista de Expedientes</h3>
+                  <h3 class="card-title">Reporte</h3>
                 </div>
 
                 <!-- /.card-header -->
                 <div class="card-body">
-                                <div class="form-group row">
-                                    <label for="ses_id" class="col-sm-4 col-form-label">Sesión Universitaria Actual:</label>
-                                    <div class="col-sm-1">
-                                        <input type="text" class="form-control Exp" id="ses_id" readonly>
-                                    </div>
-                                    <div class="col-sm-3">
-                                        <input type="text" class="form-control" id = "ses_data" disabled="">
-                                    </div>
+                  <div class="form-group row">
+                    <label for="ses_id" class="col-sm-3 col-form-label">Seleccionar Expedientes:</label>
+                    <div class="col-sm-5">
+                      <?php 
+                      $d = $_GET['filtro'];
+                      ?>
+                      <input type="hidden" id="dato" name="dato" value ="<?php echo $d; ?>">
+                      <select class="form-control select2 select2-hidden-accessible" style="width: 100%;"
+                        data-select2-id="1" aria-hidden="true" id="filtro">
+                        <option selected="selected" value="0">Seleccione</option>
+                      </select>
+                    </div>
 
-                                </div>
+                  </div>
                   <br>
                   <table id="resolucion_data" class="table table-bordered table-striped">
                     <thead>
@@ -66,10 +70,7 @@
                         <th>Denominación</th>
                         <th>Modalidad</th>
                         <th>Fecha Aprobación</th>
-                        <!-- /.card-header 
-                                <th>Tipo Doc</th>
-                                -->
-                        <th></th>
+                        <th>Sesion CU</th>
                       </tr>
                     </thead>
                     <tbody>
@@ -102,7 +103,7 @@
 
   <script src="//cdn.jsdelivr.net/npm/sweetalert2@10"></script>
 
-  <script type="text/javascript" src="mntlista.js"></script>
+  <script type="text/javascript" src="mntreporte.js"></script>
 </body>
 
 </html>

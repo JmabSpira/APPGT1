@@ -108,6 +108,18 @@
             //return $resultado=$sql->fetchAll();
             return $resultado = $sql->fetch();
         }
+
+        public function verificarDiligencia(){
+            $conectar= parent::conexion();
+            parent::set_names();
+            $sql = "SELECT COUNT(dil_id) as cantidad
+            FROM  diligencia
+            WHERE dil_estado = 1";
+            $sql=$conectar->prepare($sql);
+            $sql->execute();
+            //return $resultado=$sql->fetchAll();
+            return $resultado = $sql->fetch();
+        }
     }
 
 

@@ -4,7 +4,7 @@
         public function get_lista_expediente($ses_id){
             $conectar= parent::conexion();
             parent::set_names();
-            $sql="SELECT ROW_NUMBER() over (ORDER BY E.nivel_id,es.fac_id,E.esc_code,a.actAca_nombre,p.per_nombres asc) as num,E.exp_id,upper(CONCAT(p.per_nombres,' ',p.per_paterno,' ',p.per_materno)) as nombre, E.exp_denominacion, DATE_FORMAT(IF(s.ses_fecha is null,r.resol_fecha,s.ses_fecha),'%d/%m/%Y') as fechaA FROM EXPEDIENTE E
+            $sql="SELECT ROW_NUMBER() over (ORDER BY E.nivel_id,es.fac_id,E.esc_code,a.actAca_nombre,p.per_nombres asc) as num,E.exp_id,CONCAT(p.per_nombres,' ',p.per_paterno,' ',p.per_materno) as nombre, E.exp_denominacion, a.actAca_nombre as modalidad, DATE_FORMAT(IF(s.ses_fecha is null,r.resol_fecha,s.ses_fecha),'%d/%m/%Y') as fechaA FROM EXPEDIENTE E
             INNER JOIN persona p on p.per_id = E.per_id
             INNER JOIN resolucion r on r.resol_id = E.resol_id
             INNER JOIN sesion s on s.ses_id = r.ses_id
@@ -61,6 +61,7 @@
             return $resultado=$sql->fetchAll();
         }
 
+        
         public function get_diligencia($dil_id){
             $conectar= parent::conexion();
             parent::set_names();
@@ -152,11 +153,7 @@
             $sql->bindValue(17,$subDen_id);
             $sql->execute();
 
-            /*
-            echo "\nPDO::errorInfo():\n";
-            print_r($sql->errorInfo());*/
-            //return $resultado=$sql->errorInfo();
-            //return $results=@mysql_query($sql) or die ('Error: '.mysql_error());
+            //print_r($sql->errorInfo());
             return $resultado=$sql->fetchAll();
         }
 
@@ -215,6 +212,16 @@
             //return $resultado=$sql->fetchAll();
         }
 
+        public function cargarNivel(){
+            $conectar = parent::conexion();
+            parent::set_names();
+            $sql = "SELECT nivel_id,nivel_nombre FROM nivel where nivel_estado = 1 order by nivel_id";
+            $sql=$conectar->prepare($sql);
+            $sql->execute();
+            return $resultado=$sql->fetchAll();
+            //return $resultado=$sql->fetchAll();
+        }
+
         public function cargarTipoSesion($ses){
             $conectar = parent::conexion();
             parent::set_names();
@@ -230,11 +237,22 @@
         public function get_persona_x_doc($per_nroDoc){
             $conectar= parent::conexion();
             parent::set_names();
-            $sql="SELECT per_id,per_nroDoc,per_paterno,per_materno,per_nombres,per_sexo,docTipo_id FROM persona WHERE per_nroDoc = ?";
+            $sql="SELECT per_id,per_nroDoc,per_paterno,per_materno,per_nombres,per_sexo,docTipo_id FROM persona WHERE per_estado = 1 and per_nroDoc = ?";
             $sql=$conectar->prepare($sql);
             $sql->bindValue(1,$per_nroDoc);
             $sql->execute();
             return $resultado=$sql->fetchAll();
+        }
+
+        public function obtenerID($per_nroDoc){
+            $conectar= parent::conexion();
+            parent::set_names();
+            $sql="SELECT per_id FROM persona WHERE per_nroDoc = ? and per_estado = 1;";
+            $sql=$conectar->prepare($sql);
+            $sql->bindValue(1,$per_nroDoc);
+            $sql->execute();
+            //return $resultado=$sql->fetchAll();
+            return $resultado = $sql->fetch();
         }
         /*
         public function get_expediente(){
@@ -279,6 +297,25 @@
             return $resultado=$sql->fetchAll();
         }
 */
+
+        public function get_reporte($fac,$esc,$niv){
+            $conectar= parent::conexion();
+            parent::set_names();
+            $sql="SELECT ROW_NUMBER() over (ORDER BY E.nivel_id,es.fac_id,E.esc_code,a.actAca_nombre,p.per_nombres asc) as num,E.exp_id,CONCAT(p.per_nombres,' ',p.per_paterno,' ',p.per_materno) as nombre, E.exp_denominacion, a.actAca_nombre as modalidad, DATE_FORMAT(IF(s.ses_fecha is null,r.resol_fecha,s.ses_fecha),'%d/%m/%Y') as fechaA, CONCAT(DAY(s2.ses_fecha),' de ',MONTHNAME(s2.ses_fecha),' de ',YEAR(s2.ses_fecha)) as sesfecha FROM EXPEDIENTE E
+            INNER JOIN persona p on p.per_id = E.per_id
+            INNER JOIN resolucion r on r.resol_id = E.resol_id
+            INNER JOIN sesion s on s.ses_id = r.ses_id
+            INNER JOIN escuela es on es.esc_code = E.esc_code
+            INNER JOIN acto_academico a on a.actAca_id = E.actAca_id
+            INNER JOIN sesion s2 on s2.ses_id = E.ses_id
+            WHERE es.fac_id = ? or es.esc_code = ? or E.nivel_id = ?";
+            $sql=$conectar->prepare($sql);
+            $sql->bindValue(1,$fac);
+            $sql->bindValue(2,$esc);
+            $sql->bindValue(3,$niv);
+            $sql->execute();
+            return $resultado=$sql->fetchAll();
+        }
     }
 ?>
 
