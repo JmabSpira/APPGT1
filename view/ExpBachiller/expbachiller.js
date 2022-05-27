@@ -1,13 +1,7 @@
-var Toast = Swal.mixin({
-    toast: true,
-    showConfirmButton: false,
-    timer: 2000
-});
-
 function init() {
 
     $("#persona_form").on("submit", function (e) {
-        guardarPersonaE(e);
+        guardarPersona(e);
     });
     navegacion();
     cargarEscuelaBT();
@@ -18,7 +12,6 @@ function init() {
     $(".dato").on('focus', function () {
         this.select();
     });
-
 }
 
 function limpiar() {
@@ -35,51 +28,38 @@ function verDatos() {
     }
 }
 
-function guardarPersonaE(e) {
+function guardarPersona(e) {
     e.preventDefault();
 
-    info = '' + $('#per_nroDoc').val();
-    cant = document.getElementById("per_nroDoc").maxLength;
-    if (cant == info.length) {
-        var formData = new FormData($("#persona_form")[0]);
+    var formData = new FormData($("#persona_form")[0]);
 
-        $.ajax({
-            url: "../../controller/persona.php?op=guardaryeditar",
-            type: "POST",
-            data: formData,
-            contentType: false,
-            processData: false,
-            success: function (datos) {
+    $.ajax({
+        url: "../../controller/persona.php?op=guardaryeditar",
+        type: "POST",
+        data: formData,
+        contentType: false,
+        processData: false,
+        success: function (datos) {
 
-                if (datos == false) {
-                    swal.fire(
-                        'Registro!',
-                        'El registro correctamente.',
-                        'success'
-                    )
-                    $('#per_nroDoc1').val(formData.get('per_nroDoc'));
-                    //datos = formData.get('per_paterno') + " " + formData.get('per_materno') + " " + formData.get('per_nombres');
-                    //$('#per_paterno1').val(datos);
-                    $('#per_paterno1').val(formData.get('per_paterno'));
-                    $('#per_materno1').val(formData.get('per_materno'));
-                    $('#per_nombres1').val(formData.get('per_nombres'));
-                    $('input[name=per_sexo1][value =' + formData.get('per_sexo') + ']').prop("checked", true);
-                    $('#docTipo_id1').val(formData.get('docTipo_id'));
-                    $('#persona_form')[0].reset();
-                    $("#modalpersona").modal('hide');
+            $('#per_nroDoc1').val(formData.get('per_nroDoc'));
+            $('#per_paterno1').val(formData.get('per_paterno'));
+            $('#per_materno1').val(formData.get('per_materno'));
+            $('#per_nombres1').val(formData.get('per_nombres'));
+            $('input[name=per_sexo1][value =' + formData.get('per_sexo') + ']').prop("checked", true);
+            $('#docTipo_id1').val(formData.get('docTipo_id'));
 
-                } else {
-                    swal.fire(
-                        'ERROR!',
-                        'No se completó la acción. Error: ' + datos,
-                        'error'
-                    )
-                }
-            }
-        });
-    } else {
-        swal.fire("El documento de identidad debe tener " + cant + " dígitos");
-    }
+            $('#persona_form')[0].reset();
+            $("#modalpersona").modal('hide');
+
+            swal.fire(
+                'Registro!',
+                'El registro correctamente.',
+                'success'
+            )
+
+
+        }
+    });
 }
 
 
@@ -145,7 +125,7 @@ function validarInput(elemento) {
 
     jQuery(elemento).on('input', function (evt) {
         // Allow only numbers.
-        jQuery(this).val(jQuery(this).val().replace(/[^0-9]/g, ''));
+        jQuery(this).val(jQuery(this).val().replace(/[^1-9]/g, ''));
 
     });
     /*
@@ -155,7 +135,6 @@ function validarInput(elemento) {
 */
 }
 
-//Validado
 function cargarEscuelaBT() {
 
     $.ajax({
@@ -201,27 +180,6 @@ function leerCambio() {
     console.log("llega aqui ---");
 }
 
-function registrarPersona() {
-    document.getElementById('docTipo_id').addEventListener("change", function () {
-        opt = $('#docTipo_id').val();
-        $('#per_nroDoc').val('');
-        if (opt == "1") {
-            $('#per_nroDoc').attr('maxlength', '15');
-        } else if (opt == "2") {
-            $('#per_nroDoc').attr('maxlength', '8');
-        } else if (opt == "3") {
-            $('#per_nroDoc').attr('maxlength', '11');
-        } else if (opt == "4" || opt == "5") {
-            $('#per_nroDoc').attr('maxlength', '12');
-        } else {
-            $('#per_nroDoc').attr('maxlength', '10');
-        }
-    });
-
-    $('#mdltitulo').html('Registrar Persona');
-    validarNumeros("#per_nroDoc");
-    $('#modalpersona').modal('show');
-}
 
 function guardarExpediente(e) {
     e.preventDefault();
@@ -275,28 +233,6 @@ function guardarExpediente(e) {
 
 function cargarActo() {
     var act = $('#actAca_id').val();
-    $.get("../../controller/expediente.php?op=cargarActo", {
-        act: act
-    }, function (data) {
-        var data = JSON.parse(data);
-        if (data == false) {
-            Toast.fire({
-                icon: 'error',
-                title: 'Ingrese una modalidad válida'
-            })
-            $('#actAca_id').val('6');
-            cargarActo();
-            /*$('#actAca_alias').val('')
-            $('#actAca_id').focus();*/
-
-        } else {
-            $('#actAca_alias').val(data.actAca_nombre);
-        }
-    });
-}
-
-function cargarActos() {
-    var act = $('#actAca_id').val();
     $.ajax({
         type: 'GET',
         url: '../../controller/expediente.php?op=cargarActo&appat=' + act,
@@ -322,7 +258,6 @@ function cargarActos() {
     })
 }
 
-//Validado
 function cargarPersona() {
     var per_nroDoc = $('#per_nroDoc1').val();
     $.post("../../controller/expediente.php?op=cargarPersona", {
@@ -359,49 +294,11 @@ function cargarPersona() {
 
 function cargarOrgano() {
     var org = $('#org_id').val();
-    $.get("../../controller/expediente.php?op=cargarOrgano", {
-        org: org
-    }, function (data) {
-
-        var data = JSON.parse(data);
-
-        if (data == false) {
-            Toast.fire({
-                icon: 'error',
-                title: 'Ingrese un tipo de resolución válido'
-            })
-            $("#org_id").val(7);
-            cargarOrgano();
-        } else {
-            $('#org_alias').val(data.org_emite);
-            if (org == 1 || org == 2 || org == 6 || org == 8) {
-                $('#sesTipo_id').prop('disabled', false);
-                $('#ses_fecha').prop('disabled', false);
-                $('#sesTipo_id').val('');
-                $('#ses_fecha').val('');
-                $('#sesTipo_id').focus();
-
-
-                //$('#sesTipo_id').focus();
-            } else {
-                $('#sesTipo_id').val('');
-                $('#ses_fecha').val('');
-                $('#sesTipo_id').prop('disabled', true);
-                $('#ses_fecha').prop('disabled', true);
-                $('#resol_fecha').focus();
-            }
-        }
-    });
-}
-
-function cargarOrganos() {
-    var org = $('#org_id').val();
     $.ajax({
         type: 'GET',
         url: '../../controller/expediente.php?op=cargarOrgano&appat=' + org,
         success: function (response) {
 
-            alert(response);
             var json = JSON.parse(response);
             const temp = json;
             if (response == "false") {
@@ -438,7 +335,7 @@ function activarCampoSesion(valor) {
     $('#ses_fecha').prop('disabled', valor);
 }
 
-function cargarTipoSesiones() {
+function cargarTipoSesion() {
     var ses = $('#sesTipo_id').val();
     $.ajax({
         type: 'GET',
@@ -465,32 +362,6 @@ function cargarTipoSesiones() {
     })
 }
 
-function cargarTipoSesion() {
-    var ses = $('#sesTipo_id').val();
-
-    $.get("../../controller/expediente.php?op=cargarTipoSesion", {
-        ses: ses
-    }, function (data) {
-        var data = JSON.parse(data);
-        if (data == false) {
-            Toast.fire({
-                icon: 'error',
-                title: 'Ingrese un tipo de sesión válido'
-            })
-            $("#sesTipo_id").val(1);
-            cargarTipoSesion();
-            /*
-            $('#sesTipo_id').val('');
-            $('#sesTipo_nombre').val('');
-            $('#sesTipo_id').focus();*/
-        } else {
-            $('#sesTipo_nombre').val(data.sesTipo_nombre);
-        }
-    });
-}
-
-
-//validado
 function seleccionarEscuela() {
 
     var esc_code1 = $('#esc_code1').val();
@@ -505,18 +376,19 @@ function seleccionarEscuela() {
         $select.val(esc_code1);
         cargarDenominacion();
     } else {
-        Toast.fire({
-            icon: 'error',
-            title: 'Código de Escuela Inválido'
-        })
+        swal.fire(
+            'Error!',
+            'Valor inválido.',
+            'error'
+        )
         $('#esc_code1').val(0);
         $select.val(0);
 
         $('#den_id').val(0);
-
     }
-}
 
+
+}
 
 function selectEscuela() {
 
@@ -525,27 +397,26 @@ function selectEscuela() {
     cargarDenominacion();
 }
 
-function cargarGeneracions() {
+function cargarGeneracion() {
     var genCop_id = $('#genCop_id').val();
     $.ajax({
         type: 'GET',
         url: '../../controller/expediente.php?op=cargarGeneracion&appat=' + genCop_id,
         success: function (response) {
-            alert(response);
-            alert(typeof (response));
+            var json = JSON.parse(response);
+            const temp = json;
+
+            console.log(response);
+            console.log(typeof (response));
 
             if (response == "false") {
-                swal.fire(
-                    'Error!',
-                    'Valor inválido.',
-                    'error'
-                )
-                swal.fire('Valor Invalido');
-                $("#genCop_id").val(1);
-                cargarGeneracion();
+
+                alert("Valor invalido");
+                console.log("valor invalido");
+                $('#genCop_id').focus();
+                $('#genCop_id').val(1);
             } else {
-                var json = JSON.parse(response);
-                const temp = json;
+
 
                 var $input = $('#genCop_alias');
                 $.each(temp, function (genCop_id, genCop_alias) {
@@ -556,27 +427,12 @@ function cargarGeneracions() {
     })
     //$('#esc_code1').focus();
 }
-//Validado
-function cargarGeneracion() {
-    var appat = $('#genCop_id').val();
-    $.get("../../controller/expediente.php?op=cargarGeneracion", {
-        appat: appat
-    }, function (data) {
-        var data = JSON.parse(data);
-        if (data == false) {
-            swal.fire('Ingrese un Nivel Válido');
-            $('#genCop_id').val(1);
-            cargarGeneracion();
-        } else {
 
-            $('#genCop_alias').val(data.genCop_alias);
-        }
-    });
-}
 
-//Validado
+// Funcion que carga los datos de la Sesión Actual.
 function cargarSesion() {
     $.get("../../controller/sesion.php?op=sesionActual", {}, function (data) {
+
         if (data === 'false') {
             swal.fire('No hay una sesión activa');
         } else {
@@ -584,9 +440,11 @@ function cargarSesion() {
             $('#ses_id').val(data.ses_id);
             var infoSes = data.org_acronimo + " - " + data.sesTipo_sigla + " - " + data.ses_fecha;
             $('#ses_data').val(infoSes);
+            console.log(data.ses_id + data.org_acronimo + data.ses_fecha);
         }
     });
 }
+
 
 function cargarDenominacion() {
 
@@ -618,7 +476,7 @@ function cargarDenominacion() {
 }
 
 
-$(document).on("click", "#btnpersona", function () {
+$(document).on("click", "#btnnuevo", function () {
     $('#mdltitulo').html('Nuevo Registro');
     $('#modalpersona').modal('show');
     //$('#persona_form')[0].reset();

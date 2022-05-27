@@ -17,6 +17,28 @@
             return $resultado=$sql->fetchAll();
         }
 
+
+        public function get_lista_expedientes($nivel_id,$ses_id){
+            $conectar= parent::conexion();
+            parent::set_names();
+            $sql="SELECT ROW_NUMBER() over (ORDER BY E.nivel_id,es.fac_id,E.esc_code,a.actAca_nombre,p.per_nombres asc) as num,
+            E.exp_id,CONCAT(p.per_nombres,' ',p.per_paterno,' ',p.per_materno) as nombre, E.exp_denominacion, a.actAca_nombre as modalidad,
+            DATE_FORMAT(IF(s.ses_fecha is null,r.resol_fecha,s.ses_fecha),'%d/%m/%Y') as fechaA, r.resol_numero,
+            o.org_acronimo FROM EXPEDIENTE E
+            INNER JOIN persona p on p.per_id = E.per_id
+            INNER JOIN resolucion r on r.resol_id = E.resol_id
+            INNER JOIN sesion s on s.ses_id = r.ses_id
+            INNER JOIN organo o on o.org_id = s.org_id
+            INNER JOIN escuela es on es.esc_code = E.esc_code
+            INNER JOIN acto_academico a on a.actAca_id = E.actAca_id
+            where E.nivel_id = ? and E.ses_id = ?";
+            $sql=$conectar->prepare($sql);
+            $sql->bindValue(1,$nivel_id);
+            $sql->bindValue(2,$ses_id);
+            $sql->execute();
+            return $resultado=$sql->fetchAll();
+        }
+        
         public function get_expediente_x_id($id){
             $conectar= parent::conexion();
             parent::set_names();
@@ -40,6 +62,24 @@
             $sql->execute();
             return $resultado=$sql->fetchAll();
         }
+
+        public function info_expediente_x_id($id){
+            $conectar= parent::conexion();
+            parent::set_names();
+            $sql="SELECT E.exp_id,S.ses_id, E.genCop_id, E.esc_code, Si.org_id, Si.sesTipo_id, date_format(Si.ses_fecha,'%d/%m/%Y') as sesfecha, date_format(R.resol_fecha,'%d/%m/%Y') as resolfecha, R.resol_numero,
+            date_format(R.resol_fechaSolicitud,'%d/%m/%Y') as fechasoli, R.resol_nroSolicitud, R.resol_memorando,P.per_nroDoc,upper(CONCAT(P.per_nombres,' ',P.per_paterno,' ',P.per_materno)) as nombre,P.per_sexo,P.docTipo_id,
+            date_format(E.fecha_actAca,'%d/%m/%Y') as fechaacto,E.actAca_id,E.den_id FROM expediente E
+            INNER JOIN sesion S on S.ses_id = E.ses_id
+            INNER JOIN persona P on P.per_id = E.per_id
+            INNER JOIN resolucion R on R.resol_id = E.resol_id
+            INNER JOIN sesion Si on Si.ses_id = R.ses_id
+            WHERE exp_id = ?";
+            $sql=$conectar->prepare($sql);
+            $sql->bindValue(1,$id);
+            $sql->execute();
+            return $resultado=$sql->fetchAll();
+        }
+
 
         public function get_expediente_diploma($id){
             $conectar= parent::conexion();
@@ -81,7 +121,7 @@
         public function delete_expediente($exp_id){
             $conectar= parent::conexion();
             parent::set_names();
-            $sql="DELETE FROM expediente WHERE exp_id = ?";
+            $sql="CALL eliminarExpediente(?)";
             $sql=$conectar->prepare($sql);
             $sql->bindValue(1,$exp_id);
             $sql->execute();
@@ -268,26 +308,32 @@
             return $resultado=$sql->fetchAll();
         }
 */
-/*
-        public function update_expediente($subDen_id,$den_id,$subDen_MasFem){
+
+        public function update_expediente($exp_id,$genCop_id,$esc_code,$org_id,$sesTipo_id,$ses_fecha,$resol_fecha,$resol_numero,
+        $resol_fechaSolicitud,$resol_nroSolicitud,$resol_memorando,$actAca_id,$fecha_actAca,$den_id){
             $conectar= parent::conexion();
             parent::set_names();
-            $sql="UPDATE expediente
-                SET
-                    den_id = ?,
-                    subDen_MasFem=?,
-                    subDen_modifieddate=now()
-                WHERE
-                    subDen_id = ?";
+            $sql="CALL editarExpediente(?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
             $sql=$conectar->prepare($sql);
-            $sql->bindValue(1,$den_id);
-            $sql->bindValue(2,$subDen_MasFem);
-            $sql->bindValue(3,$subDen_id);
+            $sql->bindValue(1,$exp_id);
+            $sql->bindValue(2,$genCop_id);
+            $sql->bindValue(3,$esc_code);
+            $sql->bindValue(4,$org_id);
+            $sql->bindValue(5,$sesTipo_id);
+            $sql->bindValue(6,$ses_fecha);
+            $sql->bindValue(7,$resol_fecha);
+            $sql->bindValue(8,$resol_numero);
+            $sql->bindValue(9,$resol_fechaSolicitud);
+            $sql->bindValue(10,$resol_nroSolicitud);
+            $sql->bindValue(11,$resol_memorando);
+            $sql->bindValue(12,$actAca_id);
+            $sql->bindValue(13,$fecha_actAca);
+            $sql->bindValue(14,$den_id);
             $sql->execute();
             return $resultado=$sql->fetchAll();
         }
 
-*/
+
 /*
         public function cargarDenominacion(){
             $conectar = parent::conexion();

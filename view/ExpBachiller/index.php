@@ -8,7 +8,7 @@
 
 </head>
 
-<body class="hold-transition sidebar-mini sidebar-collapse">
+<body class="hold-transition sidebar-mini">
     <!-- Site wrapper -->
     <div class="wrapper">
 
@@ -71,7 +71,7 @@
                                             </div>
 
                                             <div class="col-sm-7">
-                                                <input type="text" class="form-control" value="Grado de Bachiller"
+                                                <input type="text" class="form-control" placeholder="Grado de Bachiller"
                                                     disabled="">
                                             </div>
 
@@ -104,7 +104,7 @@
                                             <label for="esc_code1" class="col-sm-3 col-form-label">Escuela</label>
                                             <div class="col-sm-2">
                                                 <input type="text" class="form-control dato Exp" id="esc_code1"
-                                                    value="0" onFocus="this.select()" name="esc_codeE" autofocus>
+                                                    value="1" onFocus="this.select()" name="esc_codeE" autofocus>
                                             </div>
                                             <div class="col-sm-7">
                                                 <select class="form-control select2 select2-hidden-accessible"
@@ -284,7 +284,7 @@
                                             </div>
                                             <div class="col-sm-5">
                                                 <button type="button" class="btn btn-block btn-outline-primary"
-                                                id="btnpersona" onclick = "registrarPersona()">Nuevo</button>
+                                                    id="btnnuevo">Nuevo</button>
 
                                             </div>
 
@@ -417,14 +417,16 @@
                                 <!-- /.card -->
                                 <div class="card">
                                     <div class="card-body row">
-                                         <div class="col-md-6">
-                                             </div>
                                         <div class="col-md-6">
                                             <button type="button" id="guardarExp" value="add"
                                         class="btn btn-outline-primary btn-block Exp"><i
                                         class="fas fa-save" ></i> Guardar</button>
                                             <!--<button type="button" class="btn btn-outline-primary btn-block"
                                                 id="guardarExp" name="inp"><i class="fas fa-save"></i> Guardar</button>-->
+                                        </div>
+                                        <div class="col-md-6">
+                                            <button type="button" class="btn btn-outline-danger btn-block"><i
+                                                    class="fas fa-times"></i> Cancelar</button>
                                         </div>
                                     </div>
                                 </div>
@@ -453,7 +455,7 @@
 
     <script src="//cdn.jsdelivr.net/npm/sweetalert2@10"></script>
 
-    <script type="text/javascript" src="mntbachiller.js"></script>
+    <script type="text/javascript" src="expbachiller.js"></script>
     <!--<script type = "text/javascript" src="mntpersona.js"></script>-->
 
     <script>

@@ -54,14 +54,13 @@
                     <thead>
                       <tr>
                         <th>Nro</th>
-                        <th>Exp</th>
                         <th>Nombres</th>
                         <th>Denominación</th>
                         <th>Modalidad</th>
                         <th>Fecha Aprobación</th>
-                        <!-- /.card-header 
-                                <th>Tipo Doc</th>
-                                -->
+                        <th>Resol. Nº</th>
+                        <th>Tipo R</th>
+                        <th></th>
                         <th></th>
                       </tr>
                     </thead>

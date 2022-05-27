@@ -14,4 +14,3 @@ function validarNumeros(elemento) {
         jQuery(this).val(jQuery(this).val().replace(/[^0-9]/g, ''));
     });
 }
-

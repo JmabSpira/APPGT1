@@ -71,7 +71,7 @@
                                             </div>
 
                                             <div class="col-sm-7">
-                                                <input type="text" class="form-control" value="Grado de Bachiller"
+                                                <input type="text" class="form-control" placeholder="Grado de Bachiller"
                                                     disabled="">
                                             </div>
 
@@ -284,7 +284,7 @@
                                             </div>
                                             <div class="col-sm-5">
                                                 <button type="button" class="btn btn-block btn-outline-primary"
-                                                id="btnpersona" onclick = "registrarPersona()">Nuevo</button>
+                                                    id="btnnuevo">Nuevo</button>
 
                                             </div>
 

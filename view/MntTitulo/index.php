@@ -284,7 +284,7 @@
                                             </div>
                                             <div class="col-sm-5">
                                                 <button type="button" class="btn btn-block btn-outline-primary"
-                                                    id="btnnuevo">Nuevo</button>
+                                                id="btnpersona" onclick = "registrarPersona()">Nuevo</button>
 
                                             </div>
 

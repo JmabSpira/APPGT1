@@ -1,7 +1,7 @@
 function init() {
 
     $("#persona_form").on("submit", function (e) {
-        guardarPersona(e);
+        guardarPersonaE(e);
     });
     navegacion();
     cargarEscuelaBT();
@@ -28,41 +28,74 @@ function verDatos() {
     }
 }
 
-function guardarPersona(e) {
+function guardarPersonaE(e) {
     e.preventDefault();
 
-    var formData = new FormData($("#persona_form")[0]);
+    info = '' + $('#per_nroDoc').val();
+    cant = document.getElementById("per_nroDoc").maxLength;
+    if (cant == info.length) {
+        var formData = new FormData($("#persona_form")[0]);
 
-    $.ajax({
-        url: "../../controller/persona.php?op=guardaryeditar",
-        type: "POST",
-        data: formData,
-        contentType: false,
-        processData: false,
-        success: function (datos) {
+        $.ajax({
+            url: "../../controller/persona.php?op=guardaryeditar",
+            type: "POST",
+            data: formData,
+            contentType: false,
+            processData: false,
+            success: function (datos) {
 
-            $('#per_idE').val(formData.get('per_idE'));
-            $('#per_nroDoc1').val(formData.get('per_nroDoc'));
-            $('#per_paterno1').val(formData.get('per_paterno'));
-            $('#per_materno1').val(formData.get('per_materno'));
-            $('#per_nombres1').val(formData.get('per_nombres'));
-            $('input[name=per_sexo1][value =' + formData.get('per_sexo') + ']').prop("checked", true);
-            $('#docTipo_id1').val(formData.get('docTipo_id'));
+                if (datos == false) {
+                    swal.fire(
+                        'Registro!',
+                        'El registro correctamente.',
+                        'success'
+                    )
+                    $('#per_nroDoc1').val(formData.get('per_nroDoc'));
+                    //datos = formData.get('per_paterno') + " " + formData.get('per_materno') + " " + formData.get('per_nombres');
+                    //$('#per_paterno1').val(datos);
+                    $('#per_paterno1').val(formData.get('per_paterno'));
+                    $('#per_materno1').val(formData.get('per_materno'));
+                    $('#per_nombres1').val(formData.get('per_nombres'));
+                    $('input[name=per_sexo1][value =' + formData.get('per_sexo') + ']').prop("checked", true);
+                    $('#docTipo_id1').val(formData.get('docTipo_id'));
+                    $('#persona_form')[0].reset();
+                    $("#modalpersona").modal('hide');
 
-            $('#persona_form')[0].reset();
-            $("#modalpersona").modal('hide');
-
-            swal.fire(
-                'Registro!',
-                'El registro correctamente.',
-                'success'
-            )
-
-
-        }
-    });
+                } else {
+                    swal.fire(
+                        'ERROR!',
+                        'No se completó la acción. Error: ' + datos,
+                        'error'
+                    )
+                }
+            }
+        });
+    } else {
+        swal.fire("El documento de identidad debe tener " + cant + " dígitos");
+    }
 }
 
+function registrarPersona() {
+    document.getElementById('docTipo_id').addEventListener("change", function () {
+        opt = $('#docTipo_id').val();
+        $('#per_nroDoc').val('');
+        if (opt == "1") {
+            $('#per_nroDoc').attr('maxlength', '15');
+        } else if (opt == "2") {
+            $('#per_nroDoc').attr('maxlength', '8');
+        } else if (opt == "3") {
+            $('#per_nroDoc').attr('maxlength', '11');
+        } else if (opt == "4" || opt == "5") {
+            $('#per_nroDoc').attr('maxlength', '12');
+        } else {
+            $('#per_nroDoc').attr('maxlength', '10');
+        }
+    });
+
+    $('#mdltitulo').html('Registrar Persona');
+    validarNumeros("#per_nroDoc");
+    $('#modalpersona').modal('show');
+}
 
 /*
 $(document).ready(function () {
@@ -534,7 +567,7 @@ function cargarSubDenominacion() {
 }
 
 
-$(document).on("click", "#btnnuevo", function () {
+$(document).on("click", "#btnpersona", function () {
     $('#mdltitulo').html('Nuevo Registro');
     $('#modalpersona').modal('show');
     //$('#persona_form')[0].reset();

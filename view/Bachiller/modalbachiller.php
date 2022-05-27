@@ -41,7 +41,7 @@
                                         </div>
 
                                         <div class="col-sm-7">
-                                            <input type="text" class="form-control" placeholder="Grado de Bachiller"
+                                            <input type="text" class="form-control" value="Grado de Bachiller"
                                                 disabled="">
                                         </div>
 
@@ -54,7 +54,7 @@
                                                 name="genCop_idE" onFocus="this.select()" required>
                                         </div>
                                         <div class="col-sm-7">
-                                            <input type="text" class="form-control dato" placeholder="Original"
+                                            <input type="text" class="form-control" placeholder="Original"
                                                 id="genCop_alias" disabled="">
                                         </div>
 
@@ -63,27 +63,15 @@
                                     <div class="form-group row">
                                         <label for="esc_code1" class="col-sm-3 col-form-label">Escuela</label>
                                         <div class="col-sm-2">
-                                            <input type="text" class="form-control dato Exp" id="esc_code1" value="1"
+                                            <input type="text" class="form-control dato Exp" id="esc_code1" value="0"
                                                 onFocus="this.select()" name="esc_codeE" required>
                                         </div>
                                         <div class="col-sm-7">
                                             <select class="form-control select2 select2-hidden-accessible"
                                                 style="width: 100%;" data-select2-id="1" aria-hidden="true"
-                                                id="esc_code">
-                                                <option selected="selected" value="0">Seleccione Escuela</option>
+                                                id="esc_code" required aria-required="true">
+                                                <option value="">Seleccione Escuela</option>
                                             </select>
-                                            <!--
-                                        <select class="form-control select2 select2-hidden-accessible" style="width: 100%;"
-                                            data-select2-id="1" tabindex="-1" aria-hidden="true" id="esc_code" name="esc_code">
-                                            <option selected="selected" value="0" >Seleccione Escuela</option>
-                                            <
-                                            <option>Ingenieria de Sistemas</option>
-                                            <option>Ingeniería Civil</option>
-                                            <option>Derecho</option>
-                                            <option>Agronomía</option>
-                                            
-                                        </select> 
-                                    -->
                                         </div>
 
                                     </div>
@@ -102,8 +90,8 @@
                                     <div class="form-group row">
                                         <label for="org_id" class="col-sm-3 col-form-label">Tipo de Resol.</label>
                                         <div class="col-sm-2">
-                                            <input type="text" class="form-control dato Exp" id="org_id" 
-                                                name="org_idE" required>
+                                            <input type="text" class="form-control dato Exp" id="org_id" name="org_idE"
+                                                required>
                                         </div>
                                         <div class="col-sm-7">
                                             <input type="text" class="form-control" id="org_alias" placeholder="Tipo"
@@ -120,8 +108,7 @@
                                                 name="sesTipo_idE" required disabled>
                                         </div>
                                         <div class="col-sm-7">
-                                            <input type="text" class="form-control" id="sesTipo_nombre"
-                                                placeholder="Ordinaria" disabled="">
+                                            <input type="text" class="form-control" id="sesTipo_nombre" disabled="">
                                         </div>
 
                                     </div>
@@ -134,10 +121,11 @@
                                                     <span class="input-group-text" data-children-count="0"><i
                                                             class="far fa-calendar-alt"></i></span>
                                                 </div>
-                                                <input type="text" class="form-control dato Exp"
+                                                <input type="text" class="form-control Exp"
                                                     data-inputmask-alias="datetime"
                                                     data-inputmask-inputformat="dd/mm/yyyy" data-mask=""
-                                                    inputmode="numeric" id="ses_fecha" name="ses_fechaE" required disabled>
+                                                    inputmode="numeric" id="ses_fecha" name="ses_fechaE"
+                                                    onchange="validarDate(this)" required disabled>
                                             </div>
                                         </div>
 
@@ -150,17 +138,18 @@
                                                     <span class="input-group-text" data-children-count="0"><i
                                                             class="far fa-calendar-alt"></i></span>
                                                 </div>
-                                                <input type="text" class="form-control dato Exp"
+                                                <input type="text" class="form-control Exp"
                                                     data-inputmask-alias="datetime"
                                                     data-inputmask-inputformat="dd/mm/yyyy" data-mask=""
-                                                    inputmode="numeric" id="resol_fecha" name="resol_fechaE" required>
+                                                    inputmode="numeric" id="resol_fecha" name="resol_fechaE"
+                                                    onchange="validarDate(this)" required>
                                             </div>
                                         </div>
 
                                     </div>
                                     <div class="form-group row">
                                         <label for="#" class="col-sm-3 col-form-label">Número</label>
-                                        <div class="col-sm-5">
+                                        <div class="col-sm-9">
                                             <input type="text" class="form-control dato Exp new" id="resol_numero"
                                                 placeholder="Número de Doc." name="resol_numeroE" required>
                                         </div>
@@ -169,7 +158,7 @@
                                         <label for="#" class="col-sm-3 col-form-label">Memo. Nro.</label>
                                         <div class="col-sm-9">
                                             <input type="text" class="form-control dato Exp new" placeholder="Memorando"
-                                                    id=" resol_memorando" name="resol_memorandoE" required>
+                                                id="resol_memorando" name="resol_memorandoE" required>
                                         </div>
                                     </div>
                                     <br>
@@ -204,11 +193,11 @@
                                                     <span class="input-group-text" data-children-count="0"><i
                                                             class="far fa-calendar-alt"></i></span>
                                                 </div>
-                                                <input type="text" class="form-control dato Exp new"
+                                                <input type="text" class="form-control Exp new"
                                                     data-inputmask-alias="datetime"
                                                     data-inputmask-inputformat="dd/mm/yyyy" data-mask=""
                                                     inputmode="numeric" id="resol_fechaSolicitud"
-                                                    name="resol_fechaSolicitudE" required>
+                                                    name="resol_fechaSolicitudE" onchange="validarDate(this)" required>
                                             </div>
                                         </div>
                                         <div class="col-6">
@@ -239,7 +228,7 @@
                                         </div>
                                         <div class="col-sm-5">
                                             <button type="button" class="btn btn-block btn-outline-primary"
-                                                id="btnpersona" onclick = "registrarPersona()">Nuevo</button>
+                                                id="btnpersona" onclick="registrarPersona()">Nuevo</button>
                                         </div>
 
                                     </div>
@@ -316,6 +305,26 @@
                                 <!--<form class="form-horizontal" id="formExp1">-->
                                 <div class="card-body">
                                     <div class="form-group row">
+                                        <label for="fecha_actAca" class="col-sm-3 col-form-label">Fecha de
+                                            Acto</label>
+                                        <div class="col-sm-5">
+                                            <div class="input-group" data-children-count="1">
+                                                <div class="input-group-prepend">
+                                                    <span class="input-group-text" data-children-count="0"><i
+                                                            class="far fa-calendar-alt"></i></span>
+                                                </div>
+                                                <input type="text" class="form-control Exp new "
+                                                    data-inputmask-alias="datetime"
+                                                    data-inputmask-inputformat="dd/mm/yyyy" data-mask=""
+                                                    inputmode="numeric" id="fecha_actAca" name="fecha_actAcaE"
+                                                    onchange="validarDate(this)" required>
+                                            </div>
+                                        </div>
+
+                                    </div>
+
+                                    <!-- /.form-group -->
+                                    <div class="form-group row">
                                         <label for="actAca_id" class="col-sm-3 col-form-label">Modalidad</label>
                                         <div class="col-sm-2">
                                             <input type="text" class="form-control dato Exp" id="actAca_id"
@@ -327,24 +336,6 @@
                                         </div>
 
                                     </div>
-
-                                    <!-- /.form-group -->
-                                    <div class="form-group row">
-                                        <label for="fecha_actAca" class="col-sm-3 col-form-label">Fecha de
-                                            Acto</label>
-                                        <div class="col-sm-5">
-                                            <div class="input-group" data-children-count="1">
-                                                <div class="input-group-prepend">
-                                                    <span class="input-group-text" data-children-count="0"><i
-                                                            class="far fa-calendar-alt"></i></span>
-                                                </div>
-                                                <input type="text" class="form-control dato Exp new"
-                                                    data-inputmask-alias="datetime"
-                                                    data-inputmask-inputformat="dd/mm/yyyy" data-mask=""
-                                                    inputmode="numeric" id="fecha_actAca" name="fecha_actAcaE" required>
-                                            </div>
-                                        </div>
-                                    </div>
                                     <div class="form-group row">
                                         <label for="den_id" class="col-sm-3 col-form-label">Denominación</label>
                                         <div class="col-sm-9">
@@ -352,7 +343,7 @@
                                                 style="width: 100%;" data-select2-id="1" aria-hidden="true" id="den_id"
                                                 name="den_idE" required aria-required="true">
                                                 <option value="">Seleccione Denominación</option>
-                                                <option value = "1">Seleccione Denominación2</option>
+
                                             </select>
                                         </div>
                                     </div>
@@ -364,7 +355,7 @@
                     </div>
                 </div>
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-rounded btn-default" data-dismiss="modal">Cancelar</button>
+                    <button type="button" class="btn btn-rounded btn-default" data-dismiss="modal" onclick = "limpiarInfo()">Cancelar</button>
                     <button type="submit" name="action" id="#" value="add"
                         class="btn btn-rounded btn-primary">Guardar</button>
                 </div>
@@ -373,4 +364,5 @@
         </div>
     </div>
 </div>
+
 <?php require_once("../MntPersona/modalpersona.php");?>
