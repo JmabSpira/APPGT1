@@ -77,44 +77,6 @@ function listarPorSesion(ses) {
 
 }
 
-function eliminar(exp_id) {
-
-
-    swal.fire({
-        title: 'EXPEDIENTE',
-        text: "Esta seguro de Eliminar el Expediente?",
-        icon: 'error',
-        showCancelButton: true,
-        confirmButtonText: 'Si',
-        cancelButtonText: 'No',
-        reverseButtons: true
-    }).then((result) => {
-        if (result.isConfirmed) {
-
-            /*
-                        $.post("../../controller/expediente.php?op=eliminar", {
-                            exp_id: exp_id
-                        }, function (data) {
-
-                        });
-
-                        //$('#denominacion_data').DataTable().ajax.reload();
-
-                        swal.fire(
-                            'Eliminado!',
-                            'El expediente se elimino correctamente.',
-                            'success'
-                        )*/
-            console.log(exp_id);
-        }
-
-        $('#resolucion_data').DataTable().ajax.reload();
-    })
-
-}
-
-
-
 /*
 $(document).on("click", "#btnnuevo", function () {
     $('#exp_id').val('');

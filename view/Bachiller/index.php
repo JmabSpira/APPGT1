@@ -5,6 +5,15 @@
   <?php require_once("../../mainhead.php");?>
   
   <title>Bachiller</title>
+
+      <?php 
+      if (!isset($_GET['log'])) {
+        
+        header("location: ../../login/index.php");
+      }else{
+        $userActual = $_GET['log'];
+      }
+    ?>
 </head>
 
 <body class="hold-transition sidebar-mini sidebar-collapse">

@@ -31,7 +31,6 @@
         if(is_array($datos)==true and count($datos)>0){
             foreach($datos as $row){
                 $outputD["dil_id"] = $row["dil_id"];
-                $outputD["ses_id"] = $row["ses_id"];
                 $outputD["sesfecha"] = $row["sesfecha"];
                 $outputD["dil_proveido"] = $row["dil_proveido"];
                 $outputD["dil_memosg"] = $row["dil_memosg"];
@@ -61,7 +60,6 @@
                 $outputE["modalidad"] = $row["modalidad"];
             }
         }
-
         
         $denM = mb_strtoupper($outputE["den"]);
         $nombreM = mb_strtoupper($outputE["nombre"]);

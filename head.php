@@ -13,7 +13,8 @@
     <!-- Right navbar links -->
     <ul class="navbar-nav ml-auto">
       <li class="nav-item d-none d-sm-inline-block">
-        <a href="../Home/" class="nav-link">Cerrar Sesión</a>
+        <a href="../../login/logout.php" class="nav-link">Cerrar Sesión</a>
+        
       </li>
     </ul>
   </nav>

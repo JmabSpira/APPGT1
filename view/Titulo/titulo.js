@@ -425,7 +425,7 @@ function validarDate(elemento) {
         elemento.value = '';
         elemento.focus();
     }
-} -
+}
 
 
 
@@ -538,7 +538,6 @@ function eliminar(exp_id) {
             console.log(exp_id);
         }
     })
-
 }
 
 function editar(exp_id) {

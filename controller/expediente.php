@@ -29,7 +29,7 @@
                 $sub_array[] = $row["fechaA"];
                 
                 //$sub_array[] = '<button type="button" onClick="editar('.$row["den_id"].');"  id="'.$row["den_id"].'" class="btn btn-outline-primary btn-icon"><div><i class="fa fa-edit"></i></div></button>';
-                $sub_array[] = '<button type="button" onClick="eliminar('.$row["exp_id"].');"  id="'.$row["exp_id"].'" class="btn btn-outline-danger btn-icon"><div><i class="fa fa-trash"></i></div></button>';
+                //$sub_array[] = '<button type="button" onClick="eliminar('.$row["exp_id"].');"  id="'.$row["exp_id"].'" class="btn btn-outline-danger btn-icon"><div><i class="fa fa-trash"></i></div></button>';
                 $data[]=$sub_array;
             }
 

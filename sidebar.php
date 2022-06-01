@@ -15,7 +15,7 @@
           <img src="../../public/dist/img/avatar5.png" class="img-circle elevation-2" alt="User Image">
         </div>
         <div class="info">
-          <a href="#" class="d-block">Grados y Títulos</a>
+          <a href="#" class="d-block">admingt</a>
         </div>
       </div>
 
@@ -46,13 +46,13 @@
             </a>
             <ul class="nav nav-treeview">
               <li class="nav-item">
-                <a href="../MntSesion/" class="nav-link">
+                <a href="../MntSesion/index.php?log=<?php echo $userActual;?>" class="nav-link">
                   <i class="far fa-circle nav-icon"></i>
                   <p>Sesión</p>
                 </a>
               </li>
               <li class="nav-item">
-                <a href="../MntDiligencia/" class="nav-link">
+                <a href="../MntDiligencia/index.php?log=<?php echo $userActual;?>" class="nav-link">
                   <i class="far fa-circle nav-icon"></i>
                   <p>Diligencia</p>
                 </a>
@@ -74,13 +74,13 @@
               <li class="nav-item">
                 <!--
                 <a href="#" class="nav-link active">-->
-                <a href="../MntBachiller/" class="nav-link">
+                <a href="../Bachiller/index.php?log=<?php echo $userActual;?>"" class="nav-link">
                   <i class="far fa-circle nav-icon"></i>
                   <p>Bachiller</p>
                 </a>
               </li>
               <li class="nav-item">
-                <a href="../MntTitulo/" class="nav-link">
+                <a href="../Titulo/" class="nav-link">
                   <i class="far fa-circle nav-icon"></i>
                   <p>Título</p>
                 </a>

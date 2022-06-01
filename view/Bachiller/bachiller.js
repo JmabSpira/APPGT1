@@ -387,7 +387,7 @@ function validarDate(elemento) {
         elemento.value = '';
         elemento.focus();
     }
-} -
+}
 
 
 

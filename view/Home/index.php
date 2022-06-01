@@ -2,8 +2,9 @@
 <html lang="es">
 <head>
     <?php require_once("../../mainhead.php");?>
-    <?php require_once("../MntPersona/modalpersona.php");?>
-    <title>Bachiller</title>
+    <title>INICIO</title>
+
+
 
 </head>
 <body class="hold-transition sidebar-mini">

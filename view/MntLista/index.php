@@ -69,7 +69,6 @@
                         <!-- /.card-header 
                                 <th>Tipo Doc</th>
                                 -->
-                        <th></th>
                       </tr>
                     </thead>
                     <tbody>
