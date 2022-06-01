@@ -10,12 +10,6 @@ $(".dato").on('focus', function () {
     this.select();
 });
 
-/*
-$('#modalmantenimiento').on('shown.bs.modal', function () {
-    $('#esc_code1').focus();
-
-})
-*/
 
 function init() {
     cargarSesion();
@@ -23,7 +17,7 @@ function init() {
     cargarEscuelaBT();
     leerCambio();
 
-    $("#bachiller_form").on("submit", function (e) {
+    $("#titulo_form").on("submit", function (e) {
         //guardarExpediente(e);
         guardaryeditar(e);
 
@@ -40,7 +34,7 @@ function init() {
 function listarPorSesion(ses) {
 
     console.log("var en tabla: " + ses);
-    tabla = $('#bachiller_data').dataTable({
+    tabla = $('#titulo_data').dataTable({
         "aProcessing": true, //Activamos el procesamiento del datatables
         "aServerSide": true, //Paginación y filtrado realizados por el servidor
         dom: 'Bfrtip', //Definimos los elementos del control de tabla
@@ -51,7 +45,7 @@ function listarPorSesion(ses) {
             'pdf'
         ],
         "ajax": {
-            url: '../../controller/expediente.php?op=listaExpedientes&nivel=1&ses=' + ses,
+            url: '../../controller/expediente.php?op=listaExpedientes&nivel=2&ses=' + ses,
             type: "get",
             dataType: "json",
             error: function (e) {
@@ -137,7 +131,7 @@ function cargarGeneracion() {
 
 
 function verDatos() {
-    var formData = new FormData($("#bachiller_form")[0]);
+    var formData = new FormData($("#titulo_form")[0]);
     console.log("Recorremos");
     for (var entrie of formData.entries()) {
         console.log(entrie[0] + ': ' + entrie[1]);
@@ -148,6 +142,7 @@ function limpiarCampos() {
     $('.new').val('');
     $('input[name=per_sexo1]').prop("checked", false);
     $('#den_id').val("");
+    $('#subDen_id').val("");
 
 }
 
@@ -186,9 +181,13 @@ function cargarPersona() {
 
 function cargarEscuelaBT() {
 
+    var inicio = 1;
+    var fin = 60;
+
     $.ajax({
         type: 'GET',
-        url: '../../controller/denominacion.php?op=cargarEscuelaBT',
+        //url: '../../controller/denominacion.php?op=cargarEscuelaBT',
+        url: '../../controller/denominacion.php?op=cargarEscuelaE&inicio=' + inicio + '&fin=' + fin,
         success: function (response) {
 
             //alert(response);
@@ -207,6 +206,72 @@ function cargarEscuelaBT() {
 
     })
 }
+
+
+function cargarSubDenominacion() {
+
+    var den = $('#den_id').val();
+
+    $.ajax({
+        type: 'GET',
+        url: '../../controller/subdenominacion.php?op=cargarSubDenominacionPorDen&den=' + den,
+        success: function (response) {
+
+            var json = JSON.parse(response);
+            const temp = json;
+            //alert(temp);
+            if (!jQuery.isEmptyObject(temp)) {
+                $('#subDen_id').prop('disabled', false);
+                var $select = $('#subDen_id');
+
+                $select
+                    .empty()
+                    .append('<option value="">Seleccione Especialidad</option>');
+
+                $.each(temp, function (subDen_id, subDen_MasFem) {
+                    //$('#den_id').append('<option value="' + fila[1].den_id + '>' + fila[1].den_MasFem + '</option>')
+                    $select.append('<option value=' + subDen_MasFem.subDen_id + '>' + subDen_MasFem.subDen_MasFem + '</option>');
+                })
+                document.getElementById("subDen_id").selectedIndex = 0;
+            } else {
+                $('#subDen_id').val("");
+                $('#den_id').val("");
+                $('#subDen_id').prop('disabled', true);
+            }
+        }
+    })
+}
+
+function cargarDenominacion() {
+
+    var nivel = 2;
+    var code = $('#esc_code').val();
+    $.ajax({
+        type: 'GET',
+        url: '../../controller/subdenominacion.php?op=cargarDenominacionPorEscuela&appat=' + nivel + '&code=' + code,
+        success: function (response) {
+
+            var json = JSON.parse(response);
+            const temp = json;
+            //alert(temp);
+            var $select = $('#den_id');
+
+
+            $select
+                .empty()
+                .append('<option value="">Seleccione Denominación</option>');
+
+            $.each(temp, function (den_id, den_MasFem) {
+                //$('#den_id').append('<option value="' + fila[1].den_id + '>' + fila[1].den_MasFem + '</option>')
+                $select.append('<option value=' + den_MasFem.den_id + '>' + den_MasFem.den_MasFem + '</option>');
+            })
+            document.getElementById("den_id").selectedIndex = 1;
+            cargarSubDenominacion();
+        }
+
+    })
+}
+
 
 function seleccionarEscuela() {
     var esc_code1 = $('#esc_code1').val();
@@ -237,34 +302,9 @@ function selectEscuela() {
     cargarDenominacion();
 }
 
-function cargarDenominacion() {
-
-    var nivel = 1;
-    var code = $('#esc_code').val();
-    $.ajax({
-        type: 'GET',
-        url: '../../controller/subdenominacion.php?op=cargarDenominacionPorEscuela&appat=' + nivel + '&code=' + code,
-        success: function (response) {
-
-            var json = JSON.parse(response);
-            const temp = json;
-            //alert(temp);
-            var $select = $('#den_id');
 
 
-            $select
-                .empty()
-                .append('<option value="">Seleccione Denominación</option>');
 
-            $.each(temp, function (den_id, den_MasFem) {
-                //$('#den_id').append('<option value="' + fila[1].den_id + '>' + fila[1].den_MasFem + '</option>')
-                $select.append('<option value=' + den_MasFem.den_id + '>' + den_MasFem.den_MasFem + '</option>');
-            })
-            //document.getElementById("den_id").selectedIndex = 1;
-        }
-
-    })
-}
 
 function cargarOrgano() {
     var org = $('#org_id').val();
@@ -370,8 +410,6 @@ function leerCambio() {
     validarNumeros("#sesTipo_id");
     validarNumeros("#actAca_id");
     validarNumeros("#resol_nroSolicitud");
-
-
 }
 
 function validarDate(elemento) {
@@ -488,7 +526,7 @@ function eliminar(exp_id) {
                         'El registro se elimino correctamente.',
                         'success'
                     )
-                    $('#bachiller_data').DataTable().ajax.reload();
+                    $('#titulo_data').DataTable().ajax.reload();
                 } else {
                     swal.fire(
                         'ERROR!',
@@ -555,6 +593,9 @@ function editar(exp_id) {
 
 }
 
+//dasdkkk CCEEAQ DD DQlkdjjj pp -- dq ara qqq lkkljkljkk kdk
+//
+
 function guardaryeditar(e) {
     e.preventDefault();
 
@@ -570,19 +611,19 @@ function guardaryeditar(e) {
         if (result.isConfirmed) {
 
             console.log("Se va a Guardar....");
-            var formData = new FormData($("#bachiller_form")[0]);
+            var formData = new FormData($("#titulo_form")[0]);
             verDatos();
 
             $.ajax({
-                url: "../../controller/expediente.php?op=guardaryeditar",
+                url: "../../controller/expediente.php?op=guardaryeditarT",
                 type: "POST",
                 data: formData,
                 contentType: false,
                 processData: false,
                 success: function (response) {
-
+                    //alert(response);
                     $("#modalmantenimiento").modal('hide');
-                    $('#bachiller_data').DataTable().ajax.reload();
+                    $('#titulo_data').DataTable().ajax.reload();
                     if (response.length == 4) {
                         swal.fire(
                             'Guardado!',
@@ -607,81 +648,12 @@ function guardaryeditar(e) {
                 }
             });
 
-            //$('#bachiller_form')[0].reset();
+            //$('#titulo_form')[0].reset();
             //console.log("reset modal");
         }
     })
 }
 
-/*
-function limpiarInfo() {
-    if (accion === 'nuevo') {
-        limpiarCampos();
-    } else {
-        location.reload();
-    }
-}
-*/
-/*
-function guardaryeditar2(e) {
-    e.preventDefault();
-
-    swal.fire({
-        title: 'EXPEDIENTE',
-        text: "Desea Guardar el Registro?",
-        icon: 'warning',
-        showCancelButton: true,
-        confirmButtonText: 'Guardar',
-        cancelButtonText: 'Cancelar',
-        reverseButtons: true
-    }).then((result) => {
-        if (result.isConfirmed) {
-
-            console.log("Se va a Guardar....");
-            var formData = new FormData($("#bachiller_form")[0]);
-            verDatos();
-
-            
-            $.ajax({
-                url: "../../controller/expediente.php?op=guardarBachiller",
-                type: "POST",
-                data: formData,
-                contentType: false,
-                processData: false,
-                success: function (response) {
-
-                    $("#modalmantenimiento").modal('hide');
-                    $('#bachiller_data').DataTable().ajax.reload();
-                    if (response.length == 4) {
-                    
-                        swal.fire(
-                            'Guardado!',
-                            'El registro se ha guardado correctamente.',
-                            'success'
-                        )
-                        /*.then((result) => {
-                            if (result.isConfirmed) {
-                                //window.location.reload();
-                                
-                            }
-                        })
-                    } else {
-                        swal.fire(
-                            'ERROR!',
-                            'No se completó la acción. ' + response,
-                            'error'
-                        )
-                    }
-                    limpiarCampos();
-                }
-            });
-            
-            //$('#bachiller_form')[0].reset();
-            //console.log("reset modal");
-        }
-    })
-}
-*/
 
 $(document).on("click", "#btnnuevo", function () {
     limpiarCampos();
@@ -691,7 +663,7 @@ $(document).on("click", "#btnnuevo", function () {
     //cargarPersona();
     //$('#btnpersona').prop('disabled', false);
     $('#modalmantenimiento').modal('show');
-    //$('#bachiller_form')[0].reset();
+    //$('#titulo_form')[0].reset();
 });
 
 

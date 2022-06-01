@@ -198,7 +198,6 @@
             }
             break;
 
-
         case "eliminar":
             $expediente->delete_expediente($_POST["exp_id"]);
             break;
@@ -349,6 +348,79 @@
         */
             break;
 
+
+        case "guardaryeditarT":
+            $perID = "";
+            if(empty($_POST["per_idE"])){
+                $infoP = $expediente->obtenerID($_POST["per_nroDocE"]);
+                $perID = $infoP['per_id'];
+            }else{
+                $perID = $_POST["per_idE"];
+            }
+            //$datos = $expediente->verificarExpediente($_POST["per_idE"],$_POST["nivel_idE"],$_POST["genCop_idE"]);
+            $datos=$expediente->info_expediente_x_id($_POST["exp_id"]);
+            if(empty($_POST["exp_id"])){
+                if(is_array($datos)==true and count($datos)==0){
+                    //insertar
+                    $datos = $expediente->verificarExpediente($perID,$_POST["nivel_idE"],$_POST["genCop_idE"]);
+                    if ($datos['cantidad'] > 0) {
+                        echo "ERROR YA EXISTE UN REGISTRO DEL INTERESADO DEL MISMO NIVEL O GENERACIÓN",$datos['cantidad'];
+                    }else{
+                        $resol_fecha = formatoFecha($_POST["resol_fechaE"]);
+                        $resol_fechaSolicitud = formatoFecha($_POST["resol_fechaSolicitudE"]);
+                        $fecha_actAca = formatoFecha($_POST["fecha_actAcaE"]);
+                        $subDen;
+                        if (isset($_POST["subDen_idE"])) {
+                            $subDen = $_POST["subDen_idE"];
+                        }else{
+                            $subDen = null;
+                        }
+                        if (isset($_POST["sesTipo_idE"],$_POST["ses_fechaE"])) {
+
+                            $ses_fecha = formatoFecha($_POST["ses_fechaE"]);
+
+                            $expediente->insert_expedienteT($_POST["ses_idE"],$_POST["nivel_idE"],$_POST["genCop_idE"],$_POST["esc_codeE"],$_POST["org_idE"],$_POST["sesTipo_idE"],
+                            $ses_fecha,$resol_fecha,$_POST["resol_numeroE"],$resol_fechaSolicitud,$_POST["resol_nroSolicitudE"],
+                            $_POST["resol_memorandoE"],$perID,$_POST["actAca_idE"],$fecha_actAca,$_POST["den_idE"],$subDen);
+                            echo json_encode($expediente);
+
+                        }else{
+                            $expediente->insert_expedienteT($_POST["ses_idE"],$_POST["nivel_idE"],$_POST["genCop_idE"],$_POST["esc_codeE"],$_POST["org_idE"],null,
+                            NULL,$resol_fecha,$_POST["resol_numeroE"],$resol_fechaSolicitud,$_POST["resol_nroSolicitudE"],
+                            $_POST["resol_memorandoE"],$perID,$_POST["actAca_idE"],$fecha_actAca,$_POST["den_idE"],$subDen);
+                            echo json_encode($expediente);
+                        }
+                    }
+                }
+            }else{
+                $resol_fecha = formatoFecha($_POST["resol_fechaE"]);
+                $resol_fechaSolicitud = formatoFecha($_POST["resol_fechaSolicitudE"]);
+                $fecha_actAca = formatoFecha($_POST["fecha_actAcaE"]);
+                $subDen;
+                if (isset($_POST["subDen_idE"])) {
+                    $subDen = $_POST["subDen_idE"];
+                }else{
+                    $subDen = null;
+                }
+
+                if (isset($_POST["sesTipo_idE"],$_POST["ses_fechaE"])) {
+
+                    $ses_fecha = formatoFecha($_POST["ses_fechaE"]);
+
+                    $expediente->update_expedienteT($_POST["exp_id"],$_POST["genCop_idE"],$_POST["esc_codeE"],$_POST["org_idE"],$_POST["sesTipo_idE"],
+                    $ses_fecha,$resol_fecha,$_POST["resol_numeroE"],$resol_fechaSolicitud,$_POST["resol_nroSolicitudE"],
+                    $_POST["resol_memorandoE"],$_POST["actAca_idE"],$fecha_actAca,$_POST["den_idE"],$subDen);
+                    echo json_encode($expediente);
+
+                }else{
+                    $expediente->update_expedienteT($_POST["exp_id"],$_POST["genCop_idE"],$_POST["esc_codeE"],$_POST["org_idE"],null,
+                    NULL,$resol_fecha,$_POST["resol_numeroE"],$resol_fechaSolicitud,$_POST["resol_nroSolicitudE"],
+                    $_POST["resol_memorandoE"],$_POST["actAca_idE"],$fecha_actAca,$_POST["den_idE"],$subDen);
+                    echo json_encode($expediente);
+                } 
+
+            }
+            break;
 
         case "editarExpedienteG":
             $perID = "";

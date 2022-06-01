@@ -2,7 +2,7 @@
     aria-labelledby="myLargeModalLabel" aria-hidden="true" data-backdrop="static">
     <div class="modal-dialog modal-xl">
         <div class="modal-content">
-            <form method="post" id="bachiller_form">
+            <form method="post" id="titulo_form">
                 <div class="modal-header">
                     <h4 class="modal-title" id="mdltituloB"></h4>
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
@@ -33,12 +33,12 @@
                                     <div class="form-group row">
                                         <label for="nivel_id" class="col-sm-3 col-form-label">Nivel Diploma</label>
                                         <div class="col-sm-2">
-                                            <input type="text" class="form-control" id="nivel_id" value="1"
+                                            <input type="text" class="form-control" id="nivel_id" value="2"
                                                 name="nivel_idE" readonly="readonly" required>
                                         </div>
 
                                         <div class="col-sm-7">
-                                            <input type="text" class="form-control" value="Grado de Bachiller"
+                                            <input type="text" class="form-control" value="Título Profesional"
                                                 disabled="">
                                         </div>
 
@@ -169,7 +169,7 @@
                         </div>
                         <div class="col-md-6">
                             <!-- Form Element sizes -->
-                            <div class="card card-danger">
+                            <div class="card card-lightblue">
                                 <div class="card-header">
                                     <h3 class="card-title">Información del Expediente</h3>
                                 </div>
@@ -276,7 +276,7 @@
                             <!-- /.card -->
 
                             <!-- general form elements disabled -->
-                            <div class="card card-warning">
+                            <div class="card card-maroon">
                                 <div class="card-header">
                                     <h3 class="card-title">Información del Acto Académico</h3>
                                 </div>
@@ -324,6 +324,18 @@
 
                                             </select>
                                         </div>
+                                    </div>
+                                    <div class="form-group row">
+                                        <label for="subDen_id" class="col-sm-3 col-form-label">Especialidad</label>
+                                        <div class="col-sm-9">
+                                            <select class="form-control select2 select2-hidden-accessible Exp"
+                                                style="width: 100%;" data-select2-id="1" aria-hidden="true"
+                                                id="subDen_id" name="subDen_idE"  required aria-required="true">
+                                                <option value="">Seleccione Especialidad
+                                                </option>
+                                            </select>
+                                        </div>
+
                                     </div>
                                 </div>
                                 <!--</form>-->

@@ -192,6 +192,7 @@ function cargarTipoSesion() {
 
 function guardarPersonaE(e) {
     e.preventDefault();
+    console.log("entra a la funcion");
 
     info = '' + $('#per_nroDoc').val();
     cant = document.getElementById("per_nroDoc").maxLength;

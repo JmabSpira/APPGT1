@@ -80,7 +80,6 @@
             return $resultado=$sql->fetchAll();
         }
 
-
         public function get_expediente_diploma($id){
             $conectar= parent::conexion();
             parent::set_names();
@@ -333,6 +332,30 @@
             return $resultado=$sql->fetchAll();
         }
 
+        public function update_expedienteT($exp_id,$genCop_id,$esc_code,$org_id,$sesTipo_id,$ses_fecha,$resol_fecha,$resol_numero,
+        $resol_fechaSolicitud,$resol_nroSolicitud,$resol_memorando,$actAca_id,$fecha_actAca,$den_id,$subDen_id){
+            $conectar= parent::conexion();
+            parent::set_names();
+            $sql="CALL editarExpedienteT(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
+            $sql=$conectar->prepare($sql);
+            $sql->bindValue(1,$exp_id);
+            $sql->bindValue(2,$genCop_id);
+            $sql->bindValue(3,$esc_code);
+            $sql->bindValue(4,$org_id);
+            $sql->bindValue(5,$sesTipo_id);
+            $sql->bindValue(6,$ses_fecha);
+            $sql->bindValue(7,$resol_fecha);
+            $sql->bindValue(8,$resol_numero);
+            $sql->bindValue(9,$resol_fechaSolicitud);
+            $sql->bindValue(10,$resol_nroSolicitud);
+            $sql->bindValue(11,$resol_memorando);
+            $sql->bindValue(12,$actAca_id);
+            $sql->bindValue(13,$fecha_actAca);
+            $sql->bindValue(14,$den_id);
+            $sql->bindValue(15,$subDen_id);
+            $sql->execute();
+            return $resultado=$sql->fetchAll();
+        }
 
 /*
         public function cargarDenominacion(){

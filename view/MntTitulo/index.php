@@ -54,7 +54,7 @@
                                         <div class="form-group row">
                                             <label for="ses_id" class="col-sm-3 col-form-label">Sesión</label>
                                             <div class="col-sm-2">
-                                                <input type="text" class="form-control" id="ses_id" name = "ses_idE"
+                                                <input type="text" class="form-control" id="ses_id" name="ses_idE"
                                                     readonly="readonly">
                                             </div>
                                             <div class="col-sm-7">
@@ -66,8 +66,8 @@
                                         <div class="form-group row">
                                             <label for="nivel_id" class="col-sm-3 col-form-label">Nivel Diploma</label>
                                             <div class="col-sm-2">
-                                                <input type="text" class="form-control" id="nivel_id" value="2" name="nivel_idE"
-                                                    readonly="readonly">
+                                                <input type="text" class="form-control" id="nivel_id" value="2"
+                                                    name="nivel_idE" readonly="readonly">
                                             </div>
 
                                             <div class="col-sm-7">
@@ -157,7 +157,7 @@
                                                 Sesión</label>
                                             <div class="col-sm-2">
                                                 <input type="text" class="form-control dato Exp" id="sesTipo_id"
-                                                    value="1" name="sesTipo_idE" disabled >
+                                                    value="1" name="sesTipo_idE" disabled>
                                             </div>
                                             <div class="col-sm-7">
                                                 <input type="text" class="form-control" id="sesTipo_nombre"
@@ -234,12 +234,14 @@
                                                     <input type="text" class="form-control dato Exp new"
                                                         data-inputmask-alias="datetime"
                                                         data-inputmask-inputformat="dd/mm/yyyy" data-mask=""
-                                                        inputmode="numeric" id="resol_fechaSolicitud" name="resol_fechaSolicitudE">
+                                                        inputmode="numeric" id="resol_fechaSolicitud"
+                                                        name="resol_fechaSolicitudE">
                                                 </div>
                                             </div>
                                             <div class="col-6">
-                                                <input type="text" class="form-control dato Exp new" placeholder="Número"
-                                                    id="resol_nroSolicitud" name="resol_nroSolicitudE">
+                                                <input type="text" class="form-control dato Exp new"
+                                                    placeholder="Número" id="resol_nroSolicitud"
+                                                    name="resol_nroSolicitudE">
                                             </div>
                                         </div>
                                         <div class="row">
@@ -250,8 +252,9 @@
                                         </div>
                                         <div class="row">
                                             <div class="col-12">
-                                                <input type="text" class="form-control dato Exp new" placeholder="Memorando"
-                                                    id=" resol_memorando" name="resol_memorandoE">
+                                                <input type="text" class="form-control dato Exp new"
+                                                    placeholder="Memorando" id=" resol_memorando"
+                                                    name="resol_memorandoE">
                                             </div>
                                         </div>
                                     </div>
@@ -284,29 +287,34 @@
                                             </div>
                                             <div class="col-sm-5">
                                                 <button type="button" class="btn btn-block btn-outline-primary"
-                                                id="btnpersona" onclick = "registrarPersona()">Nuevo</button>
+                                                    id="btnpersona" onclick="registrarPersona()">Nuevo</button>
 
                                             </div>
 
                                         </div>
                                         <div class="form-group row">
-                                            <label for="per_paterno1" class="col-sm-3 col-form-label">Ap. Paterno</label>
+                                            <label for="per_paterno1" class="col-sm-3 col-form-label">Ap.
+                                                Paterno</label>
                                             <div class="col-sm-9">
-                                                <input type="text" class="form-control new" id="per_paterno1" disabled="">
+                                                <input type="text" class="form-control new" id="per_paterno1"
+                                                    disabled="">
                                             </div>
 
                                         </div>
                                         <div class="form-group row">
-                                            <label for="per_materno1" class="col-sm-3 col-form-label">Ap. Materno</label>
+                                            <label for="per_materno1" class="col-sm-3 col-form-label">Ap.
+                                                Materno</label>
                                             <div class="col-sm-9">
-                                                <input type="text" class="form-control new" id="per_materno1" disabled="">
+                                                <input type="text" class="form-control new" id="per_materno1"
+                                                    disabled="">
                                             </div>
 
                                         </div>
                                         <div class="form-group row">
                                             <label for="per_nombres1" class="col-sm-3 col-form-label">Nombres:</label>
                                             <div class="col-sm-9">
-                                                <input type="text" class="form-control new" id="per_nombres1" disabled="">
+                                                <input type="text" class="form-control new" id="per_nombres1"
+                                                    disabled="">
                                             </div>
 
                                         </div>
@@ -422,8 +430,8 @@
                                     <div class="card-body row">
                                         <div class="col-md-6">
                                             <button type="button" id="guardarExp" value="add"
-                                        class="btn btn-outline-primary btn-block Exp"><i
-                                        class="fas fa-save" ></i> Guardar</button>
+                                                class="btn btn-outline-primary btn-block Exp"><i
+                                                    class="fas fa-save"></i> Guardar</button>
                                             <!--<button type="button" class="btn btn-outline-primary btn-block"
                                                 id="guardarExp" name="inp"><i class="fas fa-save"></i> Guardar</button>-->
                                         </div>
