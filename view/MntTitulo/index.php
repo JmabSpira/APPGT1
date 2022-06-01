@@ -5,7 +5,6 @@
     <?php require_once("../../mainhead.php");?>
     <?php require_once("../MntPersona/modalpersona.php");?>
     <title>TITULO</title>
-
 </head>
 
 <body class="hold-transition sidebar-mini sidebar-collapse">
